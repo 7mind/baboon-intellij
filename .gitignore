@@ -1,0 +1,10 @@
+.gradle
+.idea
+.intellijPlatform
+build
+.kotlin
+.DS_Store
+
+JFlex.jar
+jflex-*.jar
+idea-flex.skeleton

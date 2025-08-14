@@ -1,0 +1,136 @@
+{
+  parserClass="io.septimalmind.baboon.baboonintellij.language.BaboonParser"
+  parserUtilClass="io.septimalmind.baboon.baboonintellij.language.parser.BaboonParserUtil"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="Baboon"
+  psiImplClassSuffix="Impl"
+  psiPackage="io.septimalmind.baboon.baboonintellij.psi"
+  psiImplPackage="io.septimalmind.baboon.baboonintellij.psi.impl"
+  elementTypeHolderClass="io.septimalmind.baboon.baboonintellij.psi.BaboonTypes"
+  elementTypeClass="io.septimalmind.baboon.baboonintellij.psi.BaboonElementType"
+  tokenTypeClass="io.septimalmind.baboon.baboonintellij.psi.BaboonTokenType"
+  psiImplUtilClass="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonPsiImplUtil"
+
+  tokens=[
+    // keywords
+    KW_DATA      = "data"
+    KW_STRUCT    = "struct"
+    KW_ROOT      = "root"
+    KW_MODEL     = "model"
+    KW_CONTRACT  = "contract"
+    KW_SERVICE   = "service"
+    KW_CHOICE    = "enum"
+    KW_ADT       = "adt"
+    KW_FOREIGN   = "foreign"
+    KW_VERSION   = "version"
+    KW_INCLUDE   = "include"
+    KW_NAMESPACE = "ns"
+    KW_WITH      = "with"
+    KW_IS        = "is"
+    KW_IN        = "in"
+    KW_OUT       = "out"
+    KW_ERR       = "err"
+    KW_DEF       = "def"
+
+    LBRACE = "{"
+    RBRACE = "}"
+    LPAREN = "("
+    RPAREN = ")"
+    LBRACK = "["
+    RBRACK = "]"
+    DOT    = "."
+    COMMA  = ","
+    COLON  = ":"
+    STAR   = '*'
+    SLASH  = '/'
+    QUOTE  = '"'
+    TRIPLE_QUOTE = '"""'
+    CARET = '^'
+    PLUS  = '+'
+    MINUS = '-'
+    EQUAL = '='
+
+    BI_TYPE = "regexp:bit|i08|i16|i32|i64|u08|u16|u32|u64|f32|f64|f128|str|uid|tsu|tso|map|opt|lst|set"
+
+    DECIMAL = "regexp:[0-9]+"
+    NEGATIVE_DECIMAL = "regexp:-[1-9]+"
+    IDENTIFIER = "regexp:[a-zA-Z_][a-zA-Z0-9_]*"
+
+    // comments
+    LINE_COMMENT  = "regexp://[^\n]*"
+    BLOCK_COMMENT = "regexp:\/\*([^*]|\*+[^*\/])*\*+\/"
+    DOC_COMMENT   = "regexp:\/\*\*([^*]|\*+[^*\/])*\*+\/"
+    DOC_LINK      = "regexp:\[\[([^\]]+?)]]"
+
+    // strings
+    SYMBOL_ESCAPE   = "regexp:\\[btnfr'\"\\]"
+    UNICODE_ESCAPE  = "regexp:\\u[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]"
+    NUMBER_ESCAPE   = "regexp:\\[0-9][0-9]?[0-9]?"
+    STRING_CONTENT  = "regexp:[^\\\"]*"
+  ]
+}
+
+file ::= model? version? content*;
+
+string_escape ::= SYMBOL_ESCAPE | UNICODE_ESCAPE | NUMBER_ESCAPE;
+string_literal ::= QUOTE (STRING_CONTENT | string_escape)* QUOTE;
+
+model ::= KW_MODEL model_name;
+model_name ::= IDENTIFIER (DOT IDENTIFIER)*;
+version ::= KW_VERSION string_literal;
+
+content ::= include* member+;
+include ::= KW_INCLUDE string_literal;
+
+member ::= main_member | namespace;
+namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* RPAREN);
+
+main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
+
+// enum
+choice ::= KW_CHOICE IDENTIFIER (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
+choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
+
+// dto
+dto ::= KW_DATA IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
+
+field_def ::= field_name COLON type_ref;
+field_name ::= <<remapIfKeyword>> IDENTIFIER;
+type_ref ::= non_generic_type_ref type_params?;
+non_generic_type_ref ::= BI_TYPE | IDENTIFIER (DOT IDENTIFIER)*;
+type_params ::= LBRACK type_ref (COMMA type_ref)* RBRACK;
+
+parent_def ::= PLUS non_generic_type_ref;
+unparent_def ::= MINUS non_generic_type_ref;
+intersection_def ::= CARET non_generic_type_ref;
+unfield_def ::= MINUS field_def;
+extended_contract_def ::= KW_IS non_generic_type_ref;
+
+// adt
+adt ::= KW_ADT IDENTIFIER (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
+adt_member ::= (dto | contract) | extended_contract_def;
+
+// foreign
+foreign ::= KW_FOREIGN IDENTIFIER (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
+foreign_member ::= IDENTIFIER EQUAL string_literal foreign_attrs?;
+foreign_attrs ::= KW_WITH LBRACE key_value_pair* RBRACE;
+key_value_pair ::= string_literal EQUAL string_literal;
+
+// contract
+contract ::= KW_CONTRACT IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+
+// service
+service::= KW_SERVICE IDENTIFIER (LBRACE service_member* RBRACE | LPAREN service_member* RPAREN);
+service_member ::= KW_DEF IDENTIFIER (LBRACE signature_part* RBRACE | LPAREN signature_part* RPAREN);
+signature_part ::= signature_struct | signature_inline;
+struct_marker ::= KW_IN | KW_OUT | KW_ERR;
+signature_struct ::= struct_marker EQUAL type_ref;
+dto_in_service ::= KW_DATA struct_marker (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+adt_in_service ::= KW_ADT IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+choice_in_service ::= KW_CHOICE IDENTIFIER (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
+signature_inline ::= dto_in_service | adt_in_service | choice_in_service;
+
+
+
+

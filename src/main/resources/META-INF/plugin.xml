@@ -1,0 +1,42 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>io.septimalmind.baboon.baboon-intellij</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Baboon Support</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor url="https://7mind.io/">Septimal Mind</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Syntax highlighting for <a href="https://github.com/7mind/baboon">Baboon DML</a>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+            name="Baboon"
+            implementationClass="io.septimalmind.baboon.baboonintellij.language.BaboonFileType"
+            fieldName="INSTANCE"
+            language="baboon"
+            extensions="baboon;bmo"/>
+        <lang.parserDefinition
+            language="baboon"
+            implementationClass="io.septimalmind.baboon.baboonintellij.psi.BaboonParserDefinition"
+        />
+        <lang.syntaxHighlighterFactory
+            language="baboon"
+            implementationClass="io.septimalmind.baboon.baboonintellij.language.highlight.BaboonSyntaxHighlighterFactory"
+        />
+        <annotator language="baboon" implementationClass="io.septimalmind.baboon.baboonintellij.language.annotator.BaboonHighlightsAnnotator"/>
+    </extensions>
+</idea-plugin>
