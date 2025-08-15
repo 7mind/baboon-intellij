@@ -31,6 +31,9 @@
     KW_OUT       = "out"
     KW_ERR       = "err"
     KW_DEF       = "def"
+    KW_DERIVED   = "derived"
+    KW_IMPORT    = "import"
+    KW_WITHOUT   = "without"
 
     LBRACE = "{"
     RBRACE = "}"
@@ -70,7 +73,7 @@
   ]
 }
 
-file ::= model? version? content*;
+file ::= model? version? import? content*;
 
 string_escape ::= SYMBOL_ESCAPE | UNICODE_ESCAPE | NUMBER_ESCAPE;
 string_literal ::= QUOTE (STRING_CONTENT | string_escape)* QUOTE;
@@ -78,6 +81,9 @@ string_literal ::= QUOTE (STRING_CONTENT | string_escape)* QUOTE;
 model ::= KW_MODEL model_name;
 model_name ::= IDENTIFIER (DOT IDENTIFIER)*;
 version ::= KW_VERSION string_literal;
+
+import ::= KW_IMPORT string_literal LBRACE STAR RBRACE without?;
+without ::= KW_WITHOUT (LBRACE IDENTIFIER* RBRACE | LPAREN IDENTIFIER* RPAREN);
 
 content ::= include* member+;
 include ::= KW_INCLUDE string_literal;
@@ -87,12 +93,16 @@ namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* 
 
 main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
 
+// derived
+derived ::= COLON derived_member (COMMA derived_member)*;
+derived_member ::= KW_DERIVED LBRACK IDENTIFIER RBRACK;
+
 // enum
-choice ::= KW_CHOICE IDENTIFIER (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
+choice ::= KW_CHOICE IDENTIFIER derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
 choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
 
 // dto
-dto ::= KW_DATA IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+dto ::= KW_DATA IDENTIFIER derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
 dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
 
 field_def ::= field_name COLON type_ref;
@@ -108,11 +118,11 @@ unfield_def ::= MINUS field_def;
 extended_contract_def ::= KW_IS non_generic_type_ref;
 
 // adt
-adt ::= KW_ADT IDENTIFIER (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
+adt ::= KW_ADT IDENTIFIER derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
 adt_member ::= (dto | contract) | extended_contract_def;
 
 // foreign
-foreign ::= KW_FOREIGN IDENTIFIER (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
+foreign ::= KW_FOREIGN IDENTIFIER derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
 foreign_member ::= IDENTIFIER EQUAL string_literal foreign_attrs?;
 foreign_attrs ::= KW_WITH LBRACE key_value_pair* RBRACE;
 key_value_pair ::= string_literal EQUAL string_literal;

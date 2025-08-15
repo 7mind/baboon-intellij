@@ -16,6 +16,8 @@ public interface BaboonTypes {
   IElementType CHOICE_MEMBER = new BaboonElementType("CHOICE_MEMBER");
   IElementType CONTENT = new BaboonElementType("CONTENT");
   IElementType CONTRACT = new BaboonElementType("CONTRACT");
+  IElementType DERIVED = new BaboonElementType("DERIVED");
+  IElementType DERIVED_MEMBER = new BaboonElementType("DERIVED_MEMBER");
   IElementType DTO = new BaboonElementType("DTO");
   IElementType DTO_IN_SERVICE = new BaboonElementType("DTO_IN_SERVICE");
   IElementType DTO_MEMBER = new BaboonElementType("DTO_MEMBER");
@@ -25,6 +27,7 @@ public interface BaboonTypes {
   IElementType FOREIGN = new BaboonElementType("FOREIGN");
   IElementType FOREIGN_ATTRS = new BaboonElementType("FOREIGN_ATTRS");
   IElementType FOREIGN_MEMBER = new BaboonElementType("FOREIGN_MEMBER");
+  IElementType IMPORT = new BaboonElementType("IMPORT");
   IElementType INCLUDE = new BaboonElementType("INCLUDE");
   IElementType INTERSECTION_DEF = new BaboonElementType("INTERSECTION_DEF");
   IElementType KEY_VALUE_PAIR = new BaboonElementType("KEY_VALUE_PAIR");
@@ -48,6 +51,7 @@ public interface BaboonTypes {
   IElementType UNFIELD_DEF = new BaboonElementType("UNFIELD_DEF");
   IElementType UNPARENT_DEF = new BaboonElementType("UNPARENT_DEF");
   IElementType VERSION = new BaboonElementType("VERSION");
+  IElementType WITHOUT = new BaboonElementType("WITHOUT");
 
   IElementType BI_TYPE = new BaboonTokenType("BI_TYPE");
   IElementType BLOCK_COMMENT = new BaboonTokenType("BLOCK_COMMENT");
@@ -65,8 +69,10 @@ public interface BaboonTypes {
   IElementType KW_CONTRACT = new BaboonTokenType("contract");
   IElementType KW_DATA = new BaboonTokenType("data");
   IElementType KW_DEF = new BaboonTokenType("def");
+  IElementType KW_DERIVED = new BaboonTokenType("derived");
   IElementType KW_ERR = new BaboonTokenType("err");
   IElementType KW_FOREIGN = new BaboonTokenType("foreign");
+  IElementType KW_IMPORT = new BaboonTokenType("import");
   IElementType KW_IN = new BaboonTokenType("in");
   IElementType KW_INCLUDE = new BaboonTokenType("include");
   IElementType KW_IS = new BaboonTokenType("is");
@@ -78,6 +84,7 @@ public interface BaboonTypes {
   IElementType KW_STRUCT = new BaboonTokenType("struct");
   IElementType KW_VERSION = new BaboonTokenType("version");
   IElementType KW_WITH = new BaboonTokenType("with");
+  IElementType KW_WITHOUT = new BaboonTokenType("without");
   IElementType LBRACE = new BaboonTokenType("{");
   IElementType LBRACK = new BaboonTokenType("[");
   IElementType LINE_COMMENT = new BaboonTokenType("LINE_COMMENT");
@@ -124,6 +131,12 @@ public interface BaboonTypes {
       else if (type == CONTRACT) {
         return new BaboonContractImpl(node);
       }
+      else if (type == DERIVED) {
+        return new BaboonDerivedImpl(node);
+      }
+      else if (type == DERIVED_MEMBER) {
+        return new BaboonDerivedMemberImpl(node);
+      }
       else if (type == DTO) {
         return new BaboonDtoImpl(node);
       }
@@ -150,6 +163,9 @@ public interface BaboonTypes {
       }
       else if (type == FOREIGN_MEMBER) {
         return new BaboonForeignMemberImpl(node);
+      }
+      else if (type == IMPORT) {
+        return new BaboonImportImpl(node);
       }
       else if (type == INCLUDE) {
         return new BaboonIncludeImpl(node);
@@ -219,6 +235,9 @@ public interface BaboonTypes {
       }
       else if (type == VERSION) {
         return new BaboonVersionImpl(node);
+      }
+      else if (type == WITHOUT) {
+        return new BaboonWithoutImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

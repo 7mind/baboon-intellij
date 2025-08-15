@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.3] - 2025-08-15
+
+- Added highlights for 'derivations' and 'import'
+
 ## [0.0.2] - 2025-08-15
 
 - Bumped compatible Intellij versions

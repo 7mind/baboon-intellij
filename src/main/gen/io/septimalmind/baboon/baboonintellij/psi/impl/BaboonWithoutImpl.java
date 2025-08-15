@@ -11,38 +11,20 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonDtoImpl extends ASTWrapperPsiElement implements BaboonDto {
+public class BaboonWithoutImpl extends ASTWrapperPsiElement implements BaboonWithout {
 
-  public BaboonDtoImpl(@NotNull ASTNode node) {
+  public BaboonWithoutImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitDto(this);
+    visitor.visitWithout(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof BaboonVisitor) accept((BaboonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public BaboonDerived getDerived() {
-    return findChildByClass(BaboonDerived.class);
-  }
-
-  @Override
-  @NotNull
-  public List<BaboonDtoMember> getDtoMemberList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonDtoMember.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface BaboonDto extends PsiElement {
 
+  @Nullable
+  BaboonDerived getDerived();
+
   @NotNull
   List<BaboonDtoMember> getDtoMemberList();
 

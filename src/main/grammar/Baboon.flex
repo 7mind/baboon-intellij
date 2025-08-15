@@ -53,6 +53,9 @@ BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f12
   "out"          { return BaboonTypes.KW_OUT; }
   "err"          { return BaboonTypes.KW_ERR; }
   "def"          { return BaboonTypes.KW_DEF; }
+  "derived"      { return BaboonTypes.KW_DERIVED; }
+  "import"       { return BaboonTypes.KW_IMPORT; }
+  "without"      { return BaboonTypes.KW_WITHOUT; }
 
    "{"           { return BaboonTypes.LBRACE; }
    "}"           { return BaboonTypes.RBRACE; }

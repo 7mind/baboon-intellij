@@ -36,7 +36,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_ADT IDENTIFIER (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
+  // KW_ADT IDENTIFIER derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
   public static boolean adt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt")) return false;
     if (!nextTokenIs(b, KW_ADT)) return false;
@@ -44,63 +44,71 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, KW_ADT, IDENTIFIER);
     r = r && adt_2(b, l + 1);
+    r = r && adt_3(b, l + 1);
     exit_section_(b, m, ADT, r);
     return r;
   }
 
-  // LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN
+  // derived?
   private static boolean adt_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_2")) return false;
+    derived(b, l + 1);
+    return true;
+  }
+
+  // LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN
+  private static boolean adt_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = adt_2_0(b, l + 1);
-    if (!r) r = adt_2_1(b, l + 1);
+    r = adt_3_0(b, l + 1);
+    if (!r) r = adt_3_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LBRACE adt_member* RBRACE
-  private static boolean adt_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "adt_2_0")) return false;
+  private static boolean adt_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && adt_2_0_1(b, l + 1);
+    r = r && adt_3_0_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // adt_member*
-  private static boolean adt_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "adt_2_0_1")) return false;
+  private static boolean adt_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_3_0_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!adt_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "adt_2_0_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "adt_3_0_1", c)) break;
     }
     return true;
   }
 
   // LPAREN adt_member* RPAREN
-  private static boolean adt_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "adt_2_1")) return false;
+  private static boolean adt_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_3_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && adt_2_1_1(b, l + 1);
+    r = r && adt_3_1_1(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // adt_member*
-  private static boolean adt_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "adt_2_1_1")) return false;
+  private static boolean adt_3_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_3_1_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!adt_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "adt_2_1_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "adt_3_1_1", c)) break;
     }
     return true;
   }
@@ -197,7 +205,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_CHOICE IDENTIFIER (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
+  // KW_CHOICE IDENTIFIER derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
   public static boolean choice(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice")) return false;
     if (!nextTokenIs(b, KW_CHOICE)) return false;
@@ -205,63 +213,71 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, KW_CHOICE, IDENTIFIER);
     r = r && choice_2(b, l + 1);
+    r = r && choice_3(b, l + 1);
     exit_section_(b, m, CHOICE, r);
     return r;
   }
 
-  // LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN
+  // derived?
   private static boolean choice_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice_2")) return false;
+    derived(b, l + 1);
+    return true;
+  }
+
+  // LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN
+  private static boolean choice_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = choice_2_0(b, l + 1);
-    if (!r) r = choice_2_1(b, l + 1);
+    r = choice_3_0(b, l + 1);
+    if (!r) r = choice_3_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LBRACE choice_member* RBRACE
-  private static boolean choice_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_2_0")) return false;
+  private static boolean choice_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && choice_2_0_1(b, l + 1);
+    r = r && choice_3_0_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // choice_member*
-  private static boolean choice_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_2_0_1")) return false;
+  private static boolean choice_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_3_0_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!choice_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "choice_2_0_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "choice_3_0_1", c)) break;
     }
     return true;
   }
 
   // LPAREN choice_member* RPAREN
-  private static boolean choice_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_2_1")) return false;
+  private static boolean choice_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_3_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && choice_2_1_1(b, l + 1);
+    r = r && choice_3_1_1(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // choice_member*
-  private static boolean choice_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_2_1_1")) return false;
+  private static boolean choice_3_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_3_1_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!choice_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "choice_2_1_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "choice_3_1_1", c)) break;
     }
     return true;
   }
@@ -485,7 +501,55 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_DATA IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
+  // COLON derived_member (COMMA derived_member)*
+  public static boolean derived(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "derived")) return false;
+    if (!nextTokenIs(b, COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && derived_member(b, l + 1);
+    r = r && derived_2(b, l + 1);
+    exit_section_(b, m, DERIVED, r);
+    return r;
+  }
+
+  // (COMMA derived_member)*
+  private static boolean derived_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "derived_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!derived_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "derived_2", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA derived_member
+  private static boolean derived_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "derived_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && derived_member(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // KW_DERIVED LBRACK IDENTIFIER RBRACK
+  public static boolean derived_member(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "derived_member")) return false;
+    if (!nextTokenIs(b, KW_DERIVED)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KW_DERIVED, LBRACK, IDENTIFIER, RBRACK);
+    exit_section_(b, m, DERIVED_MEMBER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // KW_DATA IDENTIFIER derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
   public static boolean dto(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto")) return false;
     if (!nextTokenIs(b, KW_DATA)) return false;
@@ -493,63 +557,71 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, KW_DATA, IDENTIFIER);
     r = r && dto_2(b, l + 1);
+    r = r && dto_3(b, l + 1);
     exit_section_(b, m, DTO, r);
     return r;
   }
 
-  // LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN
+  // derived?
   private static boolean dto_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto_2")) return false;
+    derived(b, l + 1);
+    return true;
+  }
+
+  // LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN
+  private static boolean dto_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dto_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = dto_2_0(b, l + 1);
-    if (!r) r = dto_2_1(b, l + 1);
+    r = dto_3_0(b, l + 1);
+    if (!r) r = dto_3_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LBRACE dto_member* RBRACE
-  private static boolean dto_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_0")) return false;
+  private static boolean dto_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dto_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && dto_2_0_1(b, l + 1);
+    r = r && dto_3_0_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // dto_member*
-  private static boolean dto_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_0_1")) return false;
+  private static boolean dto_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dto_3_0_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!dto_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "dto_2_0_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "dto_3_0_1", c)) break;
     }
     return true;
   }
 
   // LPAREN dto_member* RPAREN
-  private static boolean dto_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_1")) return false;
+  private static boolean dto_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dto_3_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && dto_2_1_1(b, l + 1);
+    r = r && dto_3_1_1(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // dto_member*
-  private static boolean dto_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_1_1")) return false;
+  private static boolean dto_3_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dto_3_1_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!dto_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "dto_2_1_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "dto_3_1_1", c)) break;
     }
     return true;
   }
@@ -680,7 +752,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // model? version? content*
+  // model? version? import? content*
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
     boolean r;
@@ -688,6 +760,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     r = file_0(b, l + 1);
     r = r && file_1(b, l + 1);
     r = r && file_2(b, l + 1);
+    r = r && file_3(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -706,19 +779,26 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // content*
+  // import?
   private static boolean file_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file_2")) return false;
+    import_$(b, l + 1);
+    return true;
+  }
+
+  // content*
+  private static boolean file_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_3")) return false;
     while (true) {
       int c = current_position_(b);
       if (!content(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "file_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "file_3", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // KW_FOREIGN IDENTIFIER (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
+  // KW_FOREIGN IDENTIFIER derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
   public static boolean foreign(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign")) return false;
     if (!nextTokenIs(b, KW_FOREIGN)) return false;
@@ -726,63 +806,71 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, KW_FOREIGN, IDENTIFIER);
     r = r && foreign_2(b, l + 1);
+    r = r && foreign_3(b, l + 1);
     exit_section_(b, m, FOREIGN, r);
     return r;
   }
 
-  // LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN
+  // derived?
   private static boolean foreign_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign_2")) return false;
+    derived(b, l + 1);
+    return true;
+  }
+
+  // LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN
+  private static boolean foreign_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "foreign_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = foreign_2_0(b, l + 1);
-    if (!r) r = foreign_2_1(b, l + 1);
+    r = foreign_3_0(b, l + 1);
+    if (!r) r = foreign_3_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LBRACE foreign_member* RBRACE
-  private static boolean foreign_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "foreign_2_0")) return false;
+  private static boolean foreign_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "foreign_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && foreign_2_0_1(b, l + 1);
+    r = r && foreign_3_0_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // foreign_member*
-  private static boolean foreign_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "foreign_2_0_1")) return false;
+  private static boolean foreign_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "foreign_3_0_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!foreign_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "foreign_2_0_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "foreign_3_0_1", c)) break;
     }
     return true;
   }
 
   // LPAREN foreign_member* RPAREN
-  private static boolean foreign_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "foreign_2_1")) return false;
+  private static boolean foreign_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "foreign_3_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && foreign_2_1_1(b, l + 1);
+    r = r && foreign_3_1_1(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // foreign_member*
-  private static boolean foreign_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "foreign_2_1_1")) return false;
+  private static boolean foreign_3_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "foreign_3_1_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!foreign_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "foreign_2_1_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "foreign_3_1_1", c)) break;
     }
     return true;
   }
@@ -830,6 +918,28 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   private static boolean foreign_member_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign_member_3")) return false;
     foreign_attrs(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // KW_IMPORT string_literal LBRACE STAR RBRACE without?
+  public static boolean import_$(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_$")) return false;
+    if (!nextTokenIs(b, KW_IMPORT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KW_IMPORT);
+    r = r && string_literal(b, l + 1);
+    r = r && consumeTokens(b, 0, LBRACE, STAR, RBRACE);
+    r = r && import_5(b, l + 1);
+    exit_section_(b, m, IMPORT, r);
+    return r;
+  }
+
+  // without?
+  private static boolean import_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_5")) return false;
+    without(b, l + 1);
     return true;
   }
 
@@ -1424,6 +1534,76 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     r = r && string_literal(b, l + 1);
     exit_section_(b, m, VERSION, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // KW_WITHOUT (LBRACE IDENTIFIER* RBRACE | LPAREN IDENTIFIER* RPAREN)
+  public static boolean without(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without")) return false;
+    if (!nextTokenIs(b, KW_WITHOUT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KW_WITHOUT);
+    r = r && without_1(b, l + 1);
+    exit_section_(b, m, WITHOUT, r);
+    return r;
+  }
+
+  // LBRACE IDENTIFIER* RBRACE | LPAREN IDENTIFIER* RPAREN
+  private static boolean without_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = without_1_0(b, l + 1);
+    if (!r) r = without_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LBRACE IDENTIFIER* RBRACE
+  private static boolean without_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && without_1_0_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER*
+  private static boolean without_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without_1_0_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, IDENTIFIER)) break;
+      if (!empty_element_parsed_guard_(b, "without_1_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // LPAREN IDENTIFIER* RPAREN
+  private static boolean without_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && without_1_1_1(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER*
+  private static boolean without_1_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "without_1_1_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeToken(b, IDENTIFIER)) break;
+      if (!empty_element_parsed_guard_(b, "without_1_1_1", c)) break;
+    }
+    return true;
   }
 
 }

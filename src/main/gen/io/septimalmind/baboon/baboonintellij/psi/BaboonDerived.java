@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BaboonForeign extends PsiElement {
-
-  @Nullable
-  BaboonDerived getDerived();
+public interface BaboonDerived extends PsiElement {
 
   @NotNull
-  List<BaboonForeignMember> getForeignMemberList();
-
-  @NotNull
-  PsiElement getIdentifier();
+  List<BaboonDerivedMember> getDerivedMemberList();
 
 }
