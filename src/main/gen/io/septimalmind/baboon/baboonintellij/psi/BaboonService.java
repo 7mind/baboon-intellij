@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface BaboonService extends PsiElement {
 
   @NotNull
-  List<BaboonServiceMember> getServiceMemberList();
+  BaboonClassName getClassName();
 
   @NotNull
-  PsiElement getIdentifier();
+  List<BaboonServiceMember> getServiceMemberList();
 
 }

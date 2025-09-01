@@ -29,14 +29,14 @@ public class BaboonServiceImpl extends ASTWrapperPsiElement implements BaboonSer
 
   @Override
   @NotNull
-  public List<BaboonServiceMember> getServiceMemberList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonServiceMember.class);
+  public BaboonClassName getClassName() {
+    return findNotNullChildByClass(BaboonClassName.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public List<BaboonServiceMember> getServiceMemberList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonServiceMember.class);
   }
 
 }

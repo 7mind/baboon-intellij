@@ -7,13 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface BaboonDto extends PsiElement {
 
+  @NotNull
+  BaboonClassName getClassName();
+
   @Nullable
   BaboonDerived getDerived();
 
   @NotNull
   List<BaboonDtoMember> getDtoMemberList();
-
-  @NotNull
-  PsiElement getIdentifier();
 
 }

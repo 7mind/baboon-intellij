@@ -1,6 +1,7 @@
 package io.septimalmind.baboon.baboonintellij.language.highlight
 
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
+import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
 
 object BaboonColors {
@@ -13,5 +14,7 @@ object BaboonColors {
     val STRING_ESCAPE = createTextAttributesKey("BABOON_STRING_ESCAPE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE)
     val IDENTIFIER = createTextAttributesKey("BABOON_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER)
     val PARAMETER = createTextAttributesKey("BABOON_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER)
-    val BI_TYPE = createTextAttributesKey("BABOON_BI_TYPE", DefaultLanguageHighlighterColors.CONSTANT)
+    val BI_TYPE = createTextAttributesKey("BABOON_BI_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE)
+    val CLASS_NAME = createTextAttributesKey("BABOON_CLASS_NAME", DefaultLanguageHighlighterColors.CLASS_REFERENCE)
+    val FIELD_NAME = createTextAttributesKey("BABOON_FIELD_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
 }

@@ -36,13 +36,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_ADT IDENTIFIER derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
+  // KW_ADT class_name derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
   public static boolean adt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt")) return false;
     if (!nextTokenIs(b, KW_ADT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_ADT, IDENTIFIER);
+    r = consumeToken(b, KW_ADT);
+    r = r && class_name(b, l + 1);
     r = r && adt_2(b, l + 1);
     r = r && adt_3(b, l + 1);
     exit_section_(b, m, ADT, r);
@@ -205,13 +206,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_CHOICE IDENTIFIER derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
+  // KW_CHOICE class_name derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
   public static boolean choice(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice")) return false;
     if (!nextTokenIs(b, KW_CHOICE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_CHOICE, IDENTIFIER);
+    r = consumeToken(b, KW_CHOICE);
+    r = r && class_name(b, l + 1);
     r = r && choice_2(b, l + 1);
     r = r && choice_3(b, l + 1);
     exit_section_(b, m, CHOICE, r);
@@ -393,6 +395,18 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // IDENTIFIER
+  public static boolean class_name(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_name")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, CLASS_NAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // include* member+
   public static boolean content(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "content")) return false;
@@ -431,13 +445,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_CONTRACT IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
+  // KW_CONTRACT class_name (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
   public static boolean contract(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "contract")) return false;
     if (!nextTokenIs(b, KW_CONTRACT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_CONTRACT, IDENTIFIER);
+    r = consumeToken(b, KW_CONTRACT);
+    r = r && class_name(b, l + 1);
     r = r && contract_2(b, l + 1);
     exit_section_(b, m, CONTRACT, r);
     return r;
@@ -549,13 +564,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_DATA IDENTIFIER derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
+  // KW_DATA class_name derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
   public static boolean dto(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto")) return false;
     if (!nextTokenIs(b, KW_DATA)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_DATA, IDENTIFIER);
+    r = consumeToken(b, KW_DATA);
+    r = r && class_name(b, l + 1);
     r = r && dto_2(b, l + 1);
     r = r && dto_3(b, l + 1);
     exit_section_(b, m, DTO, r);
@@ -798,13 +814,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_FOREIGN IDENTIFIER derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
+  // KW_FOREIGN class_name derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
   public static boolean foreign(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign")) return false;
     if (!nextTokenIs(b, KW_FOREIGN)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_FOREIGN, IDENTIFIER);
+    r = consumeToken(b, KW_FOREIGN);
+    r = r && class_name(b, l + 1);
     r = r && foreign_2(b, l + 1);
     r = r && foreign_3(b, l + 1);
     exit_section_(b, m, FOREIGN, r);
@@ -1203,13 +1220,14 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_SERVICE IDENTIFIER (LBRACE service_member* RBRACE | LPAREN service_member* RPAREN)
+  // KW_SERVICE class_name (LBRACE service_member* RBRACE | LPAREN service_member* RPAREN)
   public static boolean service(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "service")) return false;
     if (!nextTokenIs(b, KW_SERVICE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_SERVICE, IDENTIFIER);
+    r = consumeToken(b, KW_SERVICE);
+    r = r && class_name(b, l + 1);
     r = r && service_2(b, l + 1);
     exit_section_(b, m, SERVICE, r);
     return r;

@@ -93,16 +93,18 @@ namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* 
 
 main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
 
+class_name ::= IDENTIFIER;
+
 // derived
 derived ::= COLON derived_member (COMMA derived_member)*;
 derived_member ::= KW_DERIVED LBRACK IDENTIFIER RBRACK;
 
 // enum
-choice ::= KW_CHOICE IDENTIFIER derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
+choice ::= KW_CHOICE class_name derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
 choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
 
 // dto
-dto ::= KW_DATA IDENTIFIER derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+dto ::= KW_DATA class_name derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
 dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
 
 field_def ::= field_name COLON type_ref;
@@ -118,20 +120,20 @@ unfield_def ::= MINUS field_def;
 extended_contract_def ::= KW_IS non_generic_type_ref;
 
 // adt
-adt ::= KW_ADT IDENTIFIER derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
+adt ::= KW_ADT class_name derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
 adt_member ::= (dto | contract) | extended_contract_def;
 
 // foreign
-foreign ::= KW_FOREIGN IDENTIFIER derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
+foreign ::= KW_FOREIGN class_name derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
 foreign_member ::= IDENTIFIER EQUAL string_literal foreign_attrs?;
 foreign_attrs ::= KW_WITH LBRACE key_value_pair* RBRACE;
 key_value_pair ::= string_literal EQUAL string_literal;
 
 // contract
-contract ::= KW_CONTRACT IDENTIFIER (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+contract ::= KW_CONTRACT class_name (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
 
 // service
-service::= KW_SERVICE IDENTIFIER (LBRACE service_member* RBRACE | LPAREN service_member* RPAREN);
+service::= KW_SERVICE class_name (LBRACE service_member* RBRACE | LPAREN service_member* RPAREN);
 service_member ::= KW_DEF IDENTIFIER (LBRACE signature_part* RBRACE | LPAREN signature_part* RPAREN);
 signature_part ::= signature_struct | signature_inline;
 struct_marker ::= KW_IN | KW_OUT | KW_ERR;

@@ -29,14 +29,14 @@ public class BaboonContractImpl extends ASTWrapperPsiElement implements BaboonCo
 
   @Override
   @NotNull
-  public List<BaboonDtoMember> getDtoMemberList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonDtoMember.class);
+  public BaboonClassName getClassName() {
+    return findNotNullChildByClass(BaboonClassName.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public List<BaboonDtoMember> getDtoMemberList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonDtoMember.class);
   }
 
 }

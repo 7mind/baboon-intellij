@@ -34,15 +34,15 @@ public class BaboonChoiceImpl extends ASTWrapperPsiElement implements BaboonChoi
   }
 
   @Override
-  @Nullable
-  public BaboonDerived getDerived() {
-    return findChildByClass(BaboonDerived.class);
+  @NotNull
+  public BaboonClassName getClassName() {
+    return findNotNullChildByClass(BaboonClassName.class);
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  @Nullable
+  public BaboonDerived getDerived() {
+    return findChildByClass(BaboonDerived.class);
   }
 
 }

@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.4] - 2025-09-01
+
+- Updated highlights for class names, fields and built-in types
+
 ## [0.0.3] - 2025-08-15
 
 - Added highlights for 'derivations' and 'import'

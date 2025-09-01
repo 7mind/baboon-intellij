@@ -34,15 +34,15 @@ public class BaboonAdtImpl extends ASTWrapperPsiElement implements BaboonAdt {
   }
 
   @Override
-  @Nullable
-  public BaboonDerived getDerived() {
-    return findChildByClass(BaboonDerived.class);
+  @NotNull
+  public BaboonClassName getClassName() {
+    return findNotNullChildByClass(BaboonClassName.class);
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  @Nullable
+  public BaboonDerived getDerived() {
+    return findChildByClass(BaboonDerived.class);
   }
 
 }

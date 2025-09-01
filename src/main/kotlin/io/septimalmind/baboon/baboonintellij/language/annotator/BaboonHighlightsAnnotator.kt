@@ -14,7 +14,8 @@ class BaboonHighlightsAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element.elementType) {
             BaboonTypes.MODEL -> newAnnotation(holder, element, BaboonColors.KEYWORD)
-            BaboonTypes.FIELD_NAME -> newAnnotation(holder, element, BaboonColors.PARAMETER)
+            BaboonTypes.CLASS_NAME -> newAnnotation(holder, element, BaboonColors.CLASS_NAME)
+            BaboonTypes.FIELD_NAME -> newAnnotation(holder, element, BaboonColors.FIELD_NAME)
             BaboonTypes.TYPE_REF -> newAnnotation(holder, element, BaboonColors.PARAMETER)
             BaboonTypes.BI_TYPE -> newAnnotation(holder, element, BaboonColors.BI_TYPE)
             BaboonTypes.DOC_COMMENT -> highlightDocCommentLinks(holder, element, BaboonColors.KEYWORD)

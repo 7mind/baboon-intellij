@@ -10,10 +10,10 @@ public interface BaboonAdt extends PsiElement {
   @NotNull
   List<BaboonAdtMember> getAdtMemberList();
 
+  @NotNull
+  BaboonClassName getClassName();
+
   @Nullable
   BaboonDerived getDerived();
-
-  @NotNull
-  PsiElement getIdentifier();
 
 }

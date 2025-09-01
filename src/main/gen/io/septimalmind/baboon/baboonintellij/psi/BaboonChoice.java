@@ -10,10 +10,10 @@ public interface BaboonChoice extends PsiElement {
   @NotNull
   List<BaboonChoiceMember> getChoiceMemberList();
 
+  @NotNull
+  BaboonClassName getClassName();
+
   @Nullable
   BaboonDerived getDerived();
-
-  @NotNull
-  PsiElement getIdentifier();
 
 }

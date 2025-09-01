@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface BaboonContract extends PsiElement {
 
   @NotNull
-  List<BaboonDtoMember> getDtoMemberList();
+  BaboonClassName getClassName();
 
   @NotNull
-  PsiElement getIdentifier();
+  List<BaboonDtoMember> getDtoMemberList();
 
 }
