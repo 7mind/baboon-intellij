@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2025-09-02
+
+- Fixed field names highlights
+
 ## [0.0.4] - 2025-09-01
 
 - Updated highlights for class names, fields and built-in types

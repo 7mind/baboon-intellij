@@ -407,38 +407,64 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // include* member+
+  // include+ | include* member+
   public static boolean content(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "content")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONTENT, "<content>");
     r = content_0(b, l + 1);
-    r = r && content_1(b, l + 1);
+    if (!r) r = content_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // include*
+  // include+
   private static boolean content_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "content_0")) return false;
-    while (true) {
+    boolean r;
+    Marker m = enter_section_(b);
+    r = include(b, l + 1);
+    while (r) {
       int c = current_position_(b);
       if (!include(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "content_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // include* member+
+  private static boolean content_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "content_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = content_1_0(b, l + 1);
+    r = r && content_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // include*
+  private static boolean content_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "content_1_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!include(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "content_1_0", c)) break;
     }
     return true;
   }
 
   // member+
-  private static boolean content_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "content_1")) return false;
+  private static boolean content_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "content_1_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = member(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "content_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "content_1_1", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;

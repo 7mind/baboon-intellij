@@ -11,7 +11,6 @@ object BaboonParserUtil: GeneratedParserUtilBase() {
         val next = builder.lookAhead(1)
         if (builder.tokenType in BABOON_KEYWORDS.types && next == BaboonTypes.COLON) {
             builder.remapCurrentToken(BaboonTypes.IDENTIFIER)
-            builder.advanceLexer()
             return true
         }
         return true

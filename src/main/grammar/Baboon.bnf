@@ -85,7 +85,7 @@ version ::= KW_VERSION string_literal;
 import ::= KW_IMPORT string_literal LBRACE STAR RBRACE without?;
 without ::= KW_WITHOUT (LBRACE IDENTIFIER* RBRACE | LPAREN IDENTIFIER* RPAREN);
 
-content ::= include* member+;
+content ::= include+ | include* member+;
 include ::= KW_INCLUDE string_literal;
 
 member ::= main_member | namespace;
