@@ -407,6 +407,40 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // IDENTIFIER (DOT IDENTIFIER)*
+  public static boolean class_type(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_type")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && class_type_1(b, l + 1);
+    exit_section_(b, m, CLASS_TYPE, r);
+    return r;
+  }
+
+  // (DOT IDENTIFIER)*
+  private static boolean class_type_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_type_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!class_type_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "class_type_1", c)) break;
+    }
+    return true;
+  }
+
+  // DOT IDENTIFIER
+  private static boolean class_type_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "class_type_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // include+ | include* member+
   public static boolean content(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "content")) return false;
@@ -1188,47 +1222,15 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // BI_TYPE | IDENTIFIER (DOT IDENTIFIER)*
+  // BI_TYPE | class_type
   public static boolean non_generic_type_ref(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "non_generic_type_ref")) return false;
     if (!nextTokenIs(b, "<non generic type ref>", BI_TYPE, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NON_GENERIC_TYPE_REF, "<non generic type ref>");
     r = consumeToken(b, BI_TYPE);
-    if (!r) r = non_generic_type_ref_1(b, l + 1);
+    if (!r) r = class_type(b, l + 1);
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // IDENTIFIER (DOT IDENTIFIER)*
-  private static boolean non_generic_type_ref_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "non_generic_type_ref_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    r = r && non_generic_type_ref_1_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (DOT IDENTIFIER)*
-  private static boolean non_generic_type_ref_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "non_generic_type_ref_1_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!non_generic_type_ref_1_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "non_generic_type_ref_1_1", c)) break;
-    }
-    return true;
-  }
-
-  // DOT IDENTIFIER
-  private static boolean non_generic_type_ref_1_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "non_generic_type_ref_1_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, IDENTIFIER);
-    exit_section_(b, m, null, r);
     return r;
   }
 

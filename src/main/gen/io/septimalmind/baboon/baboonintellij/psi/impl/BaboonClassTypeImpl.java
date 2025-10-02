@@ -8,35 +8,22 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonNonGenericTypeRefImpl extends ASTWrapperPsiElement implements BaboonNonGenericTypeRef {
+public class BaboonClassTypeImpl extends BaboonClassTypeMixin implements BaboonClassType {
 
-  public BaboonNonGenericTypeRefImpl(@NotNull ASTNode node) {
+  public BaboonClassTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitNonGenericTypeRef(this);
+    visitor.visitClassType(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof BaboonVisitor) accept((BaboonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public BaboonClassType getClassType() {
-    return findChildByClass(BaboonClassType.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getBiType() {
-    return findChildByType(BI_TYPE);
   }
 
 }

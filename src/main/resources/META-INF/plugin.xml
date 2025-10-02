@@ -38,6 +38,14 @@
             implementationClass="io.septimalmind.baboon.baboonintellij.language.highlight.BaboonSyntaxHighlighterFactory"
         />
         <annotator language="baboon" implementationClass="io.septimalmind.baboon.baboonintellij.language.annotator.BaboonHighlightsAnnotator"/>
+        <completion.contributor
+            language="baboon"
+            implementationClass="io.septimalmind.baboon.baboonintellij.language.completion.BaboonCompletionContributor"/>
+        <!-- NOTE: Currently not used for references ! -->
+        <!--        <psi.referenceContributor-->
+        <!--            language="baboon"-->
+        <!--            implementation="io.septimalmind.baboon.baboonintellij.psi.BaboonReferenceContributor"/>-->
+        <lang.braceMatcher language="baboon" implementationClass="io.septimalmind.baboon.baboonintellij.psi.BaboonBraceMatcher"/>
     </extensions>
 
     <actions>

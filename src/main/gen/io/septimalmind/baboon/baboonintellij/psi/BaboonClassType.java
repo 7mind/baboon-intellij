@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BaboonNonGenericTypeRef extends PsiElement {
-
-  @Nullable
-  BaboonClassType getClassType();
-
-  @Nullable
-  PsiElement getBiType();
+public interface BaboonClassType extends PsiElement {
 
 }

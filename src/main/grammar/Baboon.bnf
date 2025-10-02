@@ -93,7 +93,10 @@ namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* 
 
 main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
 
-class_name ::= IDENTIFIER;
+class_name ::= IDENTIFIER {
+    mixin="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonNamedElementImpl"
+    implements="io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement"
+};
 
 // derived
 derived ::= COLON derived_member (COMMA derived_member)*;
@@ -110,7 +113,10 @@ dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersectio
 field_def ::= field_name COLON type_ref;
 field_name ::= <<remapIfKeyword>> IDENTIFIER;
 type_ref ::= non_generic_type_ref type_params?;
-non_generic_type_ref ::= BI_TYPE | IDENTIFIER (DOT IDENTIFIER)*;
+class_type ::= IDENTIFIER (DOT IDENTIFIER)* {
+    mixin="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonClassTypeMixin"
+}
+non_generic_type_ref ::= BI_TYPE | class_type;
 type_params ::= LBRACK type_ref (COMMA type_ref)* RBRACK;
 
 parent_def ::= PLUS non_generic_type_ref;

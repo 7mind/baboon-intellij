@@ -15,6 +15,7 @@ public interface BaboonTypes {
   IElementType CHOICE_IN_SERVICE = new BaboonElementType("CHOICE_IN_SERVICE");
   IElementType CHOICE_MEMBER = new BaboonElementType("CHOICE_MEMBER");
   IElementType CLASS_NAME = new BaboonElementType("CLASS_NAME");
+  IElementType CLASS_TYPE = new BaboonElementType("CLASS_TYPE");
   IElementType CONTENT = new BaboonElementType("CONTENT");
   IElementType CONTRACT = new BaboonElementType("CONTRACT");
   IElementType DERIVED = new BaboonElementType("DERIVED");
@@ -128,6 +129,9 @@ public interface BaboonTypes {
       }
       else if (type == CLASS_NAME) {
         return new BaboonClassNameImpl(node);
+      }
+      else if (type == CLASS_TYPE) {
+        return new BaboonClassTypeImpl(node);
       }
       else if (type == CONTENT) {
         return new BaboonContentImpl(node);

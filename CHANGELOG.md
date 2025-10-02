@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.6] - 2025-10-02
+
+- Added basic code completion support
+
 ## [0.0.5] - 2025-09-02
 
 - Fixed field names highlights
