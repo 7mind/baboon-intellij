@@ -1,0 +1,5 @@
+package io.septimalmind.idealingua.idealinguaintellij.psi
+
+import com.intellij.psi.PsiNameIdentifierOwner
+
+interface IdealinguaNamedElement: PsiNameIdentifierOwner

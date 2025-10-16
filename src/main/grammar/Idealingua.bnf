@@ -1,0 +1,253 @@
+{
+  parserClass="io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaParser"
+  parserUtilClass="io.septimalmind.idealingua.idealinguaintellij.language.parser.IdealinguaParserUtil"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="Idealingua"
+  psiImplClassSuffix="Impl"
+  psiPackage="io.septimalmind.idealingua.idealinguaintellij.psi"
+  psiImplPackage="io.septimalmind.idealingua.idealinguaintellij.psi.impl"
+  elementTypeHolderClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes"
+  elementTypeClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaElementType"
+  tokenTypeClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTokenType"
+  psiImplUtilClass="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaPsiImplUtil"
+
+  tokens=[
+    // keywords
+    KW_ADT        = "adt"
+    KW_ALIAS      = "alias"
+    KW_CHOICE     = "choice"
+    KW_DATA       = "data"
+    KW_DEF        = "def"
+    KW_DOMAIN     = "domain"
+    KW_DTO        = "dto"
+    KW_ENUM       = "enum"
+    KW_FN         = "fn"
+    KW_FUN        = "fun"
+    KW_FUNC       = "func"
+    KW_ID         = "id"
+    KW_IMPORT     = "import"
+    KW_INCLUDE    = "include"
+    KW_INTERFACE  = "interface"
+    KW_MIXIN      = "mixin"
+    KW_NAMESPACE  = "namespace"
+    KW_PACKAGE    = "package"
+    KW_SERVICE    = "service"
+    KW_SERVER     = "server"
+    KW_STRUCT     = "struct"
+    KW_TYPE       = "type"
+    KW_USING      = "using"
+    KW_AS         = "as"
+    KW_FOREIGN    = "foreign"
+    KW_CLONE      = "clone"
+    KW_NEWTYPE    = "newtype"
+    KW_COPY       = "copy"
+    KW_DECLARED   = "declared"
+    KW_INTO       = "into"
+    KW_OR         = "or"
+    KW_BUZZER     = "buzzer"
+    KW_SENDER     = "sender"
+    KW_LINE       = "line"
+    KW_EVENT      = "event"
+    KW_STREAMS    = "streams"
+    KW_TUNNEL     = "tunnel"
+    KW_PUMP       = "pump"
+    KW_UPSTREAM   = "upstream"
+    KW_UP         = "up"
+    KW_TOSERVER   = "toserver"
+    KW_DOWNSTREAM = "downstream"
+    KW_DOWN       = "down"
+    KW_TOCLIENT   = "toclient"
+    KW_CONST      = "const"
+    KW_VALUES     = "values"
+
+    LBRACE = "{"
+    RBRACE = "}"
+    LPAREN = "("
+    RPAREN = ")"
+    LBRACK = "["
+    RBRACK = "]"
+    DOT    = "."
+    COMMA  = ","
+    COLON  = ":"
+    SEMICOLON = ";"
+    STAR   = '*'
+    SLASH  = '/'
+    QUOTE  = '"'
+    TRIPLE_QUOTE = '"""'
+    CARET = '^'
+    PLUS  = '+'
+    MINUS = '-'
+    EQUAL = '='
+    PIPE  = '|'
+    HASH  = '#'
+    AMPERSAND = '&'
+    DOLLAR = '$'
+    LESS_THAN = '<'
+    GREATER_THAN = '>'
+    DOUBLE_RIGHT_ARROW = '⇒'
+    EXCLAMATION = '!'
+    QUESTION = '?'
+    LEFT_RIGHT_ARROWS = '⥃'
+    LOOP_RIGHT_ARROW = '↬'
+    TRUE = 'true'
+    FALSE = 'false'
+
+    BI_TYPE = "regexp:bit|bool|boolean|byte|date|datetimel|datetimez|dbl|double|dtl|dtz|f32|f64|float|flt|i08|i16|i32|i64|int|int16|int32|int64|int8|list|long|map|opt|set|short|str|string|time|tsl|tsz|uid|uuid"
+
+    DECIMAL = "regexp:[0-9]+"
+    NEGATIVE_DECIMAL = "regexp:-[1-9]+"
+    IDENTIFIER = "regexp:[a-zA-Z_][a-zA-Z0-9_]*"
+
+    // comments
+    LINE_COMMENT  = "regexp://[^\n]*"
+    BLOCK_COMMENT = "regexp:\/\*([^*]|\*+[^*\/])*\*+\/"
+    DOC_COMMENT   = "regexp:\/\*\*([^*]|\*+[^*\/])*\*+\/"
+    DOC_LINK      = "regexp:\[\[([^\]]+?)]]"
+
+    // strings
+    SYMBOL_ESCAPE   = "regexp:\\[btnfr'\"\\]"
+    UNICODE_ESCAPE  = "regexp:\\u[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]"
+    NUMBER_ESCAPE   = "regexp:\\[0-9][0-9]?[0-9]?"
+    STRING_CONTENT  = "regexp:[^\\\"]*"
+  ]
+}
+
+file ::= package? domain? import* content*;
+
+package ::= KW_PACKAGE package_name;
+package_name ::= IDENTIFIER (DOT IDENTIFIER)*;
+
+domain ::= KW_DOMAIN domain_name;
+domain_name ::= IDENTIFIER (DOT IDENTIFIER)*;
+
+separator_struct ::= (COMMA | SEMICOLON);
+separator_enum ::= (COMMA | SEMICOLON | PIPE);
+separator_signature ::= (EQUAL GREATER_THAN | MINUS GREATER_THAN | COLON | DOUBLE_RIGHT_ARROW);
+separator_err ::= (EXCLAMATION EXCLAMATION | QUESTION EXCLAMATION | LEFT_RIGHT_ARROWS | LOOP_RIGHT_ARROW | KW_OR);
+
+import ::= KW_IMPORT domain_name (DOT (LBRACE import_member* RBRACE | LPAREN import_member* RPAREN))?;
+import_member ::= class_type (AS class_type)? separator_struct?;
+
+string_escape ::= SYMBOL_ESCAPE | UNICODE_ESCAPE | NUMBER_ESCAPE;
+string_literal ::= QUOTE (STRING_CONTENT | string_escape)* QUOTE;
+
+content ::= include+ | include* member+;
+include ::= KW_INCLUDE string_literal;
+
+class_name ::= IDENTIFIER
+//{
+//  mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaNamedElementImpl"
+//  implements="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement"
+//};
+
+class_type ::= IDENTIFIER
+//{
+//    mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaClassTypeMixin"
+//}
+
+non_generic_id ::= BI_TYPE | class_type;
+package_id ::= IDENTIFIER (DOT IDENTIFIER)*;
+full_id ::= package_id HASH class_type;
+idl_identifier ::= full_id | non_generic_id;
+generic_id ::= idl_identifier generic?;
+generic ::= LBRACK generic_id (COMMA generic_id)* RBRACK;
+
+member ::= base_type_member | type_member | other_member;
+base_type_member ::= enum | adt | alias | id | mixin | dto;
+
+// BASE_TYPE_MEMBER
+enum ::= KW_ENUM class_name (enum_free_form | enum_enclosed);
+enum_value ::= class_type | enum_embed_value | enum_minus_value;
+enum_embed_value ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) class_type;
+enum_minus_value ::= MINUS (MINUS MINUS)? class_type;
+enum_free_form ::= EQUAL enum_value (separator_enum enum_value)*;
+enum_enclosed ::= (LBRACE enum_values RBRACE | LPAREN enum_values RPAREN);
+enum_values ::= enum_value (separator_enum? enum_value)*;
+
+adt ::= (KW_ADT | KW_CHOICE) class_name (adt_free_form | adt_enclosed);
+adt_value ::= class_type (KW_AS IDENTIFIER)?;
+adt_free_form ::= EQUAL separator_enum? adt_value (separator_enum adt_value)*;
+adt_enclosed ::= LBRACE adt_values RBRACE | LPAREN adt_values RPAREN;
+adt_values ::= adt_value (separator_enum? adt_value)*;
+
+alias ::= (KW_ALIAS | KW_TYPE | KW_USING) class_name EQUAL idl_identifier;
+
+id ::= KW_ID class_name (LBRACE id_member* RBRACE | LPAREN id_member* RPAREN);
+id_member_name ::= <<remapIfKeyword>> IDENTIFIER;
+id_member ::= id_member_name COLON generic_id;
+
+struct_member ::= struct_def | struct_plus_value | struct_embed_value | struct_minus_value;
+struct_def ::= struct_name COLON generic_id;
+struct_name ::= <<remapIfKeyword>> IDENTIFIER;
+struct_plus_value ::= AMPERSAND (AMPERSAND AMPERSAND)? class_type;
+struct_embed_value ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) class_type;
+struct_minus_value ::= MINUS (MINUS MINUS)? class_type;
+
+mixin ::= (KW_MIXIN | KW_INTERFACE) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN);
+
+dto ::= (KW_DATA | KW_DTO | KW_STRUCT) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN);
+
+// TYPE_MEMBER
+type_member ::= foreign | clone | declared;
+
+foreign ::= KW_FOREIGN generic_id (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
+foreign_interpolation_symbol ::= IDENTIFIER;
+foreign_type ::= foreign_interpolation_symbol string_literal;
+foreign_member ::= string_literal COLON foreign_type;
+
+clone ::= (KW_CLONE | KW_NEWTYPE | KW_COPY) class_name KW_INTO class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)?;
+declared ::= KW_DECLARED class_name;
+
+// OTHER_MEMBER
+other_member ::= service | buzzer | streams | const;
+
+simple_struct_embed ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) idl_identifier;
+simple_struct_field ::= struct_name COLON generic_id;
+simple_struct_any ::= simple_struct_embed | simple_struct_field;
+
+service ::= (KW_SERVICE | KW_SERVER) service_name (LBRACE service_method* RBRACE | LPAREN service_method* RPAREN);
+service_name ::= <<remapIfKeyword>> IDENTIFIER;
+service_method ::= (KW_DEF | KW_FN | KW_FUN | KW_FUNC) service_method_name (LBRACE service_methods RBRACE | LPAREN service_methods RPAREN) service_method_output;
+service_methods ::= service_method_param? (COMMA service_method_param)*;
+service_method_param ::= simple_struct_embed | simple_struct_field;
+service_method_name ::= <<remapIfKeyword>> IDENTIFIER;
+service_method_output ::= (separator_signature output (separator_err output)? )? ;
+
+output ::= output_void | output_adt | output_struct | output_singular;
+output_void ::= LPAREN RPAREN;
+output_adt ::= adt_enclosed;
+output_struct ::= (LBRACE output_struct_member* RBRACE | LPAREN output_struct_member* RPAREN);
+output_struct_member ::= simple_struct_any (COMMA simple_struct_any)* COMMA?;
+output_singular ::= generic_id;
+
+buzzer ::= (KW_BUZZER | KW_SENDER) buzzer_name (LBRACE buzzer_method* RBRACE | LPAREN buzzer_method* RPAREN);
+buzzer_name ::= <<remapIfKeyword>> IDENTIFIER;
+buzzer_method ::= (KW_LINE | KW_EVENT) buzzer_method_name (LBRACE buzzer_methods RBRACE | LPAREN buzzer_methods RPAREN) buzzer_method_output;
+buzzer_methods ::= buzzer_method_param? (COMMA buzzer_method_param)*
+buzzer_method_name ::= <<remapIfKeyword>> IDENTIFIER;
+buzzer_method_param ::= simple_struct_embed | simple_struct_field;
+buzzer_method_output ::= (separator_signature output (separator_err output)? )?;
+
+streams ::= (KW_STREAMS | KW_TUNNEL | KW_PUMP) streams_name (LBRACE stream_value* RBRACE | LPAREN stream_value* RPAREN);
+streams_name ::= <<remapIfKeyword>> IDENTIFIER;
+stream_value ::= downstream | upstream;
+downstream ::= (KW_DOWNSTREAM | KW_DOWN | KW_TOCLIENT) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
+upstream ::= (KW_UPSTREAM | KW_UP | KW_TOSERVER) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
+stream_param ::= simple_struct_embed | simple_struct_field;
+
+const ::= (KW_CONST | KW_VALUES) (LBRACE constants RBRACE | LPAREN constants RPAREN);
+constants ::= const_no_doc (separator_struct? const_no_doc)* separator_struct?;
+const_no_doc ::= const_name (COLON generic_id)? EQUAL const_value;
+const_value ::= any_value | LPAREN any_value RPAREN;
+const_name ::= IDENTIFIER;
+
+any_value ::= typed_value | just_value;
+typed_value ::= generic_id LPAREN just_value RPAREN;
+just_value ::= literal | obj_def | list_def;
+obj_def ::= (LBRACE constants RBRACE | LPAREN constants RPAREN);
+list_def ::= LBRACK const_value? (separator_struct? const_value)* separator_struct? RBRACK;
+
+literal ::= float_literal | int_literal | bool_literal | string_literal;
+float_literal ::= MINUS? DECIMAL (DOT DECIMAL)? IDENTIFIER?;
+int_literal ::= MINUS? DECIMAL IDENTIFIER?;
+bool_literal ::= TRUE | FALSE;

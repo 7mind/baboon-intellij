@@ -23,6 +23,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
+        <!-- BABOON -->
         <fileType
             name="Baboon"
             implementationClass="io.septimalmind.baboon.baboonintellij.language.BaboonFileType"
@@ -46,6 +47,31 @@
         <!--            language="baboon"-->
         <!--            implementation="io.septimalmind.baboon.baboonintellij.psi.BaboonReferenceContributor"/>-->
         <lang.braceMatcher language="baboon" implementationClass="io.septimalmind.baboon.baboonintellij.psi.BaboonBraceMatcher"/>
+
+        <!-- IDEALINGUA -->
+        <fileType
+                name="Idealingua"
+                implementationClass="io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaFileType"
+                fieldName="INSTANCE"
+                language="idealingua"
+                extensions="model;domain"/>
+        <lang.parserDefinition
+                language="idealingua"
+                implementationClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaParserDefinition"
+        />
+        <lang.syntaxHighlighterFactory
+                language="idealingua"
+                implementationClass="io.septimalmind.idealingua.idealinguaintellij.language.highlight.IdealinguaSyntaxHighlighterFactory"
+        />
+        <annotator language="idealingua" implementationClass="io.septimalmind.idealingua.idealinguaintellij.language.annotator.IdealinguaHighlightsAnnotator"/>
+        <completion.contributor
+                language="idealingua"
+                implementationClass="io.septimalmind.idealingua.idealinguaintellij.language.completion.IdealinguaCompletionContributor"/>
+        <!-- NOTE: Currently not used for references ! -->
+        <!--        <psi.referenceContributor-->
+        <!--            language="idealingua"-->
+        <!--            implementation="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaReferenceContributor"/>-->
+        <lang.braceMatcher language="idealingua" implementationClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaBraceMatcher"/>
     </extensions>
 
     <actions>
@@ -53,6 +79,11 @@
                 class="io.septimalmind.baboon.baboonintellij.ide.actions.CreateNewBaboonFileAction"
                 text="Baboon File"
                 description="Create new Baboon file">
+        </action>
+        <action id="Idealingua.NewIdealinguaFile"
+                class="io.septimalmind.idealingua.idealinguaintellij.ide.actions.CreateNewIdealinguaFileAction"
+                text="IdeaLingua File"
+                description="Create new IdeaLingua file">
         </action>
     </actions>
 </idea-plugin>
