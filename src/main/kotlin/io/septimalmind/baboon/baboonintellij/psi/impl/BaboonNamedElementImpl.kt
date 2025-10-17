@@ -9,6 +9,7 @@ import io.septimalmind.baboon.baboonintellij.language.BaboonIcon
 import io.septimalmind.baboon.baboonintellij.psi.BaboonElementFactory
 import io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement
 import io.septimalmind.baboon.baboonintellij.psi.BaboonTypes
+import io.septimalmind.utils.PluginUtils
 import javax.swing.Icon
 
 abstract class BaboonNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node), BaboonNamedElement {
@@ -32,7 +33,7 @@ abstract class BaboonNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node)
     }
 
     override fun getPresentation(): ItemPresentation? {
-        val fileLocation = containingFile.name
+        val fileLocation = PluginUtils.getRelativePath(project.basePath.orEmpty(), containingFile.virtualFile.path)
         return object : ItemPresentation {
             override fun getPresentableText(): @NlsSafe String? {
                 return getName()

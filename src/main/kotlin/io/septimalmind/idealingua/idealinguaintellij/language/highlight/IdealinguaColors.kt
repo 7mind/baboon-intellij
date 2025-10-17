@@ -15,5 +15,5 @@ object IdealinguaColors {
     val PARAMETER = createTextAttributesKey("IDEALINGUA_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER)
     val BI_TYPE = createTextAttributesKey("IDEALINGUA_BI_TYPE", DefaultLanguageHighlighterColors.CLASS_REFERENCE)
     val CLASS_NAME = createTextAttributesKey("IDEALINGUA_CLASS_NAME", DefaultLanguageHighlighterColors.CLASS_REFERENCE)
-    val FIELD_NAME = createTextAttributesKey("IDEALINGUA_FIELD_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
+    val STRUCT_NAME = createTextAttributesKey("IDEALINGUA_STRUCT_NAME", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
 }

@@ -72,7 +72,7 @@ public class IdealinguaVisitor extends PsiElementVisitor {
   }
 
   public void visitClassName(@NotNull IdealinguaClassName o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitClassType(@NotNull IdealinguaClassType o) {
@@ -400,6 +400,10 @@ public class IdealinguaVisitor extends PsiElementVisitor {
   }
 
   public void visitUpstream(@NotNull IdealinguaUpstream o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull IdealinguaNamedElement o) {
     visitPsiElement(o);
   }
 

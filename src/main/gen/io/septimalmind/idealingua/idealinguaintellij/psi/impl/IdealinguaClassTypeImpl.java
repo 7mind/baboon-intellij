@@ -8,10 +8,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.idealingua.idealinguaintellij.psi.*;
 
-public class IdealinguaClassTypeImpl extends ASTWrapperPsiElement implements IdealinguaClassType {
+public class IdealinguaClassTypeImpl extends IdealinguaClassTypeMixin implements IdealinguaClassType {
 
   public IdealinguaClassTypeImpl(@NotNull ASTNode node) {
     super(node);

@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElementResolveResult
 import com.intellij.psi.PsiPolyVariantReferenceBase
 import com.intellij.psi.ResolveResult
 import io.septimalmind.baboon.baboonintellij.language.BaboonIcon
+import io.septimalmind.utils.PluginUtils
 
 class BaboonReference(element: PsiElement, textRange: TextRange): PsiPolyVariantReferenceBase<PsiElement?>(element, textRange) {
 
@@ -30,10 +31,11 @@ class BaboonReference(element: PsiElement, textRange: TextRange): PsiPolyVariant
         val variants = ArrayList<LookupElement>()
         for (name in classNames) {
             if (name.name != null) {
+                val fileLocation = PluginUtils.getRelativePath(project.basePath.orEmpty(), name.containingFile.virtualFile.path)
                 variants.add(
                     LookupElementBuilder
                         .create(name).withIcon(BaboonIcon.FILE)
-                        .withTypeText(name.containingFile.name)
+                        .withTypeText(fileLocation)
                 )
             }
         }

@@ -14,7 +14,7 @@ class IdealinguaHighlightsAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element.elementType) {
             IdealinguaTypes.CLASS_NAME -> newAnnotation(holder, element, IdealinguaColors.CLASS_NAME)
-            IdealinguaTypes.STRUCT_NAME -> newAnnotation(holder, element, IdealinguaColors.FIELD_NAME)
+            IdealinguaTypes.STRUCT_NAME -> newAnnotation(holder, element, IdealinguaColors.STRUCT_NAME)
             IdealinguaTypes.GENERIC_ID -> newAnnotation(holder, element, IdealinguaColors.PARAMETER)
             IdealinguaTypes.BI_TYPE -> newAnnotation(holder, element, IdealinguaColors.BI_TYPE)
             IdealinguaTypes.FOREIGN_TYPE -> newAnnotation(holder, element, IdealinguaColors.STRING)

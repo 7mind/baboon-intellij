@@ -9,6 +9,7 @@ import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaIcon
 import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaElementFactory
 import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement
 import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes
+import io.septimalmind.utils.PluginUtils
 import javax.swing.Icon
 
 abstract class IdealinguaNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node), IdealinguaNamedElement {
@@ -32,7 +33,7 @@ abstract class IdealinguaNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(n
     }
 
     override fun getPresentation(): ItemPresentation? {
-        val fileLocation = containingFile.name
+        val fileLocation = PluginUtils.getRelativePath(project.basePath.orEmpty(), containingFile.virtualFile.path)
         return object : ItemPresentation {
             override fun getPresentableText(): @NlsSafe String? {
                 return getName()

@@ -135,15 +135,15 @@ content ::= include+ | include* member+;
 include ::= KW_INCLUDE string_literal;
 
 class_name ::= IDENTIFIER
-//{
-//  mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaNamedElementImpl"
-//  implements="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement"
-//};
+{
+  mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaNamedElementImpl"
+  implements="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement"
+};
 
 class_type ::= IDENTIFIER
-//{
-//    mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaClassTypeMixin"
-//}
+{
+    mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaClassTypeMixin"
+}
 
 non_generic_id ::= BI_TYPE | class_type;
 package_id ::= IDENTIFIER (DOT IDENTIFIER)*;

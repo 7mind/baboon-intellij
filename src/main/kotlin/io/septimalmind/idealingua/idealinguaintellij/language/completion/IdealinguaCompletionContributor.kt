@@ -35,8 +35,9 @@ class IdealinguaBITypesCompletionProvider: CompletionProvider<CompletionParamete
         resultSet: CompletionResultSet
     ) {
         val biTypes = listOf(
-            "bit", "i08", "i16", "i32", "i64", "u08", "u16", "u32", "u64", "f32",
-            "f64", "f128", "str", "uid", "tsu", "tso", "map", "opt", "lst", "set"
+            "bit", "bool", "boolean", "byte", "date", "datetimel", "datetimez", "dbl", "double", "dtl", "dtz",
+            "f32", "f64", "float", "flt", "i08", "i16", "i32", "i64", "int", "int16", "int32", "int64", "int8", "list",
+            "long", "map", "opt", "set", "short", "str", "string", "time", "tsl", "tsz", "uid", "uuid"
         )
         resultSet.addAllElements(biTypes.map { t ->
             PrioritizedLookupElement.withPriority(
