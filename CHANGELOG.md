@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [0.0.7] - 2025-10-17
+
+- Added IdeaLingua support (highlights + code completion)
+- Display path to found references
+
 ## [0.0.6] - 2025-10-02
 
 - Added basic code completion support
