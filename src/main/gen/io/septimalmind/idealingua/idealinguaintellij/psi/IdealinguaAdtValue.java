@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface IdealinguaAdtValue extends PsiElement {
 
+  @Nullable
+  IdealinguaAdtAlias getAdtAlias();
+
   @NotNull
   IdealinguaClassType getClassType();
-
-  @Nullable
-  PsiElement getIdentifier();
 
 }

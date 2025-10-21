@@ -11,6 +11,6 @@ public interface IdealinguaDto extends PsiElement {
   IdealinguaClassName getClassName();
 
   @NotNull
-  List<IdealinguaStructMember> getStructMemberList();
+  IdealinguaStructMembers getStructMembers();
 
 }

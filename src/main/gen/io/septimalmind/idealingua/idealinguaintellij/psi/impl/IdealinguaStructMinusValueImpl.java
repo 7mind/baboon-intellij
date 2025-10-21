@@ -28,9 +28,15 @@ public class IdealinguaStructMinusValueImpl extends ASTWrapperPsiElement impleme
   }
 
   @Override
-  @NotNull
+  @Nullable
   public IdealinguaClassType getClassType() {
-    return findNotNullChildByClass(IdealinguaClassType.class);
+    return findChildByClass(IdealinguaClassType.class);
+  }
+
+  @Override
+  @Nullable
+  public IdealinguaStructDef getStructDef() {
+    return findChildByClass(IdealinguaStructDef.class);
   }
 
 }

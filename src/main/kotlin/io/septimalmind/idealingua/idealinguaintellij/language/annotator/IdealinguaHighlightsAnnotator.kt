@@ -18,6 +18,8 @@ class IdealinguaHighlightsAnnotator : Annotator {
             IdealinguaTypes.GENERIC_ID -> newAnnotation(holder, element, IdealinguaColors.PARAMETER)
             IdealinguaTypes.BI_TYPE -> newAnnotation(holder, element, IdealinguaColors.BI_TYPE)
             IdealinguaTypes.FOREIGN_TYPE -> newAnnotation(holder, element, IdealinguaColors.STRING)
+            IdealinguaTypes.PACKAGE_NAME -> newAnnotation(holder, element, IdealinguaColors.IDENTIFIER)
+            IdealinguaTypes.ADT_ALIAS -> newAnnotation(holder, element, IdealinguaColors.IDENTIFIER)
             IdealinguaTypes.DOC_COMMENT -> highlightDocCommentLinks(holder, element, IdealinguaColors.KEYWORD)
         }
     }

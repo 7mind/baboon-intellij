@@ -10,7 +10,7 @@ public interface IdealinguaClone extends PsiElement {
   @NotNull
   List<IdealinguaClassName> getClassNameList();
 
-  @NotNull
-  List<IdealinguaStructMember> getStructMemberList();
+  @Nullable
+  IdealinguaStructMembers getStructMembers();
 
 }

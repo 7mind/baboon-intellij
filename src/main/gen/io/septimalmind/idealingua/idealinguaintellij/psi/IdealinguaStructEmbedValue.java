@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface IdealinguaStructEmbedValue extends PsiElement {
 
-  @NotNull
+  @Nullable
   IdealinguaClassType getClassType();
+
+  @Nullable
+  IdealinguaStructDef getStructDef();
 
 }

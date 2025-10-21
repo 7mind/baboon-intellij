@@ -28,15 +28,15 @@ public class IdealinguaAdtValueImpl extends ASTWrapperPsiElement implements Idea
   }
 
   @Override
-  @NotNull
-  public IdealinguaClassType getClassType() {
-    return findNotNullChildByClass(IdealinguaClassType.class);
+  @Nullable
+  public IdealinguaAdtAlias getAdtAlias() {
+    return findChildByClass(IdealinguaAdtAlias.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+  @NotNull
+  public IdealinguaClassType getClassType() {
+    return findNotNullChildByClass(IdealinguaClassType.class);
   }
 
 }

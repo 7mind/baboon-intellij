@@ -11,14 +11,14 @@ import static io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes.
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.idealingua.idealinguaintellij.psi.*;
 
-public class IdealinguaIntLiteralImpl extends ASTWrapperPsiElement implements IdealinguaIntLiteral {
+public class IdealinguaStructMembersImpl extends ASTWrapperPsiElement implements IdealinguaStructMembers {
 
-  public IdealinguaIntLiteralImpl(@NotNull ASTNode node) {
+  public IdealinguaStructMembersImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IdealinguaVisitor visitor) {
-    visitor.visitIntLiteral(this);
+    visitor.visitStructMembers(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class IdealinguaIntLiteralImpl extends ASTWrapperPsiElement implements Id
 
   @Override
   @NotNull
-  public PsiElement getDecimal() {
-    return findNotNullChildByType(DECIMAL);
+  public List<IdealinguaSeparatorStruct> getSeparatorStructList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, IdealinguaSeparatorStruct.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+  @NotNull
+  public List<IdealinguaStructMember> getStructMemberList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, IdealinguaStructMember.class);
   }
 
 }

@@ -24,6 +24,7 @@ NEW_LINE = \r|\n|\r\n
 WHITE_SPACE = {NEW_LINE} | [ \t\f]
 DECIMAL = [0-9]+
 NEGATIVE_DECIMAL = "-"[1-9]+
+EXPONENT = [eE][+-]?{DECIMAL}
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 
 LINE_COMMENT = "//"[^\n]*
@@ -117,6 +118,9 @@ BI_TYPE = "bit"|"bool"|"boolean"|"byte"|"date"|"datetimel"|"datetimez"|"dbl"|"do
 
    {BI_TYPE}     { return IdealinguaTypes.BI_TYPE; }
 
+   "-"? {DECIMAL} ("." {DECIMAL})? {EXPONENT}? [fFdD] { return IdealinguaTypes.FLOAT_LITERAL; }
+   "-"? {DECIMAL} ("." {DECIMAL}) {EXPONENT}? { return IdealinguaTypes.FLOAT_LITERAL; }
+   "-"? {DECIMAL} [lL]     { return IdealinguaTypes.INT_LITERAL; }
    {DECIMAL}          { return IdealinguaTypes.DECIMAL; }
    {NEGATIVE_DECIMAL} { return IdealinguaTypes.NEGATIVE_DECIMAL; }
 

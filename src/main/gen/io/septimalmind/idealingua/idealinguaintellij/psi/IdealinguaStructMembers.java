@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface IdealinguaFloatLiteral extends PsiElement {
+public interface IdealinguaStructMembers extends PsiElement {
 
-  @Nullable
-  PsiElement getIdentifier();
+  @NotNull
+  List<IdealinguaSeparatorStruct> getSeparatorStructList();
+
+  @NotNull
+  List<IdealinguaStructMember> getStructMemberList();
 
 }

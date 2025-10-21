@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface IdealinguaStructMinusValue extends PsiElement {
 
-  @NotNull
+  @Nullable
   IdealinguaClassType getClassType();
+
+  @Nullable
+  IdealinguaStructDef getStructDef();
 
 }

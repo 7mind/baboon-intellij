@@ -11,6 +11,6 @@ public interface IdealinguaMixin extends PsiElement {
   IdealinguaClassName getClassName();
 
   @NotNull
-  List<IdealinguaStructMember> getStructMemberList();
+  IdealinguaStructMembers getStructMembers();
 
 }

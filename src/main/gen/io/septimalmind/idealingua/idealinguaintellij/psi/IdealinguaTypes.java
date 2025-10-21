@@ -9,6 +9,7 @@ import io.septimalmind.idealingua.idealinguaintellij.psi.impl.*;
 public interface IdealinguaTypes {
 
   IElementType ADT = new IdealinguaElementType("ADT");
+  IElementType ADT_ALIAS = new IdealinguaElementType("ADT_ALIAS");
   IElementType ADT_ENCLOSED = new IdealinguaElementType("ADT_ENCLOSED");
   IElementType ADT_FREE_FORM = new IdealinguaElementType("ADT_FREE_FORM");
   IElementType ADT_VALUE = new IdealinguaElementType("ADT_VALUE");
@@ -45,7 +46,6 @@ public interface IdealinguaTypes {
   IElementType ENUM_MINUS_VALUE = new IdealinguaElementType("ENUM_MINUS_VALUE");
   IElementType ENUM_VALUE = new IdealinguaElementType("ENUM_VALUE");
   IElementType ENUM_VALUES = new IdealinguaElementType("ENUM_VALUES");
-  IElementType FLOAT_LITERAL = new IdealinguaElementType("FLOAT_LITERAL");
   IElementType FOREIGN = new IdealinguaElementType("FOREIGN");
   IElementType FOREIGN_INTERPOLATION_SYMBOL = new IdealinguaElementType("FOREIGN_INTERPOLATION_SYMBOL");
   IElementType FOREIGN_MEMBER = new IdealinguaElementType("FOREIGN_MEMBER");
@@ -60,7 +60,6 @@ public interface IdealinguaTypes {
   IElementType IMPORT = new IdealinguaElementType("IMPORT");
   IElementType IMPORT_MEMBER = new IdealinguaElementType("IMPORT_MEMBER");
   IElementType INCLUDE = new IdealinguaElementType("INCLUDE");
-  IElementType INT_LITERAL = new IdealinguaElementType("INT_LITERAL");
   IElementType JUST_VALUE = new IdealinguaElementType("JUST_VALUE");
   IElementType LIST_DEF = new IdealinguaElementType("LIST_DEF");
   IElementType LITERAL = new IdealinguaElementType("LITERAL");
@@ -101,6 +100,7 @@ public interface IdealinguaTypes {
   IElementType STRUCT_DEF = new IdealinguaElementType("STRUCT_DEF");
   IElementType STRUCT_EMBED_VALUE = new IdealinguaElementType("STRUCT_EMBED_VALUE");
   IElementType STRUCT_MEMBER = new IdealinguaElementType("STRUCT_MEMBER");
+  IElementType STRUCT_MEMBERS = new IdealinguaElementType("STRUCT_MEMBERS");
   IElementType STRUCT_MINUS_VALUE = new IdealinguaElementType("STRUCT_MINUS_VALUE");
   IElementType STRUCT_NAME = new IdealinguaElementType("STRUCT_NAME");
   IElementType STRUCT_PLUS_VALUE = new IdealinguaElementType("STRUCT_PLUS_VALUE");
@@ -123,10 +123,12 @@ public interface IdealinguaTypes {
   IElementType DOUBLE_RIGHT_ARROW = new IdealinguaTokenType("⇒");
   IElementType EQUAL = new IdealinguaTokenType("=");
   IElementType EXCLAMATION = new IdealinguaTokenType("!");
-  IElementType FALSE = new IdealinguaTokenType("false");
+  IElementType FALSE = new IdealinguaTokenType("FALSE");
+  IElementType FLOAT_LITERAL = new IdealinguaTokenType("FLOAT_LITERAL");
   IElementType GREATER_THAN = new IdealinguaTokenType(">");
   IElementType HASH = new IdealinguaTokenType("#");
   IElementType IDENTIFIER = new IdealinguaTokenType("IDENTIFIER");
+  IElementType INT_LITERAL = new IdealinguaTokenType("INT_LITERAL");
   IElementType KW_ADT = new IdealinguaTokenType("adt");
   IElementType KW_ALIAS = new IdealinguaTokenType("alias");
   IElementType KW_AS = new IdealinguaTokenType("as");
@@ -196,7 +198,7 @@ public interface IdealinguaTypes {
   IElementType STRING_CONTENT = new IdealinguaTokenType("STRING_CONTENT");
   IElementType SYMBOL_ESCAPE = new IdealinguaTokenType("SYMBOL_ESCAPE");
   IElementType TRIPLE_QUOTE = new IdealinguaTokenType("\"\"\"");
-  IElementType TRUE = new IdealinguaTokenType("true");
+  IElementType TRUE = new IdealinguaTokenType("TRUE");
   IElementType UNICODE_ESCAPE = new IdealinguaTokenType("UNICODE_ESCAPE");
 
   class Factory {
@@ -204,6 +206,9 @@ public interface IdealinguaTypes {
       IElementType type = node.getElementType();
       if (type == ADT) {
         return new IdealinguaAdtImpl(node);
+      }
+      else if (type == ADT_ALIAS) {
+        return new IdealinguaAdtAliasImpl(node);
       }
       else if (type == ADT_ENCLOSED) {
         return new IdealinguaAdtEnclosedImpl(node);
@@ -313,9 +318,6 @@ public interface IdealinguaTypes {
       else if (type == ENUM_VALUES) {
         return new IdealinguaEnumValuesImpl(node);
       }
-      else if (type == FLOAT_LITERAL) {
-        return new IdealinguaFloatLiteralImpl(node);
-      }
       else if (type == FOREIGN) {
         return new IdealinguaForeignImpl(node);
       }
@@ -357,9 +359,6 @@ public interface IdealinguaTypes {
       }
       else if (type == INCLUDE) {
         return new IdealinguaIncludeImpl(node);
-      }
-      else if (type == INT_LITERAL) {
-        return new IdealinguaIntLiteralImpl(node);
       }
       else if (type == JUST_VALUE) {
         return new IdealinguaJustValueImpl(node);
@@ -480,6 +479,9 @@ public interface IdealinguaTypes {
       }
       else if (type == STRUCT_MEMBER) {
         return new IdealinguaStructMemberImpl(node);
+      }
+      else if (type == STRUCT_MEMBERS) {
+        return new IdealinguaStructMembersImpl(node);
       }
       else if (type == STRUCT_MINUS_VALUE) {
         return new IdealinguaStructMinusValueImpl(node);

@@ -11,6 +11,10 @@ public class IdealinguaVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAdtAlias(@NotNull IdealinguaAdtAlias o) {
+    visitPsiElement(o);
+  }
+
   public void visitAdtEnclosed(@NotNull IdealinguaAdtEnclosed o) {
     visitPsiElement(o);
   }
@@ -155,10 +159,6 @@ public class IdealinguaVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFloatLiteral(@NotNull IdealinguaFloatLiteral o) {
-    visitPsiElement(o);
-  }
-
   public void visitForeign(@NotNull IdealinguaForeign o) {
     visitPsiElement(o);
   }
@@ -212,10 +212,6 @@ public class IdealinguaVisitor extends PsiElementVisitor {
   }
 
   public void visitInclude(@NotNull IdealinguaInclude o) {
-    visitPsiElement(o);
-  }
-
-  public void visitIntLiteral(@NotNull IdealinguaIntLiteral o) {
     visitPsiElement(o);
   }
 
@@ -376,6 +372,10 @@ public class IdealinguaVisitor extends PsiElementVisitor {
   }
 
   public void visitStructMember(@NotNull IdealinguaStructMember o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStructMembers(@NotNull IdealinguaStructMembers o) {
     visitPsiElement(o);
   }
 

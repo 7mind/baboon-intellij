@@ -11,12 +11,12 @@ public interface IdealinguaLiteral extends PsiElement {
   IdealinguaBoolLiteral getBoolLiteral();
 
   @Nullable
-  IdealinguaFloatLiteral getFloatLiteral();
-
-  @Nullable
-  IdealinguaIntLiteral getIntLiteral();
-
-  @Nullable
   IdealinguaStringLiteral getStringLiteral();
+
+  @Nullable
+  PsiElement getDecimal();
+
+  @Nullable
+  PsiElement getNegativeDecimal();
 
 }

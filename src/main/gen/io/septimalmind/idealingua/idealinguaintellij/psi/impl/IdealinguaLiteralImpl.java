@@ -35,20 +35,20 @@ public class IdealinguaLiteralImpl extends ASTWrapperPsiElement implements Ideal
 
   @Override
   @Nullable
-  public IdealinguaFloatLiteral getFloatLiteral() {
-    return findChildByClass(IdealinguaFloatLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public IdealinguaIntLiteral getIntLiteral() {
-    return findChildByClass(IdealinguaIntLiteral.class);
-  }
-
-  @Override
-  @Nullable
   public IdealinguaStringLiteral getStringLiteral() {
     return findChildByClass(IdealinguaStringLiteral.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getDecimal() {
+    return findChildByType(DECIMAL);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getNegativeDecimal() {
+    return findChildByType(NEGATIVE_DECIMAL);
   }
 
 }

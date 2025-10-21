@@ -16,7 +16,6 @@ class IdealinguaReference(element: PsiElement, textRange: TextRange): PsiPolyVar
     private val key = element.text.substring(textRange.startOffset, textRange.endOffset)
 
     override fun multiResolve(p0: Boolean): Array<out ResolveResult?> {
-        val key = element.text
         val project: Project = myElement!!.project
         val properties = IdealinguaUtils.findClassNames(project, key)
         val results = ArrayList<ResolveResult>()

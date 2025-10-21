@@ -7,9 +7,8 @@ import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes
 
 object IdealinguaParserUtil: GeneratedParserUtilBase() {
     @JvmStatic
-    fun remapIfKeyword(builder: PsiBuilder, level: Int): Boolean {
-        val next = builder.lookAhead(1)
-        if (builder.tokenType in IDEALINGUA_KEYWORDS.types && listOf(IdealinguaTypes.COLON, IdealinguaTypes.LPAREN, IdealinguaTypes.LBRACE).contains(next)) {
+    fun remapIfKeywordOrBiType(builder: PsiBuilder, level: Int): Boolean {
+        if (builder.tokenType in IDEALINGUA_KEYWORDS.types || builder.tokenType == IdealinguaTypes.BI_TYPE) {
             builder.remapCurrentToken(IdealinguaTypes.IDENTIFIER)
             return true
         }

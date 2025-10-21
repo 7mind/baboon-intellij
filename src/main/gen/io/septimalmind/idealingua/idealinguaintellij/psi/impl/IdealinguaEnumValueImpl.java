@@ -35,6 +35,12 @@ public class IdealinguaEnumValueImpl extends ASTWrapperPsiElement implements Ide
 
   @Override
   @Nullable
+  public IdealinguaConstValue getConstValue() {
+    return findChildByClass(IdealinguaConstValue.class);
+  }
+
+  @Override
+  @Nullable
   public IdealinguaEnumEmbedValue getEnumEmbedValue() {
     return findChildByClass(IdealinguaEnumEmbedValue.class);
   }

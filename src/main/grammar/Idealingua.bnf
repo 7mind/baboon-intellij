@@ -89,8 +89,6 @@
     QUESTION = '?'
     LEFT_RIGHT_ARROWS = '⥃'
     LOOP_RIGHT_ARROW = '↬'
-    TRUE = 'true'
-    FALSE = 'false'
 
     BI_TYPE = "regexp:bit|bool|boolean|byte|date|datetimel|datetimez|dbl|double|dtl|dtz|f32|f64|float|flt|i08|i16|i32|i64|int|int16|int32|int64|int8|list|long|map|opt|set|short|str|string|time|tsl|tsz|uid|uuid"
 
@@ -115,10 +113,10 @@
 file ::= package? domain? import* content*;
 
 package ::= KW_PACKAGE package_name;
-package_name ::= IDENTIFIER (DOT IDENTIFIER)*;
+package_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*;
 
 domain ::= KW_DOMAIN domain_name;
-domain_name ::= IDENTIFIER (DOT IDENTIFIER)*;
+domain_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*;
 
 separator_struct ::= (COMMA | SEMICOLON);
 separator_enum ::= (COMMA | SEMICOLON | PIPE);
@@ -157,35 +155,37 @@ base_type_member ::= enum | adt | alias | id | mixin | dto;
 
 // BASE_TYPE_MEMBER
 enum ::= KW_ENUM class_name (enum_free_form | enum_enclosed);
-enum_value ::= class_type | enum_embed_value | enum_minus_value;
+enum_value ::= (class_type (EQUAL const_value)?) | enum_embed_value | enum_minus_value;
 enum_embed_value ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) class_type;
 enum_minus_value ::= MINUS (MINUS MINUS)? class_type;
 enum_free_form ::= EQUAL enum_value (separator_enum enum_value)*;
 enum_enclosed ::= (LBRACE enum_values RBRACE | LPAREN enum_values RPAREN);
-enum_values ::= enum_value (separator_enum? enum_value)*;
+enum_values ::= enum_value? (separator_enum? enum_value)* separator_enum?;
 
 adt ::= (KW_ADT | KW_CHOICE) class_name (adt_free_form | adt_enclosed);
-adt_value ::= class_type (KW_AS IDENTIFIER)?;
+adt_alias ::=  <<remapIfKeywordOrBiType>> IDENTIFIER;
+adt_value ::= class_type (KW_AS adt_alias)?;
 adt_free_form ::= EQUAL separator_enum? adt_value (separator_enum adt_value)*;
 adt_enclosed ::= LBRACE adt_values RBRACE | LPAREN adt_values RPAREN;
-adt_values ::= adt_value (separator_enum? adt_value)*;
+adt_values ::= adt_value? (separator_enum? adt_value)* separator_enum?;
 
 alias ::= (KW_ALIAS | KW_TYPE | KW_USING) class_name EQUAL idl_identifier;
 
 id ::= KW_ID class_name (LBRACE id_member* RBRACE | LPAREN id_member* RPAREN);
-id_member_name ::= <<remapIfKeyword>> IDENTIFIER;
+id_member_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 id_member ::= id_member_name COLON generic_id;
 
 struct_member ::= struct_def | struct_plus_value | struct_embed_value | struct_minus_value;
 struct_def ::= struct_name COLON generic_id;
-struct_name ::= <<remapIfKeyword>> IDENTIFIER;
-struct_plus_value ::= AMPERSAND (AMPERSAND AMPERSAND)? class_type;
-struct_embed_value ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) class_type;
-struct_minus_value ::= MINUS (MINUS MINUS)? class_type;
+struct_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
+struct_plus_value ::= AMPERSAND (AMPERSAND AMPERSAND)? (struct_def | class_type);
+struct_embed_value ::= (PLUS (PLUS PLUS)? | DOT DOT DOT) (struct_def | class_type);
+struct_minus_value ::= MINUS (MINUS MINUS)? (struct_def | class_type);
+struct_members ::= struct_member? (separator_struct? struct_member)* separator_struct?;
 
-mixin ::= (KW_MIXIN | KW_INTERFACE) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN);
+mixin ::= (KW_MIXIN | KW_INTERFACE) class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN);
 
-dto ::= (KW_DATA | KW_DTO | KW_STRUCT) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN);
+dto ::= (KW_DATA | KW_DTO | KW_STRUCT) class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN);
 
 // TYPE_MEMBER
 type_member ::= foreign | clone | declared;
@@ -195,7 +195,7 @@ foreign_interpolation_symbol ::= IDENTIFIER;
 foreign_type ::= foreign_interpolation_symbol string_literal;
 foreign_member ::= string_literal COLON foreign_type;
 
-clone ::= (KW_CLONE | KW_NEWTYPE | KW_COPY) class_name KW_INTO class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)?;
+clone ::= (KW_CLONE | KW_NEWTYPE | KW_COPY) class_name KW_INTO class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN)?;
 declared ::= KW_DECLARED class_name;
 
 // OTHER_MEMBER
@@ -206,11 +206,11 @@ simple_struct_field ::= struct_name COLON generic_id;
 simple_struct_any ::= simple_struct_embed | simple_struct_field;
 
 service ::= (KW_SERVICE | KW_SERVER) service_name (LBRACE service_method* RBRACE | LPAREN service_method* RPAREN);
-service_name ::= <<remapIfKeyword>> IDENTIFIER;
+service_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 service_method ::= (KW_DEF | KW_FN | KW_FUN | KW_FUNC) service_method_name (LBRACE service_methods RBRACE | LPAREN service_methods RPAREN) service_method_output;
 service_methods ::= service_method_param? (COMMA service_method_param)*;
 service_method_param ::= simple_struct_embed | simple_struct_field;
-service_method_name ::= <<remapIfKeyword>> IDENTIFIER;
+service_method_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 service_method_output ::= (separator_signature output (separator_err output)? )? ;
 
 output ::= output_void | output_adt | output_struct | output_singular;
@@ -221,18 +221,18 @@ output_struct_member ::= simple_struct_any (COMMA simple_struct_any)* COMMA?;
 output_singular ::= generic_id;
 
 buzzer ::= (KW_BUZZER | KW_SENDER) buzzer_name (LBRACE buzzer_method* RBRACE | LPAREN buzzer_method* RPAREN);
-buzzer_name ::= <<remapIfKeyword>> IDENTIFIER;
+buzzer_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 buzzer_method ::= (KW_LINE | KW_EVENT) buzzer_method_name (LBRACE buzzer_methods RBRACE | LPAREN buzzer_methods RPAREN) buzzer_method_output;
 buzzer_methods ::= buzzer_method_param? (COMMA buzzer_method_param)*
-buzzer_method_name ::= <<remapIfKeyword>> IDENTIFIER;
+buzzer_method_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 buzzer_method_param ::= simple_struct_embed | simple_struct_field;
 buzzer_method_output ::= (separator_signature output (separator_err output)? )?;
 
 streams ::= (KW_STREAMS | KW_TUNNEL | KW_PUMP) streams_name (LBRACE stream_value* RBRACE | LPAREN stream_value* RPAREN);
-streams_name ::= <<remapIfKeyword>> IDENTIFIER;
+streams_name ::= <<remapIfKeywordOrBiType>> IDENTIFIER;
 stream_value ::= downstream | upstream;
-downstream ::= (KW_DOWNSTREAM | KW_DOWN | KW_TOCLIENT) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
-upstream ::= (KW_UPSTREAM | KW_UP | KW_TOSERVER) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
+downstream ::= (KW_DOWNSTREAM | KW_DOWN | KW_TOCLIENT) <<remapIfKeywordOrBiType>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
+upstream ::= (KW_UPSTREAM | KW_UP | KW_TOSERVER) <<remapIfKeywordOrBiType>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN);
 stream_param ::= simple_struct_embed | simple_struct_field;
 
 const ::= (KW_CONST | KW_VALUES) (LBRACE constants RBRACE | LPAREN constants RPAREN);
@@ -247,7 +247,5 @@ just_value ::= literal | obj_def | list_def;
 obj_def ::= (LBRACE constants RBRACE | LPAREN constants RPAREN);
 list_def ::= LBRACK const_value? (separator_struct? const_value)* separator_struct? RBRACK;
 
-literal ::= float_literal | int_literal | bool_literal | string_literal;
-float_literal ::= MINUS? DECIMAL (DOT DECIMAL)? IDENTIFIER?;
-int_literal ::= MINUS? DECIMAL IDENTIFIER?;
+literal ::= FLOAT_LITERAL | INT_LITERAL | DECIMAL | NEGATIVE_DECIMAL | bool_literal | string_literal;
 bool_literal ::= TRUE | FALSE;

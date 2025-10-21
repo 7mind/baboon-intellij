@@ -11,6 +11,9 @@ public interface IdealinguaEnumValue extends PsiElement {
   IdealinguaClassType getClassType();
 
   @Nullable
+  IdealinguaConstValue getConstValue();
+
+  @Nullable
   IdealinguaEnumEmbedValue getEnumEmbedValue();
 
   @Nullable

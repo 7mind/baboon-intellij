@@ -68,6 +68,18 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
+  public static boolean adt_alias(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_alias")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ADT_ALIAS, "<adt alias>");
+    r = remapIfKeywordOrBiType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // LBRACE adt_values RBRACE | LPAREN adt_values RPAREN
   public static boolean adt_enclosed(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_enclosed")) return false;
@@ -149,7 +161,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // class_type (KW_AS IDENTIFIER)?
+  // class_type (KW_AS adt_alias)?
   public static boolean adt_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_value")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -161,34 +173,42 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (KW_AS IDENTIFIER)?
+  // (KW_AS adt_alias)?
   private static boolean adt_value_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_value_1")) return false;
     adt_value_1_0(b, l + 1);
     return true;
   }
 
-  // KW_AS IDENTIFIER
+  // KW_AS adt_alias
   private static boolean adt_value_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_value_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_AS, IDENTIFIER);
+    r = consumeToken(b, KW_AS);
+    r = r && adt_alias(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // adt_value (separator_enum? adt_value)*
+  // adt_value? (separator_enum? adt_value)* separator_enum?
   public static boolean adt_values(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_values")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = adt_value(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, ADT_VALUES, "<adt values>");
+    r = adt_values_0(b, l + 1);
     r = r && adt_values_1(b, l + 1);
-    exit_section_(b, m, ADT_VALUES, r);
+    r = r && adt_values_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // adt_value?
+  private static boolean adt_values_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_values_0")) return false;
+    adt_value(b, l + 1);
+    return true;
   }
 
   // (separator_enum? adt_value)*
@@ -216,6 +236,13 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   // separator_enum?
   private static boolean adt_values_1_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_values_1_0_0")) return false;
+    separator_enum(b, l + 1);
+    return true;
+  }
+
+  // separator_enum?
+  private static boolean adt_values_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "adt_values_2")) return false;
     separator_enum(b, l + 1);
     return true;
   }
@@ -425,12 +452,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean buzzer_method_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "buzzer_method_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUZZER_METHOD_NAME, "<buzzer method name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -530,12 +557,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean buzzer_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "buzzer_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUZZER_NAME, "<buzzer name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -566,7 +593,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KW_CLONE | KW_NEWTYPE | KW_COPY) class_name KW_INTO class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)?
+  // (KW_CLONE | KW_NEWTYPE | KW_COPY) class_name KW_INTO class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN)?
   public static boolean clone(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "clone")) return false;
     boolean r;
@@ -590,14 +617,14 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)?
+  // (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN)?
   private static boolean clone_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "clone_4")) return false;
     clone_4_0(b, l + 1);
     return true;
   }
 
-  // LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN
+  // LBRACE struct_members RBRACE | LPAREN struct_members RPAREN
   private static boolean clone_4_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "clone_4_0")) return false;
     boolean r;
@@ -608,50 +635,28 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE struct_member* RBRACE
+  // LBRACE struct_members RBRACE
   private static boolean clone_4_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "clone_4_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && clone_4_0_0_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // struct_member*
-  private static boolean clone_4_0_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "clone_4_0_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "clone_4_0_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // LPAREN struct_member* RPAREN
+  // LPAREN struct_members RPAREN
   private static boolean clone_4_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "clone_4_0_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && clone_4_0_1_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  // struct_member*
-  private static boolean clone_4_0_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "clone_4_0_1_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "clone_4_0_1_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -921,47 +926,49 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (DOT IDENTIFIER)*
+  // <<remapIfKeywordOrBiType>> IDENTIFIER (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*
   public static boolean domain_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "domain_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    r = r && domain_name_1(b, l + 1);
-    exit_section_(b, m, DOMAIN_NAME, r);
+    Marker m = enter_section_(b, l, _NONE_, DOMAIN_NAME, "<domain name>");
+    r = remapIfKeywordOrBiType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    r = r && domain_name_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (DOT IDENTIFIER)*
-  private static boolean domain_name_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "domain_name_1")) return false;
+  // (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*
+  private static boolean domain_name_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "domain_name_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!domain_name_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "domain_name_1", c)) break;
+      if (!domain_name_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "domain_name_2", c)) break;
     }
     return true;
   }
 
-  // DOT IDENTIFIER
-  private static boolean domain_name_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "domain_name_1_0")) return false;
+  // DOT <<remapIfKeywordOrBiType>> IDENTIFIER
+  private static boolean domain_name_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "domain_name_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    r = consumeToken(b, DOT);
+    r = r && remapIfKeywordOrBiType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // (KW_DOWNSTREAM | KW_DOWN | KW_TOCLIENT) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN)
+  // (KW_DOWNSTREAM | KW_DOWN | KW_TOCLIENT) <<remapIfKeywordOrBiType>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN)
   public static boolean downstream(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "downstream")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, DOWNSTREAM, "<downstream>");
     r = downstream_0(b, l + 1);
-    r = r && remapIfKeyword(b, l + 1);
+    r = r && remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     r = r && downstream_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -1074,7 +1081,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KW_DATA | KW_DTO | KW_STRUCT) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)
+  // (KW_DATA | KW_DTO | KW_STRUCT) class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN)
   public static boolean dto(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto")) return false;
     boolean r;
@@ -1096,7 +1103,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN
+  // LBRACE struct_members RBRACE | LPAREN struct_members RPAREN
   private static boolean dto_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto_2")) return false;
     boolean r;
@@ -1107,50 +1114,28 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE struct_member* RBRACE
+  // LBRACE struct_members RBRACE
   private static boolean dto_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && dto_2_0_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // struct_member*
-  private static boolean dto_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "dto_2_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // LPAREN struct_member* RPAREN
+  // LPAREN struct_members RPAREN
   private static boolean dto_2_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto_2_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && dto_2_1_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  // struct_member*
-  private static boolean dto_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dto_2_1_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "dto_2_1_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -1333,28 +1318,65 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // class_type | enum_embed_value | enum_minus_value
+  // (class_type (EQUAL const_value)?) | enum_embed_value | enum_minus_value
   public static boolean enum_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_value")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_VALUE, "<enum value>");
-    r = class_type(b, l + 1);
+    r = enum_value_0(b, l + 1);
     if (!r) r = enum_embed_value(b, l + 1);
     if (!r) r = enum_minus_value(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // class_type (EQUAL const_value)?
+  private static boolean enum_value_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_value_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = class_type(b, l + 1);
+    r = r && enum_value_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (EQUAL const_value)?
+  private static boolean enum_value_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_value_0_1")) return false;
+    enum_value_0_1_0(b, l + 1);
+    return true;
+  }
+
+  // EQUAL const_value
+  private static boolean enum_value_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_value_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EQUAL);
+    r = r && const_value(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   /* ********************************************************** */
-  // enum_value (separator_enum? enum_value)*
+  // enum_value? (separator_enum? enum_value)* separator_enum?
   public static boolean enum_values(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_values")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_VALUES, "<enum values>");
-    r = enum_value(b, l + 1);
+    r = enum_values_0(b, l + 1);
     r = r && enum_values_1(b, l + 1);
+    r = r && enum_values_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // enum_value?
+  private static boolean enum_values_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_values_0")) return false;
+    enum_value(b, l + 1);
+    return true;
   }
 
   // (separator_enum? enum_value)*
@@ -1382,6 +1404,13 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   // separator_enum?
   private static boolean enum_values_1_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enum_values_1_0_0")) return false;
+    separator_enum(b, l + 1);
+    return true;
+  }
+
+  // separator_enum?
+  private static boolean enum_values_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enum_values_2")) return false;
     separator_enum(b, l + 1);
     return true;
   }
@@ -1433,52 +1462,6 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
       if (!content(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "file_3", c)) break;
     }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // MINUS? DECIMAL (DOT DECIMAL)? IDENTIFIER?
-  public static boolean float_literal(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "float_literal")) return false;
-    if (!nextTokenIs(b, "<float literal>", DECIMAL, MINUS)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, FLOAT_LITERAL, "<float literal>");
-    r = float_literal_0(b, l + 1);
-    r = r && consumeToken(b, DECIMAL);
-    r = r && float_literal_2(b, l + 1);
-    r = r && float_literal_3(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // MINUS?
-  private static boolean float_literal_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "float_literal_0")) return false;
-    consumeToken(b, MINUS);
-    return true;
-  }
-
-  // (DOT DECIMAL)?
-  private static boolean float_literal_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "float_literal_2")) return false;
-    float_literal_2_0(b, l + 1);
-    return true;
-  }
-
-  // DOT DECIMAL
-  private static boolean float_literal_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "float_literal_2_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, DECIMAL);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // IDENTIFIER?
-  private static boolean float_literal_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "float_literal_3")) return false;
-    consumeToken(b, IDENTIFIER);
     return true;
   }
 
@@ -1748,12 +1731,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean id_member_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "id_member_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ID_MEMBER_NAME, "<id member name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1914,34 +1897,6 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MINUS? DECIMAL IDENTIFIER?
-  public static boolean int_literal(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "int_literal")) return false;
-    if (!nextTokenIs(b, "<int literal>", DECIMAL, MINUS)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, INT_LITERAL, "<int literal>");
-    r = int_literal_0(b, l + 1);
-    r = r && consumeToken(b, DECIMAL);
-    r = r && int_literal_2(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // MINUS?
-  private static boolean int_literal_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "int_literal_0")) return false;
-    consumeToken(b, MINUS);
-    return true;
-  }
-
-  // IDENTIFIER?
-  private static boolean int_literal_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "int_literal_2")) return false;
-    consumeToken(b, IDENTIFIER);
-    return true;
-  }
-
-  /* ********************************************************** */
   // literal | obj_def | list_def
   public static boolean just_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "just_value")) return false;
@@ -2014,13 +1969,15 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // float_literal | int_literal | bool_literal | string_literal
+  // FLOAT_LITERAL | INT_LITERAL | DECIMAL | NEGATIVE_DECIMAL | bool_literal | string_literal
   public static boolean literal(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "literal")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, LITERAL, "<literal>");
-    r = float_literal(b, l + 1);
-    if (!r) r = int_literal(b, l + 1);
+    r = consumeToken(b, FLOAT_LITERAL);
+    if (!r) r = consumeToken(b, INT_LITERAL);
+    if (!r) r = consumeToken(b, DECIMAL);
+    if (!r) r = consumeToken(b, NEGATIVE_DECIMAL);
     if (!r) r = bool_literal(b, l + 1);
     if (!r) r = string_literal(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -2041,7 +1998,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KW_MIXIN | KW_INTERFACE) class_name (LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN)
+  // (KW_MIXIN | KW_INTERFACE) class_name (LBRACE struct_members RBRACE | LPAREN struct_members RPAREN)
   public static boolean mixin(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mixin")) return false;
     if (!nextTokenIs(b, "<mixin>", KW_INTERFACE, KW_MIXIN)) return false;
@@ -2063,7 +2020,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE struct_member* RBRACE | LPAREN struct_member* RPAREN
+  // LBRACE struct_members RBRACE | LPAREN struct_members RPAREN
   private static boolean mixin_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mixin_2")) return false;
     boolean r;
@@ -2074,50 +2031,28 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE struct_member* RBRACE
+  // LBRACE struct_members RBRACE
   private static boolean mixin_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mixin_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && mixin_2_0_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // struct_member*
-  private static boolean mixin_2_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "mixin_2_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "mixin_2_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // LPAREN struct_member* RPAREN
+  // LPAREN struct_members RPAREN
   private static boolean mixin_2_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mixin_2_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && mixin_2_1_1(b, l + 1);
+    r = r && struct_members(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  // struct_member*
-  private static boolean mixin_2_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "mixin_2_1_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!struct_member(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "mixin_2_1_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -2383,35 +2318,37 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (DOT IDENTIFIER)*
+  // <<remapIfKeywordOrBiType>> IDENTIFIER (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*
   public static boolean package_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "package_name")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    r = r && package_name_1(b, l + 1);
-    exit_section_(b, m, PACKAGE_NAME, r);
+    Marker m = enter_section_(b, l, _NONE_, PACKAGE_NAME, "<package name>");
+    r = remapIfKeywordOrBiType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    r = r && package_name_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (DOT IDENTIFIER)*
-  private static boolean package_name_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "package_name_1")) return false;
+  // (DOT <<remapIfKeywordOrBiType>> IDENTIFIER)*
+  private static boolean package_name_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "package_name_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!package_name_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "package_name_1", c)) break;
+      if (!package_name_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "package_name_2", c)) break;
     }
     return true;
   }
 
-  // DOT IDENTIFIER
-  private static boolean package_name_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "package_name_1_0")) return false;
+  // DOT <<remapIfKeywordOrBiType>> IDENTIFIER
+  private static boolean package_name_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "package_name_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    r = consumeToken(b, DOT);
+    r = r && remapIfKeywordOrBiType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -2612,12 +2549,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean service_method_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "service_method_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, SERVICE_METHOD_NAME, "<service method name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -2717,12 +2654,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean service_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "service_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, SERVICE_NAME, "<service name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -2910,12 +2847,12 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean streams_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "streams_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STREAMS_NAME, "<streams name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -2982,14 +2919,14 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (PLUS (PLUS PLUS)? | DOT DOT DOT) class_type
+  // (PLUS (PLUS PLUS)? | DOT DOT DOT) (struct_def | class_type)
   public static boolean struct_embed_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "struct_embed_value")) return false;
     if (!nextTokenIs(b, "<struct embed value>", DOT, PLUS)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STRUCT_EMBED_VALUE, "<struct embed value>");
     r = struct_embed_value_0(b, l + 1);
-    r = r && class_type(b, l + 1);
+    r = r && struct_embed_value_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -3033,6 +2970,15 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // struct_def | class_type
+  private static boolean struct_embed_value_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_embed_value_1")) return false;
+    boolean r;
+    r = struct_def(b, l + 1);
+    if (!r) r = class_type(b, l + 1);
+    return r;
+  }
+
   /* ********************************************************** */
   // struct_def | struct_plus_value | struct_embed_value | struct_minus_value
   public static boolean struct_member(PsiBuilder b, int l) {
@@ -3048,7 +2994,63 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MINUS (MINUS MINUS)? class_type
+  // struct_member? (separator_struct? struct_member)* separator_struct?
+  public static boolean struct_members(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, STRUCT_MEMBERS, "<struct members>");
+    r = struct_members_0(b, l + 1);
+    r = r && struct_members_1(b, l + 1);
+    r = r && struct_members_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // struct_member?
+  private static boolean struct_members_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members_0")) return false;
+    struct_member(b, l + 1);
+    return true;
+  }
+
+  // (separator_struct? struct_member)*
+  private static boolean struct_members_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!struct_members_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "struct_members_1", c)) break;
+    }
+    return true;
+  }
+
+  // separator_struct? struct_member
+  private static boolean struct_members_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = struct_members_1_0_0(b, l + 1);
+    r = r && struct_member(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // separator_struct?
+  private static boolean struct_members_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members_1_0_0")) return false;
+    separator_struct(b, l + 1);
+    return true;
+  }
+
+  // separator_struct?
+  private static boolean struct_members_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_members_2")) return false;
+    separator_struct(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // MINUS (MINUS MINUS)? (struct_def | class_type)
   public static boolean struct_minus_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "struct_minus_value")) return false;
     if (!nextTokenIs(b, MINUS)) return false;
@@ -3056,7 +3058,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, MINUS);
     r = r && struct_minus_value_1(b, l + 1);
-    r = r && class_type(b, l + 1);
+    r = r && struct_minus_value_2(b, l + 1);
     exit_section_(b, m, STRUCT_MINUS_VALUE, r);
     return r;
   }
@@ -3078,20 +3080,29 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // struct_def | class_type
+  private static boolean struct_minus_value_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_minus_value_2")) return false;
+    boolean r;
+    r = struct_def(b, l + 1);
+    if (!r) r = class_type(b, l + 1);
+    return r;
+  }
+
   /* ********************************************************** */
-  // <<remapIfKeyword>> IDENTIFIER
+  // <<remapIfKeywordOrBiType>> IDENTIFIER
   public static boolean struct_name(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "struct_name")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STRUCT_NAME, "<struct name>");
-    r = remapIfKeyword(b, l + 1);
+    r = remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // AMPERSAND (AMPERSAND AMPERSAND)? class_type
+  // AMPERSAND (AMPERSAND AMPERSAND)? (struct_def | class_type)
   public static boolean struct_plus_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "struct_plus_value")) return false;
     if (!nextTokenIs(b, AMPERSAND)) return false;
@@ -3099,7 +3110,7 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, AMPERSAND);
     r = r && struct_plus_value_1(b, l + 1);
-    r = r && class_type(b, l + 1);
+    r = r && struct_plus_value_2(b, l + 1);
     exit_section_(b, m, STRUCT_PLUS_VALUE, r);
     return r;
   }
@@ -3118,6 +3129,15 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, AMPERSAND, AMPERSAND);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // struct_def | class_type
+  private static boolean struct_plus_value_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "struct_plus_value_2")) return false;
+    boolean r;
+    r = struct_def(b, l + 1);
+    if (!r) r = class_type(b, l + 1);
     return r;
   }
 
@@ -3150,13 +3170,13 @@ public class IdealinguaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KW_UPSTREAM | KW_UP | KW_TOSERVER) <<remapIfKeyword>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN)
+  // (KW_UPSTREAM | KW_UP | KW_TOSERVER) <<remapIfKeywordOrBiType>> IDENTIFIER (LBRACE stream_param? (COMMA stream_param)* RBRACE | LPAREN stream_param? (COMMA stream_param)* RPAREN)
   public static boolean upstream(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "upstream")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, UPSTREAM, "<upstream>");
     r = upstream_0(b, l + 1);
-    r = r && remapIfKeyword(b, l + 1);
+    r = r && remapIfKeywordOrBiType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     r = r && upstream_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);

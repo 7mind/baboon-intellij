@@ -35,8 +35,8 @@ public class IdealinguaDtoImpl extends ASTWrapperPsiElement implements Idealingu
 
   @Override
   @NotNull
-  public List<IdealinguaStructMember> getStructMemberList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, IdealinguaStructMember.class);
+  public IdealinguaStructMembers getStructMembers() {
+    return findNotNullChildByClass(IdealinguaStructMembers.class);
   }
 
 }

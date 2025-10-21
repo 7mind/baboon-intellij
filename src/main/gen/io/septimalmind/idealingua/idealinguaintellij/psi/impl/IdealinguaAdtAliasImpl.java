@@ -11,14 +11,14 @@ import static io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes.
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.idealingua.idealinguaintellij.psi.*;
 
-public class IdealinguaFloatLiteralImpl extends ASTWrapperPsiElement implements IdealinguaFloatLiteral {
+public class IdealinguaAdtAliasImpl extends ASTWrapperPsiElement implements IdealinguaAdtAlias {
 
-  public IdealinguaFloatLiteralImpl(@NotNull ASTNode node) {
+  public IdealinguaAdtAliasImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull IdealinguaVisitor visitor) {
-    visitor.visitFloatLiteral(this);
+    visitor.visitAdtAlias(this);
   }
 
   @Override
@@ -28,9 +28,9 @@ public class IdealinguaFloatLiteralImpl extends ASTWrapperPsiElement implements 
   }
 
   @Override
-  @Nullable
+  @NotNull
   public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+    return findNotNullChildByType(IDENTIFIER);
   }
 
 }
