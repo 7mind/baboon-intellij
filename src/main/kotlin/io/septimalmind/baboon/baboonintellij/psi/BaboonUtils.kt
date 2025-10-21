@@ -1,16 +1,19 @@
 package io.septimalmind.baboon.baboonintellij.psi
 
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.search.GlobalSearchScopesCore
 import com.intellij.psi.util.PsiTreeUtil
 import io.septimalmind.baboon.baboonintellij.language.BaboonFileType
 
 object BaboonUtils {
-    fun findClassNames(project: Project, key: String): List<BaboonClassName> {
+    fun findClassNames(project: Project, elementDirectory: PsiDirectory?, key: String): List<BaboonClassName> {
         val result = ArrayList<BaboonClassName>()
-        val virtualFiles = FileTypeIndex.getFiles(BaboonFileType, GlobalSearchScope.allScope(project))
+        val searchScope = elementDirectory?.let { GlobalSearchScopesCore.directoryScope(project,it.virtualFile, true)} ?: GlobalSearchScope.EMPTY_SCOPE
+        val virtualFiles = FileTypeIndex.getFiles(BaboonFileType, searchScope)
         for (virtualFile in virtualFiles) {
             val baboonFile = PsiManager.getInstance(project).findFile(
                 virtualFile!!

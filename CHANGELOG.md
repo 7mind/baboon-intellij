@@ -4,10 +4,11 @@
 
 ## [Unreleased]
 
-## [0.0.7] - 2025-10-17
+## [0.0.7] - 2025-10-21
 
 - Added IdeaLingua support (highlights + code completion)
 - Display path to found references
+- Narrow the search scope of references for Baboon to containing directory
 
 ## [0.0.6] - 2025-10-02
 
