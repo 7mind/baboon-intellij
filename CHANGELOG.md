@@ -6,7 +6,7 @@
 
 ## [0.0.8] - 2025-12-12
 
-- Added plugin auto publish
+- Added plugin auto publish (github action)
 
 ## [0.0.7] - 2025-10-21
 

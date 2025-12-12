@@ -3,6 +3,11 @@ name: Build & Publish Plugin
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/**'
+      - 'build.gradle.kts'
+      - 'gradle.properties'
+      - 'CHANGELOG.md'
 
 jobs:
   prepare:
