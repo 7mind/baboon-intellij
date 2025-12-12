@@ -1,0 +1,76 @@
+name: Build & Publish Plugin
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prepare:
+    name: Prepare Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract Version
+        id: version
+        run: |
+          VERSION=$(grep "^pluginVersion" gradle.properties | awk -F'=' '{print $2}' | xargs)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+  build-plugin:
+    name: Build IntelliJ Plugin
+    needs: [prepare]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build Plugin
+        run: ./gradlew buildPlugin -x verifyPluginProjectConfiguration -x buildSearchableOptions -PpluginVersion=${{ needs.prepare.outputs.version }}
+
+      - name: Upload IntelliJ Plugin
+        uses: actions/upload-artifact@v4
+        with:
+          name: baboon-intellij-${{ needs.prepare.outputs.version }}
+          path: build/distributions/*.zip
+          retention-days: 30
+
+  publish-plugin:
+    name: Publish IntelliJ Plugin
+    needs: [prepare, build-plugin]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Publish Plugin
+        run: |
+          ./gradlew publishPlugin -x verifyPluginProjectConfiguration -PpluginVersion=${{ needs.prepare.outputs.version }}
+        env:
+          PUBLISH_TOKEN: ${{ secrets.JETBRAINS_PUBLISH_TOKEN }}

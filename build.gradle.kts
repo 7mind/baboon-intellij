@@ -45,6 +45,10 @@ intellijPlatform {
             create(properties("platformType"), properties("platformVersion"))
         }
     }
+
+    publishing {
+        token = providers.environmentVariable("PUBLISH_TOKEN")
+    }
 }
 
 changelog {
