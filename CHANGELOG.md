@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.8] - 2025-12-12
+
+- Added plugin auto publish
+
 ## [0.0.7] - 2025-10-21
 
 - Added IdeaLingua support (highlights + code completion)
