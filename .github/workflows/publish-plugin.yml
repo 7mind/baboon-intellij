@@ -2,8 +2,7 @@ name: Build & Publish Plugin
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   prepare:
