@@ -10,10 +10,10 @@ public interface BaboonForeign extends PsiElement {
   @NotNull
   BaboonClassName getClassName();
 
-  @Nullable
-  BaboonDerived getDerived();
-
   @NotNull
   List<BaboonForeignMember> getForeignMemberList();
+
+  @Nullable
+  BaboonMemberMeta getMemberMeta();
 
 }

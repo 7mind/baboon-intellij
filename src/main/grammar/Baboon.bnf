@@ -34,6 +34,7 @@
     KW_DERIVED   = "derived"
     KW_IMPORT    = "import"
     KW_WITHOUT   = "without"
+    KW_WAS       = "was"
 
     LBRACE = "{"
     RBRACE = "}"
@@ -98,16 +99,22 @@ class_name ::= IDENTIFIER {
     implements="io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement"
 };
 
+// member_meta
+member_meta ::= derived | renamed;
+
+// renamed
+renamed ::= COLON KW_WAS LBRACK (IDENTIFIER DOT)* IDENTIFIER RBRACK;
+
 // derived
 derived ::= COLON derived_member (COMMA derived_member)*;
 derived_member ::= KW_DERIVED LBRACK IDENTIFIER RBRACK;
 
 // enum
-choice ::= KW_CHOICE class_name derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
+choice ::= KW_CHOICE class_name member_meta? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
 choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
 
 // dto
-dto ::= KW_DATA class_name derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+dto ::= KW_DATA class_name member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
 dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
 
 field_def ::= field_name COLON type_ref;
@@ -126,11 +133,11 @@ unfield_def ::= MINUS field_def;
 extended_contract_def ::= KW_IS non_generic_type_ref;
 
 // adt
-adt ::= KW_ADT class_name derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
+adt ::= KW_ADT class_name member_meta? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
 adt_member ::= (dto | contract) | extended_contract_def;
 
 // foreign
-foreign ::= KW_FOREIGN class_name derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
+foreign ::= KW_FOREIGN class_name member_meta? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
 foreign_member ::= IDENTIFIER EQUAL string_literal foreign_attrs?;
 foreign_attrs ::= KW_WITH LBRACE key_value_pair* RBRACE;
 key_value_pair ::= string_literal EQUAL string_literal;

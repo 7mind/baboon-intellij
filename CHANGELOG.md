@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.9] - 2026-01-09
+
+- Added highlights for baboon renames
+
 ## [0.0.8] - 2025-12-12
 
 - Added plugin auto publish (github action)

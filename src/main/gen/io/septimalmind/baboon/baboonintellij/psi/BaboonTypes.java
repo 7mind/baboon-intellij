@@ -35,11 +35,13 @@ public interface BaboonTypes {
   IElementType KEY_VALUE_PAIR = new BaboonElementType("KEY_VALUE_PAIR");
   IElementType MAIN_MEMBER = new BaboonElementType("MAIN_MEMBER");
   IElementType MEMBER = new BaboonElementType("MEMBER");
+  IElementType MEMBER_META = new BaboonElementType("MEMBER_META");
   IElementType MODEL = new BaboonElementType("MODEL");
   IElementType MODEL_NAME = new BaboonElementType("MODEL_NAME");
   IElementType NAMESPACE = new BaboonElementType("NAMESPACE");
   IElementType NON_GENERIC_TYPE_REF = new BaboonElementType("NON_GENERIC_TYPE_REF");
   IElementType PARENT_DEF = new BaboonElementType("PARENT_DEF");
+  IElementType RENAMED = new BaboonElementType("RENAMED");
   IElementType SERVICE = new BaboonElementType("SERVICE");
   IElementType SERVICE_MEMBER = new BaboonElementType("SERVICE_MEMBER");
   IElementType SIGNATURE_INLINE = new BaboonElementType("SIGNATURE_INLINE");
@@ -85,6 +87,7 @@ public interface BaboonTypes {
   IElementType KW_SERVICE = new BaboonTokenType("service");
   IElementType KW_STRUCT = new BaboonTokenType("struct");
   IElementType KW_VERSION = new BaboonTokenType("version");
+  IElementType KW_WAS = new BaboonTokenType("was");
   IElementType KW_WITH = new BaboonTokenType("with");
   IElementType KW_WITHOUT = new BaboonTokenType("without");
   IElementType LBRACE = new BaboonTokenType("{");
@@ -190,6 +193,9 @@ public interface BaboonTypes {
       else if (type == MEMBER) {
         return new BaboonMemberImpl(node);
       }
+      else if (type == MEMBER_META) {
+        return new BaboonMemberMetaImpl(node);
+      }
       else if (type == MODEL) {
         return new BaboonModelImpl(node);
       }
@@ -204,6 +210,9 @@ public interface BaboonTypes {
       }
       else if (type == PARENT_DEF) {
         return new BaboonParentDefImpl(node);
+      }
+      else if (type == RENAMED) {
+        return new BaboonRenamedImpl(node);
       }
       else if (type == SERVICE) {
         return new BaboonServiceImpl(node);

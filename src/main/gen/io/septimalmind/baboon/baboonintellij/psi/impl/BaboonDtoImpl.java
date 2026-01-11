@@ -34,15 +34,15 @@ public class BaboonDtoImpl extends ASTWrapperPsiElement implements BaboonDto {
   }
 
   @Override
-  @Nullable
-  public BaboonDerived getDerived() {
-    return findChildByClass(BaboonDerived.class);
-  }
-
-  @Override
   @NotNull
   public List<BaboonDtoMember> getDtoMemberList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonDtoMember.class);
+  }
+
+  @Override
+  @Nullable
+  public BaboonMemberMeta getMemberMeta() {
+    return findChildByClass(BaboonMemberMeta.class);
   }
 
 }

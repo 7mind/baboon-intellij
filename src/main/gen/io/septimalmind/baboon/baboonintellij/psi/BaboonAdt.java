@@ -14,6 +14,6 @@ public interface BaboonAdt extends PsiElement {
   BaboonClassName getClassName();
 
   @Nullable
-  BaboonDerived getDerived();
+  BaboonMemberMeta getMemberMeta();
 
 }

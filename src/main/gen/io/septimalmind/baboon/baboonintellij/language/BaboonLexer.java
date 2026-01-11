@@ -106,17 +106,17 @@ class BaboonLexer implements FlexLexer {
     "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
     "\1\17\1\20\1\21\1\22\1\23\21\20\1\24\1\25"+
     "\1\1\1\26\1\2\1\27\2\30\1\0\1\31\1\0"+
-    "\1\32\16\20\1\33\1\34\2\20\1\35\10\20\1\0"+
+    "\1\32\16\20\1\33\1\34\2\20\1\35\11\20\1\0"+
     "\1\36\1\37\1\0\1\40\2\0\1\41\1\42\2\20"+
-    "\1\43\2\20\1\44\4\20\1\45\2\20\1\42\2\20"+
-    "\1\46\1\37\4\0\1\47\1\20\1\50\1\20\1\51"+
-    "\4\20\1\52\3\20\1\53\1\37\1\0\1\47\1\54"+
-    "\5\20\1\55\4\20\1\0\3\20\1\56\2\20\1\57"+
-    "\2\20\1\60\1\20\1\61\1\62\1\63\1\64\1\65"+
-    "\1\66\1\67";
+    "\1\43\2\20\1\44\4\20\1\45\2\20\1\42\1\20"+
+    "\1\46\1\20\1\47\1\37\4\0\1\50\1\20\1\51"+
+    "\1\20\1\52\4\20\1\53\3\20\1\54\1\37\1\0"+
+    "\1\50\1\55\5\20\1\56\4\20\1\0\3\20\1\57"+
+    "\2\20\1\60\2\20\1\61\1\20\1\62\1\63\1\64"+
+    "\1\65\1\66\1\67\1\70";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[157];
+    int [] result = new int[159];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -151,19 +151,19 @@ class BaboonLexer implements FlexLexer {
     "\0\u07ec\0\u0820\0\u0854\0\u0888\0\u08bc\0\u08f0\0\u0924\0\u0958"+
     "\0\u098c\0\u09c0\0\u09f4\0\u0208\0\u0a28\0\u0a5c\0\u0208\0\u0a90"+
     "\0\u0ac4\0\u0af8\0\u0b2c\0\u0b60\0\u0b94\0\u0bc8\0\u0bfc\0\u0c30"+
-    "\0\320\0\u0c64\0\u0c98\0\320\0\u0ccc\0\u0d00\0\u0208\0\u0208"+
-    "\0\u0d34\0\u0d68\0\u0208\0\u0d9c\0\u0dd0\0\u0208\0\u0e04\0\u0e38"+
-    "\0\u0e6c\0\u0ea0\0\u0208\0\u0ed4\0\u0f08\0\u0f3c\0\u0f70\0\u0fa4"+
-    "\0\320\0\u0fd8\0\u100c\0\u1040\0\u1074\0\u10a8\0\u1074\0\u10dc"+
-    "\0\u0208\0\u1110\0\u0208\0\u1144\0\u1178\0\u11ac\0\u11e0\0\u0208"+
-    "\0\u1214\0\u1248\0\u127c\0\u12b0\0\320\0\u12e4\0\320\0\320"+
-    "\0\u1318\0\u134c\0\u1380\0\u13b4\0\u13e8\0\u0208\0\u141c\0\u1450"+
-    "\0\u1484\0\u14b8\0\u14ec\0\u1520\0\u1554\0\u1588\0\u0208\0\u15bc"+
-    "\0\u15f0\0\u0208\0\u1624\0\u1658\0\320\0\u168c\0\u0208\0\u0208"+
-    "\0\u0208\0\u0208\0\u0208\0\u0208\0\u0208";
+    "\0\u0c64\0\320\0\u0c98\0\u0ccc\0\320\0\u0d00\0\u0d34\0\u0208"+
+    "\0\u0208\0\u0d68\0\u0d9c\0\u0208\0\u0dd0\0\u0e04\0\u0208\0\u0e38"+
+    "\0\u0e6c\0\u0ea0\0\u0ed4\0\u0208\0\u0f08\0\u0f3c\0\u0f70\0\u0fa4"+
+    "\0\u0208\0\u0fd8\0\320\0\u100c\0\u1040\0\u1074\0\u10a8\0\u10dc"+
+    "\0\u10a8\0\u1110\0\u0208\0\u1144\0\u0208\0\u1178\0\u11ac\0\u11e0"+
+    "\0\u1214\0\u0208\0\u1248\0\u127c\0\u12b0\0\u12e4\0\320\0\u1318"+
+    "\0\320\0\320\0\u134c\0\u1380\0\u13b4\0\u13e8\0\u141c\0\u0208"+
+    "\0\u1450\0\u1484\0\u14b8\0\u14ec\0\u1520\0\u1554\0\u1588\0\u15bc"+
+    "\0\u0208\0\u15f0\0\u1624\0\u0208\0\u1658\0\u168c\0\320\0\u16c0"+
+    "\0\u0208\0\u0208\0\u0208\0\u0208\0\u0208\0\u0208\0\u0208";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[157];
+    int [] result = new int[159];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -216,87 +216,88 @@ class BaboonLexer implements FlexLexer {
     "\1\101\1\24\1\75\2\24\1\76\1\24\2\0\1\24"+
     "\4\0\11\24\1\115\13\24\20\0\10\24\2\0\1\24"+
     "\4\0\5\24\1\116\17\24\20\0\10\24\2\0\1\24"+
-    "\4\0\11\24\1\117\13\24\2\0\4\53\1\0\25\53"+
-    "\1\0\31\53\4\0\1\120\63\0\2\121\10\0\10\122"+
-    "\4\0\1\121\4\0\1\121\3\0\1\121\5\0\1\121"+
-    "\2\0\1\121\1\0\1\121\1\123\6\0\1\57\65\0"+
-    "\1\124\57\0\10\125\1\126\53\125\2\64\1\0\61\64"+
-    "\16\0\10\24\2\0\1\24\4\0\21\24\1\127\3\24"+
-    "\20\0\10\24\2\0\1\24\4\0\21\24\1\130\3\24"+
-    "\20\0\10\24\2\0\1\24\4\0\14\24\1\131\10\24"+
-    "\20\0\10\24\2\0\1\24\4\0\21\24\1\132\3\24"+
-    "\20\0\10\24\2\0\1\24\4\0\6\24\1\133\10\24"+
-    "\1\134\5\24\20\0\10\24\2\0\1\24\4\0\22\24"+
-    "\1\135\2\24\20\0\10\24\2\0\1\24\4\0\17\24"+
-    "\1\136\5\24\20\0\2\24\1\100\5\24\2\0\1\24"+
-    "\4\0\25\24\20\0\2\24\1\130\5\24\2\0\1\24"+
-    "\4\0\25\24\20\0\4\24\1\130\3\24\2\0\1\24"+
-    "\4\0\25\24\20\0\10\24\2\0\1\24\4\0\17\24"+
-    "\1\137\5\24\20\0\7\24\1\130\2\0\1\24\4\0"+
-    "\25\24\20\0\6\24\1\130\1\24\2\0\1\24\4\0"+
-    "\25\24\20\0\10\24\2\0\1\24\4\0\16\24\1\140"+
-    "\6\24\20\0\10\24\2\0\1\24\4\0\3\24\1\141"+
-    "\21\24\20\0\10\24\2\0\1\24\4\0\16\24\1\130"+
-    "\6\24\20\0\10\24\2\0\1\24\4\0\4\24\1\142"+
-    "\20\24\20\0\10\24\2\0\1\24\4\0\21\24\1\143"+
-    "\3\24\20\0\10\24\2\0\1\24\4\0\15\24\1\144"+
-    "\7\24\20\0\10\24\2\0\1\24\4\0\17\24\1\145"+
-    "\1\24\1\130\3\24\20\0\10\24\2\0\1\24\4\0"+
-    "\17\24\1\146\5\24\20\0\10\24\2\0\1\24\4\0"+
-    "\15\24\1\130\4\24\1\130\2\24\20\0\10\24\2\0"+
-    "\1\24\4\0\4\24\1\130\20\24\20\0\10\24\2\0"+
+    "\4\0\1\24\1\117\7\24\1\120\13\24\2\0\4\53"+
+    "\1\0\25\53\1\0\31\53\4\0\1\121\63\0\2\122"+
+    "\10\0\10\123\4\0\1\122\4\0\1\122\3\0\1\122"+
+    "\5\0\1\122\2\0\1\122\1\0\1\122\1\124\6\0"+
+    "\1\57\65\0\1\125\57\0\10\126\1\127\53\126\2\64"+
+    "\1\0\61\64\16\0\10\24\2\0\1\24\4\0\21\24"+
+    "\1\130\3\24\20\0\10\24\2\0\1\24\4\0\21\24"+
+    "\1\131\3\24\20\0\10\24\2\0\1\24\4\0\14\24"+
+    "\1\132\10\24\20\0\10\24\2\0\1\24\4\0\21\24"+
+    "\1\133\3\24\20\0\10\24\2\0\1\24\4\0\6\24"+
+    "\1\134\10\24\1\135\5\24\20\0\10\24\2\0\1\24"+
+    "\4\0\22\24\1\136\2\24\20\0\10\24\2\0\1\24"+
+    "\4\0\17\24\1\137\5\24\20\0\2\24\1\100\5\24"+
+    "\2\0\1\24\4\0\25\24\20\0\2\24\1\131\5\24"+
+    "\2\0\1\24\4\0\25\24\20\0\4\24\1\131\3\24"+
+    "\2\0\1\24\4\0\25\24\20\0\10\24\2\0\1\24"+
+    "\4\0\17\24\1\140\5\24\20\0\7\24\1\131\2\0"+
+    "\1\24\4\0\25\24\20\0\6\24\1\131\1\24\2\0"+
+    "\1\24\4\0\25\24\20\0\10\24\2\0\1\24\4\0"+
+    "\16\24\1\141\6\24\20\0\10\24\2\0\1\24\4\0"+
+    "\3\24\1\142\21\24\20\0\10\24\2\0\1\24\4\0"+
+    "\16\24\1\131\6\24\20\0\10\24\2\0\1\24\4\0"+
+    "\4\24\1\143\20\24\20\0\10\24\2\0\1\24\4\0"+
+    "\21\24\1\144\3\24\20\0\10\24\2\0\1\24\4\0"+
+    "\15\24\1\145\7\24\20\0\10\24\2\0\1\24\4\0"+
+    "\17\24\1\146\1\24\1\131\3\24\20\0\10\24\2\0"+
     "\1\24\4\0\17\24\1\147\5\24\20\0\10\24\2\0"+
-    "\1\24\4\0\21\24\1\150\3\24\6\0\1\151\75\0"+
-    "\10\152\54\0\10\153\2\0\1\153\5\0\24\153\2\0"+
-    "\10\125\1\154\53\125\10\155\1\156\4\155\1\157\46\155"+
-    "\16\0\10\24\2\0\1\24\4\0\21\24\1\160\3\24"+
-    "\20\0\10\24\2\0\1\24\4\0\1\24\1\161\23\24"+
-    "\20\0\10\24\2\0\1\24\4\0\11\24\1\162\13\24"+
-    "\20\0\10\24\2\0\1\24\4\0\13\24\1\163\11\24"+
-    "\20\0\10\24\2\0\1\24\4\0\5\24\1\164\17\24"+
-    "\20\0\10\24\2\0\1\24\4\0\15\24\1\165\7\24"+
-    "\20\0\10\24\2\0\1\24\4\0\12\24\1\166\12\24"+
-    "\20\0\10\24\2\0\1\24\4\0\5\24\1\167\17\24"+
-    "\20\0\10\24\2\0\1\24\4\0\21\24\1\170\3\24"+
-    "\20\0\10\24\2\0\1\24\4\0\23\24\1\171\1\24"+
-    "\20\0\10\24\2\0\1\24\4\0\22\24\1\172\2\24"+
-    "\20\0\10\24\2\0\1\24\4\0\20\24\1\173\4\24"+
-    "\20\0\10\24\2\0\1\24\4\0\10\24\1\174\14\24"+
-    "\20\0\10\175\54\0\10\176\2\0\1\176\5\0\24\176"+
-    "\2\0\10\125\1\154\4\125\1\177\46\125\10\155\1\156"+
-    "\63\155\1\156\4\155\1\200\46\155\16\0\10\24\2\0"+
-    "\1\24\4\0\17\24\1\201\5\24\20\0\10\24\2\0"+
-    "\1\24\4\0\23\24\1\202\1\24\20\0\10\24\2\0"+
-    "\1\24\4\0\11\24\1\203\13\24\20\0\10\24\2\0"+
-    "\1\24\4\0\17\24\1\204\5\24\20\0\10\24\2\0"+
-    "\1\24\4\0\22\24\1\205\2\24\20\0\10\24\2\0"+
-    "\1\24\4\0\12\24\1\206\12\24\20\0\10\24\2\0"+
-    "\1\24\4\0\11\24\1\207\13\24\20\0\10\24\2\0"+
-    "\1\24\4\0\3\24\1\210\21\24\20\0\10\24\2\0"+
-    "\1\24\4\0\11\24\1\211\13\24\20\0\10\24\2\0"+
-    "\1\24\4\0\15\24\1\212\7\24\20\0\10\213\2\0"+
-    "\1\213\5\0\24\213\20\0\10\24\2\0\1\24\4\0"+
-    "\1\24\1\214\23\24\20\0\10\24\2\0\1\24\4\0"+
-    "\5\24\1\215\17\24\20\0\10\24\2\0\1\24\4\0"+
-    "\7\24\1\216\15\24\20\0\10\24\2\0\1\24\4\0"+
-    "\21\24\1\217\3\24\20\0\10\24\2\0\1\24\4\0"+
-    "\4\24\1\220\20\24\20\0\10\24\2\0\1\24\4\0"+
-    "\3\24\1\221\21\24\20\0\10\24\2\0\1\24\4\0"+
-    "\21\24\1\222\3\24\20\0\10\24\2\0\1\24\4\0"+
-    "\15\24\1\223\7\24\20\0\10\24\2\0\1\24\4\0"+
-    "\22\24\1\224\2\24\20\0\10\225\2\0\1\225\5\0"+
-    "\24\225\20\0\10\24\2\0\1\24\4\0\3\24\1\226"+
-    "\21\24\20\0\10\24\2\0\1\24\4\0\4\24\1\227"+
-    "\20\24\20\0\10\24\2\0\1\24\4\0\14\24\1\230"+
-    "\10\24\20\0\10\24\2\0\1\24\4\0\5\24\1\231"+
-    "\17\24\20\0\10\24\2\0\1\24\4\0\5\24\1\232"+
-    "\17\24\20\0\10\24\2\0\1\24\4\0\14\24\1\233"+
-    "\10\24\20\0\10\24\2\0\1\24\4\0\21\24\1\234"+
-    "\3\24\20\0\10\24\2\0\1\24\4\0\21\24\1\235"+
-    "\3\24\2\0";
+    "\1\24\4\0\15\24\1\131\4\24\1\131\2\24\20\0"+
+    "\10\24\2\0\1\24\4\0\4\24\1\131\20\24\20\0"+
+    "\10\24\2\0\1\24\4\0\17\24\1\150\5\24\20\0"+
+    "\10\24\2\0\1\24\4\0\20\24\1\151\4\24\20\0"+
+    "\10\24\2\0\1\24\4\0\21\24\1\152\3\24\6\0"+
+    "\1\153\75\0\10\154\54\0\10\155\2\0\1\155\5\0"+
+    "\24\155\2\0\10\126\1\156\53\126\10\157\1\160\4\157"+
+    "\1\161\46\157\16\0\10\24\2\0\1\24\4\0\21\24"+
+    "\1\162\3\24\20\0\10\24\2\0\1\24\4\0\1\24"+
+    "\1\163\23\24\20\0\10\24\2\0\1\24\4\0\11\24"+
+    "\1\164\13\24\20\0\10\24\2\0\1\24\4\0\13\24"+
+    "\1\165\11\24\20\0\10\24\2\0\1\24\4\0\5\24"+
+    "\1\166\17\24\20\0\10\24\2\0\1\24\4\0\15\24"+
+    "\1\167\7\24\20\0\10\24\2\0\1\24\4\0\12\24"+
+    "\1\170\12\24\20\0\10\24\2\0\1\24\4\0\5\24"+
+    "\1\171\17\24\20\0\10\24\2\0\1\24\4\0\21\24"+
+    "\1\172\3\24\20\0\10\24\2\0\1\24\4\0\23\24"+
+    "\1\173\1\24\20\0\10\24\2\0\1\24\4\0\22\24"+
+    "\1\174\2\24\20\0\10\24\2\0\1\24\4\0\20\24"+
+    "\1\175\4\24\20\0\10\24\2\0\1\24\4\0\10\24"+
+    "\1\176\14\24\20\0\10\177\54\0\10\200\2\0\1\200"+
+    "\5\0\24\200\2\0\10\126\1\156\4\126\1\201\46\126"+
+    "\10\157\1\160\63\157\1\160\4\157\1\202\46\157\16\0"+
+    "\10\24\2\0\1\24\4\0\17\24\1\203\5\24\20\0"+
+    "\10\24\2\0\1\24\4\0\23\24\1\204\1\24\20\0"+
+    "\10\24\2\0\1\24\4\0\11\24\1\205\13\24\20\0"+
+    "\10\24\2\0\1\24\4\0\17\24\1\206\5\24\20\0"+
+    "\10\24\2\0\1\24\4\0\22\24\1\207\2\24\20\0"+
+    "\10\24\2\0\1\24\4\0\12\24\1\210\12\24\20\0"+
+    "\10\24\2\0\1\24\4\0\11\24\1\211\13\24\20\0"+
+    "\10\24\2\0\1\24\4\0\3\24\1\212\21\24\20\0"+
+    "\10\24\2\0\1\24\4\0\11\24\1\213\13\24\20\0"+
+    "\10\24\2\0\1\24\4\0\15\24\1\214\7\24\20\0"+
+    "\10\215\2\0\1\215\5\0\24\215\20\0\10\24\2\0"+
+    "\1\24\4\0\1\24\1\216\23\24\20\0\10\24\2\0"+
+    "\1\24\4\0\5\24\1\217\17\24\20\0\10\24\2\0"+
+    "\1\24\4\0\7\24\1\220\15\24\20\0\10\24\2\0"+
+    "\1\24\4\0\21\24\1\221\3\24\20\0\10\24\2\0"+
+    "\1\24\4\0\4\24\1\222\20\24\20\0\10\24\2\0"+
+    "\1\24\4\0\3\24\1\223\21\24\20\0\10\24\2\0"+
+    "\1\24\4\0\21\24\1\224\3\24\20\0\10\24\2\0"+
+    "\1\24\4\0\15\24\1\225\7\24\20\0\10\24\2\0"+
+    "\1\24\4\0\22\24\1\226\2\24\20\0\10\227\2\0"+
+    "\1\227\5\0\24\227\20\0\10\24\2\0\1\24\4\0"+
+    "\3\24\1\230\21\24\20\0\10\24\2\0\1\24\4\0"+
+    "\4\24\1\231\20\24\20\0\10\24\2\0\1\24\4\0"+
+    "\14\24\1\232\10\24\20\0\10\24\2\0\1\24\4\0"+
+    "\5\24\1\233\17\24\20\0\10\24\2\0\1\24\4\0"+
+    "\5\24\1\234\17\24\20\0\10\24\2\0\1\24\4\0"+
+    "\14\24\1\235\10\24\20\0\10\24\2\0\1\24\4\0"+
+    "\21\24\1\236\3\24\20\0\10\24\2\0\1\24\4\0"+
+    "\21\24\1\237\3\24\2\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[5824];
+    int [] result = new int[5876];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -336,12 +337,12 @@ class BaboonLexer implements FlexLexer {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\1\1\2\0\2\11\2\1\5\11\1\1\1\11"+
     "\2\1\2\11\1\1\3\11\21\1\2\11\3\1\2\11"+
-    "\1\1\1\0\1\1\1\0\34\1\1\0\1\11\1\1"+
-    "\1\0\1\11\2\0\22\1\1\11\1\1\4\0\16\1"+
+    "\1\1\1\0\1\1\1\0\35\1\1\0\1\11\1\1"+
+    "\1\0\1\11\2\0\23\1\1\11\1\1\4\0\16\1"+
     "\1\11\1\0\2\11\12\1\1\0\11\1\1\11\10\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[157];
+    int [] result = new int[159];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -666,277 +667,282 @@ class BaboonLexer implements FlexLexer {
             { return BaboonTypes.STRING_CONTENT;
             }
           // fall through
-          case 56: break;
+          case 57: break;
           case 2:
             { return TokenType.BAD_CHARACTER;
             }
           // fall through
-          case 57: break;
+          case 58: break;
           case 3:
             { return TokenType.WHITE_SPACE;
             }
           // fall through
-          case 58: break;
+          case 59: break;
           case 4:
             { yybegin(IN_STRING); return BaboonTypes.QUOTE;
             }
           // fall through
-          case 59: break;
+          case 60: break;
           case 5:
             { return BaboonTypes.LPAREN;
             }
           // fall through
-          case 60: break;
+          case 61: break;
           case 6:
             { return BaboonTypes.RPAREN;
             }
           // fall through
-          case 61: break;
+          case 62: break;
           case 7:
             { return BaboonTypes.STAR;
             }
           // fall through
-          case 62: break;
+          case 63: break;
           case 8:
             { return BaboonTypes.PLUS;
             }
           // fall through
-          case 63: break;
+          case 64: break;
           case 9:
             { return BaboonTypes.COMMA;
             }
           // fall through
-          case 64: break;
+          case 65: break;
           case 10:
             { return BaboonTypes.MINUS;
             }
           // fall through
-          case 65: break;
+          case 66: break;
           case 11:
             { return BaboonTypes.DOT;
             }
           // fall through
-          case 66: break;
+          case 67: break;
           case 12:
             { return BaboonTypes.SLASH;
             }
           // fall through
-          case 67: break;
+          case 68: break;
           case 13:
             { return BaboonTypes.DECIMAL;
             }
           // fall through
-          case 68: break;
+          case 69: break;
           case 14:
             { return BaboonTypes.COLON;
             }
           // fall through
-          case 69: break;
+          case 70: break;
           case 15:
             { return BaboonTypes.EQUAL;
             }
           // fall through
-          case 70: break;
+          case 71: break;
           case 16:
             { return BaboonTypes.IDENTIFIER;
             }
           // fall through
-          case 71: break;
+          case 72: break;
           case 17:
             { return BaboonTypes.LBRACK;
             }
           // fall through
-          case 72: break;
+          case 73: break;
           case 18:
             { return BaboonTypes.RBRACK;
             }
           // fall through
-          case 73: break;
+          case 74: break;
           case 19:
             { return BaboonTypes.CARET;
             }
           // fall through
-          case 74: break;
+          case 75: break;
           case 20:
             { return BaboonTypes.LBRACE;
             }
           // fall through
-          case 75: break;
+          case 76: break;
           case 21:
             { return BaboonTypes.RBRACE;
             }
           // fall through
-          case 76: break;
+          case 77: break;
           case 22:
             { yybegin(YYINITIAL); return BaboonTypes.QUOTE;
             }
           // fall through
-          case 77: break;
+          case 78: break;
           case 23:
             { 
             }
           // fall through
-          case 78: break;
+          case 79: break;
           case 24:
             { yybegin(YYINITIAL);
             }
           // fall through
-          case 79: break;
+          case 80: break;
           case 25:
             { return BaboonTypes.NEGATIVE_DECIMAL;
             }
           // fall through
-          case 80: break;
+          case 81: break;
           case 26:
             { return BaboonTypes.LINE_COMMENT;
             }
           // fall through
-          case 81: break;
+          case 82: break;
           case 27:
             { return BaboonTypes.KW_IN;
             }
           // fall through
-          case 82: break;
+          case 83: break;
           case 28:
             { return BaboonTypes.KW_IS;
             }
           // fall through
-          case 83: break;
+          case 84: break;
           case 29:
             { return BaboonTypes.KW_NAMESPACE;
             }
           // fall through
-          case 84: break;
+          case 85: break;
           case 30:
             { return BaboonTypes.SYMBOL_ESCAPE;
             }
           // fall through
-          case 85: break;
+          case 86: break;
           case 31:
             { return BaboonTypes.NUMBER_ESCAPE;
             }
           // fall through
-          case 86: break;
+          case 87: break;
           case 32:
             { yybegin(IN_STRING); return BaboonTypes.TRIPLE_QUOTE;
             }
           // fall through
-          case 87: break;
+          case 88: break;
           case 33:
             { return BaboonTypes.KW_ADT;
             }
           // fall through
-          case 88: break;
+          case 89: break;
           case 34:
             { return BaboonTypes.BI_TYPE;
             }
           // fall through
-          case 89: break;
+          case 90: break;
           case 35:
             { return BaboonTypes.KW_DEF;
             }
           // fall through
-          case 90: break;
+          case 91: break;
           case 36:
             { return BaboonTypes.KW_ERR;
             }
           // fall through
-          case 91: break;
+          case 92: break;
           case 37:
             { return BaboonTypes.KW_OUT;
             }
           // fall through
-          case 92: break;
-          case 38:
-            { yybegin(YYINITIAL); return BaboonTypes.TRIPLE_QUOTE;
-            }
-          // fall through
           case 93: break;
-          case 39:
-            { return BaboonTypes.BLOCK_COMMENT;
+          case 38:
+            { return BaboonTypes.KW_WAS;
             }
           // fall through
           case 94: break;
-          case 40:
-            { return BaboonTypes.KW_DATA;
+          case 39:
+            { yybegin(YYINITIAL); return BaboonTypes.TRIPLE_QUOTE;
             }
           // fall through
           case 95: break;
-          case 41:
-            { return BaboonTypes.KW_CHOICE;
+          case 40:
+            { return BaboonTypes.BLOCK_COMMENT;
             }
           // fall through
           case 96: break;
-          case 42:
-            { return BaboonTypes.KW_ROOT;
+          case 41:
+            { return BaboonTypes.KW_DATA;
             }
           // fall through
           case 97: break;
-          case 43:
-            { return BaboonTypes.KW_WITH;
+          case 42:
+            { return BaboonTypes.KW_CHOICE;
             }
           // fall through
           case 98: break;
-          case 44:
-            { return BaboonTypes.DOC_COMMENT;
+          case 43:
+            { return BaboonTypes.KW_ROOT;
             }
           // fall through
           case 99: break;
-          case 45:
-            { yybegin(IN_MODEL_NAME); return BaboonTypes.KW_MODEL;
+          case 44:
+            { return BaboonTypes.KW_WITH;
             }
           // fall through
           case 100: break;
-          case 46:
-            { return BaboonTypes.KW_IMPORT;
+          case 45:
+            { return BaboonTypes.DOC_COMMENT;
             }
           // fall through
           case 101: break;
-          case 47:
-            { return BaboonTypes.KW_STRUCT;
+          case 46:
+            { yybegin(IN_MODEL_NAME); return BaboonTypes.KW_MODEL;
             }
           // fall through
           case 102: break;
-          case 48:
-            { return BaboonTypes.UNICODE_ESCAPE;
+          case 47:
+            { return BaboonTypes.KW_IMPORT;
             }
           // fall through
           case 103: break;
-          case 49:
-            { return BaboonTypes.KW_DERIVED;
+          case 48:
+            { return BaboonTypes.KW_STRUCT;
             }
           // fall through
           case 104: break;
-          case 50:
-            { return BaboonTypes.KW_FOREIGN;
+          case 49:
+            { return BaboonTypes.UNICODE_ESCAPE;
             }
           // fall through
           case 105: break;
-          case 51:
-            { return BaboonTypes.KW_INCLUDE;
+          case 50:
+            { return BaboonTypes.KW_DERIVED;
             }
           // fall through
           case 106: break;
-          case 52:
-            { return BaboonTypes.KW_SERVICE;
+          case 51:
+            { return BaboonTypes.KW_FOREIGN;
             }
           // fall through
           case 107: break;
-          case 53:
-            { return BaboonTypes.KW_VERSION;
+          case 52:
+            { return BaboonTypes.KW_INCLUDE;
             }
           // fall through
           case 108: break;
-          case 54:
-            { return BaboonTypes.KW_WITHOUT;
+          case 53:
+            { return BaboonTypes.KW_SERVICE;
             }
           // fall through
           case 109: break;
-          case 55:
-            { return BaboonTypes.KW_CONTRACT;
+          case 54:
+            { return BaboonTypes.KW_VERSION;
             }
           // fall through
           case 110: break;
+          case 55:
+            { return BaboonTypes.KW_WITHOUT;
+            }
+          // fall through
+          case 111: break;
+          case 56:
+            { return BaboonTypes.KW_CONTRACT;
+            }
+          // fall through
+          case 112: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

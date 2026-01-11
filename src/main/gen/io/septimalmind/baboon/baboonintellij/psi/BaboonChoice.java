@@ -14,6 +14,6 @@ public interface BaboonChoice extends PsiElement {
   BaboonClassName getClassName();
 
   @Nullable
-  BaboonDerived getDerived();
+  BaboonMemberMeta getMemberMeta();
 
 }

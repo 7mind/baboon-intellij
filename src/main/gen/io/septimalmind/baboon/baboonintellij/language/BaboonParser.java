@@ -36,7 +36,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_ADT class_name derived? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
+  // KW_ADT class_name member_meta? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN)
   public static boolean adt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt")) return false;
     if (!nextTokenIs(b, KW_ADT)) return false;
@@ -50,10 +50,10 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // derived?
+  // member_meta?
   private static boolean adt_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "adt_2")) return false;
-    derived(b, l + 1);
+    member_meta(b, l + 1);
     return true;
   }
 
@@ -206,7 +206,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_CHOICE class_name derived? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
+  // KW_CHOICE class_name member_meta? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN)
   public static boolean choice(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice")) return false;
     if (!nextTokenIs(b, KW_CHOICE)) return false;
@@ -220,10 +220,10 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // derived?
+  // member_meta?
   private static boolean choice_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice_2")) return false;
-    derived(b, l + 1);
+    member_meta(b, l + 1);
     return true;
   }
 
@@ -624,7 +624,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_DATA class_name derived? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
+  // KW_DATA class_name member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN)
   public static boolean dto(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto")) return false;
     if (!nextTokenIs(b, KW_DATA)) return false;
@@ -638,10 +638,10 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // derived?
+  // member_meta?
   private static boolean dto_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dto_2")) return false;
-    derived(b, l + 1);
+    member_meta(b, l + 1);
     return true;
   }
 
@@ -874,7 +874,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_FOREIGN class_name derived? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
+  // KW_FOREIGN class_name member_meta? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN)
   public static boolean foreign(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign")) return false;
     if (!nextTokenIs(b, KW_FOREIGN)) return false;
@@ -888,10 +888,10 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // derived?
+  // member_meta?
   private static boolean foreign_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreign_2")) return false;
-    derived(b, l + 1);
+    member_meta(b, l + 1);
     return true;
   }
 
@@ -1105,6 +1105,19 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // derived | renamed
+  public static boolean member_meta(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "member_meta")) return false;
+    if (!nextTokenIs(b, COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = derived(b, l + 1);
+    if (!r) r = renamed(b, l + 1);
+    exit_section_(b, m, MEMBER_META, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // KW_MODEL model_name
   public static boolean model(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "model")) return false;
@@ -1244,6 +1257,41 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, PLUS);
     r = r && non_generic_type_ref(b, l + 1);
     exit_section_(b, m, PARENT_DEF, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // COLON KW_WAS LBRACK (IDENTIFIER DOT)* IDENTIFIER RBRACK
+  public static boolean renamed(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "renamed")) return false;
+    if (!nextTokenIs(b, COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COLON, KW_WAS, LBRACK);
+    r = r && renamed_3(b, l + 1);
+    r = r && consumeTokens(b, 0, IDENTIFIER, RBRACK);
+    exit_section_(b, m, RENAMED, r);
+    return r;
+  }
+
+  // (IDENTIFIER DOT)*
+  private static boolean renamed_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "renamed_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!renamed_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "renamed_3", c)) break;
+    }
+    return true;
+  }
+
+  // IDENTIFIER DOT
+  private static boolean renamed_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "renamed_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IDENTIFIER, DOT);
+    exit_section_(b, m, null, r);
     return r;
   }
 

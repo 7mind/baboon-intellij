@@ -115,6 +115,10 @@ public class BaboonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitMemberMeta(@NotNull BaboonMemberMeta o) {
+    visitPsiElement(o);
+  }
+
   public void visitModel(@NotNull BaboonModel o) {
     visitPsiElement(o);
   }
@@ -132,6 +136,10 @@ public class BaboonVisitor extends PsiElementVisitor {
   }
 
   public void visitParentDef(@NotNull BaboonParentDef o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRenamed(@NotNull BaboonRenamed o) {
     visitPsiElement(o);
   }
 
