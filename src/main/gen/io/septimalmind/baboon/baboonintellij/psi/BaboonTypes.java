@@ -26,6 +26,7 @@ public interface BaboonTypes {
   IElementType EXTENDED_CONTRACT_DEF = new BaboonElementType("EXTENDED_CONTRACT_DEF");
   IElementType FIELD_DEF = new BaboonElementType("FIELD_DEF");
   IElementType FIELD_NAME = new BaboonElementType("FIELD_NAME");
+  IElementType FIELD_RENAME = new BaboonElementType("FIELD_RENAME");
   IElementType FOREIGN = new BaboonElementType("FOREIGN");
   IElementType FOREIGN_ATTRS = new BaboonElementType("FOREIGN_ATTRS");
   IElementType FOREIGN_MEMBER = new BaboonElementType("FOREIGN_MEMBER");
@@ -165,6 +166,9 @@ public interface BaboonTypes {
       }
       else if (type == FIELD_NAME) {
         return new BaboonFieldNameImpl(node);
+      }
+      else if (type == FIELD_RENAME) {
+        return new BaboonFieldRenameImpl(node);
       }
       else if (type == FOREIGN) {
         return new BaboonForeignImpl(node);

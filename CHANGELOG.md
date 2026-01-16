@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.10] - 2026-01-16
+
+- Added highlights for baboon field renames
+
 ## [0.0.9] - 2026-01-09
 
 - Added highlights for baboon renames

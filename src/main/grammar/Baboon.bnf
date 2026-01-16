@@ -117,7 +117,8 @@ choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
 dto ::= KW_DATA class_name member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
 dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
 
-field_def ::= field_name COLON type_ref;
+field_def ::= field_name COLON type_ref field_rename?;
+field_rename ::= KW_WAS field_name;
 field_name ::= <<remapIfKeyword>> IDENTIFIER;
 type_ref ::= non_generic_type_ref type_params?;
 class_type ::= IDENTIFIER (DOT IDENTIFIER)* {

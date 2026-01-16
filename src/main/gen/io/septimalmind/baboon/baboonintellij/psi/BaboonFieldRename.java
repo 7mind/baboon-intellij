@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BaboonFieldDef extends PsiElement {
+public interface BaboonFieldRename extends PsiElement {
 
   @NotNull
   BaboonFieldName getFieldName();
-
-  @Nullable
-  BaboonFieldRename getFieldRename();
-
-  @NotNull
-  BaboonTypeRef getTypeRef();
 
 }

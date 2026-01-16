@@ -11,14 +11,14 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonFieldDefImpl extends ASTWrapperPsiElement implements BaboonFieldDef {
+public class BaboonFieldRenameImpl extends ASTWrapperPsiElement implements BaboonFieldRename {
 
-  public BaboonFieldDefImpl(@NotNull ASTNode node) {
+  public BaboonFieldRenameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitFieldDef(this);
+    visitor.visitFieldRename(this);
   }
 
   @Override
@@ -31,18 +31,6 @@ public class BaboonFieldDefImpl extends ASTWrapperPsiElement implements BaboonFi
   @NotNull
   public BaboonFieldName getFieldName() {
     return findNotNullChildByClass(BaboonFieldName.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonFieldRename getFieldRename() {
-    return findChildByClass(BaboonFieldRename.class);
-  }
-
-  @Override
-  @NotNull
-  public BaboonTypeRef getTypeRef() {
-    return findNotNullChildByClass(BaboonTypeRef.class);
   }
 
 }

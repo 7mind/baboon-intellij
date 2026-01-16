@@ -79,6 +79,10 @@ public class BaboonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFieldRename(@NotNull BaboonFieldRename o) {
+    visitPsiElement(o);
+  }
+
   public void visitForeign(@NotNull BaboonForeign o) {
     visitPsiElement(o);
   }

@@ -803,7 +803,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // field_name COLON type_ref
+  // field_name COLON type_ref field_rename?
   public static boolean field_def(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_def")) return false;
     boolean r;
@@ -811,8 +811,16 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     r = field_name(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && type_ref(b, l + 1);
+    r = r && field_def_3(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // field_rename?
+  private static boolean field_def_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_def_3")) return false;
+    field_rename(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -824,6 +832,19 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     r = remapIfKeyword(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // KW_WAS field_name
+  public static boolean field_rename(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_rename")) return false;
+    if (!nextTokenIs(b, KW_WAS)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KW_WAS);
+    r = r && field_name(b, l + 1);
+    exit_section_(b, m, FIELD_RENAME, r);
     return r;
   }
 
