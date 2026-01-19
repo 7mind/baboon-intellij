@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.11] - 2026-01-19
+
+- Fixed references search scopes for Baboon and Idealingua
+
 ## [0.0.10] - 2026-01-16
 
 - Added highlights for baboon field renames

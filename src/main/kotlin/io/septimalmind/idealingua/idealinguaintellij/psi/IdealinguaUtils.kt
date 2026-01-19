@@ -10,7 +10,7 @@ import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaFileType
 object IdealinguaUtils {
     fun findClassNames(project: Project, key: String): List<IdealinguaClassName> {
         val result = ArrayList<IdealinguaClassName>()
-        val virtualFiles = FileTypeIndex.getFiles(IdealinguaFileType, GlobalSearchScope.allScope(project))
+        val virtualFiles = FileTypeIndex.getFiles(IdealinguaFileType, GlobalSearchScope.projectScope(project))
         for (virtualFile in virtualFiles) {
             val idealinguaFile = PsiManager.getInstance(project).findFile(
                 virtualFile!!
