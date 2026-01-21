@@ -5,13 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BaboonChoiceMember extends PsiElement {
-
-  @Nullable
-  BaboonChoiceMemberRename getChoiceMemberRename();
-
-  @Nullable
-  BaboonChoiceValue getChoiceValue();
+public interface BaboonChoiceMemberRename extends PsiElement {
 
   @NotNull
   PsiElement getIdentifier();

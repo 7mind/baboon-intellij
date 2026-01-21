@@ -31,6 +31,14 @@ public class BaboonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitChoiceMemberRename(@NotNull BaboonChoiceMemberRename o) {
+    visitPsiElement(o);
+  }
+
+  public void visitChoiceValue(@NotNull BaboonChoiceValue o) {
+    visitPsiElement(o);
+  }
+
   public void visitClassName(@NotNull BaboonClassName o) {
     visitNamedElement(o);
   }

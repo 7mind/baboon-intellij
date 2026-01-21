@@ -355,7 +355,7 @@ public class BaboonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?
+  // IDENTIFIER choice_value? choice_member_rename?
   public static boolean choice_member(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice_member")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -363,31 +363,53 @@ public class BaboonParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     r = r && choice_member_1(b, l + 1);
+    r = r && choice_member_2(b, l + 1);
     exit_section_(b, m, CHOICE_MEMBER, r);
     return r;
   }
 
-  // (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?
+  // choice_value?
   private static boolean choice_member_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "choice_member_1")) return false;
-    choice_member_1_0(b, l + 1);
+    choice_value(b, l + 1);
     return true;
   }
 
+  // choice_member_rename?
+  private static boolean choice_member_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_member_2")) return false;
+    choice_member_rename(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // COLON KW_WAS LBRACK IDENTIFIER RBRACK
+  public static boolean choice_member_rename(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_member_rename")) return false;
+    if (!nextTokenIs(b, COLON)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COLON, KW_WAS, LBRACK, IDENTIFIER, RBRACK);
+    exit_section_(b, m, CHOICE_MEMBER_RENAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // EQUAL (DECIMAL | NEGATIVE_DECIMAL)
-  private static boolean choice_member_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_member_1_0")) return false;
+  public static boolean choice_value(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_value")) return false;
+    if (!nextTokenIs(b, EQUAL)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, EQUAL);
-    r = r && choice_member_1_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
+    r = r && choice_value_1(b, l + 1);
+    exit_section_(b, m, CHOICE_VALUE, r);
     return r;
   }
 
   // DECIMAL | NEGATIVE_DECIMAL
-  private static boolean choice_member_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "choice_member_1_0_1")) return false;
+  private static boolean choice_value_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "choice_value_1")) return false;
     boolean r;
     r = consumeToken(b, DECIMAL);
     if (!r) r = consumeToken(b, NEGATIVE_DECIMAL);

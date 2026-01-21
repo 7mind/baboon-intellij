@@ -14,6 +14,8 @@ public interface BaboonTypes {
   IElementType CHOICE = new BaboonElementType("CHOICE");
   IElementType CHOICE_IN_SERVICE = new BaboonElementType("CHOICE_IN_SERVICE");
   IElementType CHOICE_MEMBER = new BaboonElementType("CHOICE_MEMBER");
+  IElementType CHOICE_MEMBER_RENAME = new BaboonElementType("CHOICE_MEMBER_RENAME");
+  IElementType CHOICE_VALUE = new BaboonElementType("CHOICE_VALUE");
   IElementType CLASS_NAME = new BaboonElementType("CLASS_NAME");
   IElementType CLASS_TYPE = new BaboonElementType("CLASS_TYPE");
   IElementType CONTENT = new BaboonElementType("CONTENT");
@@ -130,6 +132,12 @@ public interface BaboonTypes {
       }
       else if (type == CHOICE_MEMBER) {
         return new BaboonChoiceMemberImpl(node);
+      }
+      else if (type == CHOICE_MEMBER_RENAME) {
+        return new BaboonChoiceMemberRenameImpl(node);
+      }
+      else if (type == CHOICE_VALUE) {
+        return new BaboonChoiceValueImpl(node);
       }
       else if (type == CLASS_NAME) {
         return new BaboonClassNameImpl(node);

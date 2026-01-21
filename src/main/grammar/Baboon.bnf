@@ -111,7 +111,9 @@ derived_member ::= KW_DERIVED LBRACK IDENTIFIER RBRACK;
 
 // enum
 choice ::= KW_CHOICE class_name member_meta? (LBRACE choice_member* RBRACE | LPAREN choice_member* RPAREN);
-choice_member ::= IDENTIFIER (EQUAL (DECIMAL | NEGATIVE_DECIMAL))?;
+choice_member ::= IDENTIFIER choice_value? choice_member_rename?;
+choice_value ::= EQUAL (DECIMAL | NEGATIVE_DECIMAL)
+choice_member_rename ::= COLON KW_WAS LBRACK IDENTIFIER RBRACK;
 
 // dto
 dto ::= KW_DATA class_name member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);

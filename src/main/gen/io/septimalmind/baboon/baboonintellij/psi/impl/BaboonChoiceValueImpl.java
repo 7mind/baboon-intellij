@@ -11,14 +11,14 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonChoiceMemberImpl extends ASTWrapperPsiElement implements BaboonChoiceMember {
+public class BaboonChoiceValueImpl extends ASTWrapperPsiElement implements BaboonChoiceValue {
 
-  public BaboonChoiceMemberImpl(@NotNull ASTNode node) {
+  public BaboonChoiceValueImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitChoiceMember(this);
+    visitor.visitChoiceValue(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class BaboonChoiceMemberImpl extends ASTWrapperPsiElement implements Babo
 
   @Override
   @Nullable
-  public BaboonChoiceMemberRename getChoiceMemberRename() {
-    return findChildByClass(BaboonChoiceMemberRename.class);
+  public PsiElement getDecimal() {
+    return findChildByType(DECIMAL);
   }
 
   @Override
   @Nullable
-  public BaboonChoiceValue getChoiceValue() {
-    return findChildByClass(BaboonChoiceValue.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public PsiElement getNegativeDecimal() {
+    return findChildByType(NEGATIVE_DECIMAL);
   }
 
 }

@@ -11,32 +11,20 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonChoiceMemberImpl extends ASTWrapperPsiElement implements BaboonChoiceMember {
+public class BaboonChoiceMemberRenameImpl extends ASTWrapperPsiElement implements BaboonChoiceMemberRename {
 
-  public BaboonChoiceMemberImpl(@NotNull ASTNode node) {
+  public BaboonChoiceMemberRenameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitChoiceMember(this);
+    visitor.visitChoiceMemberRename(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof BaboonVisitor) accept((BaboonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public BaboonChoiceMemberRename getChoiceMemberRename() {
-    return findChildByClass(BaboonChoiceMemberRename.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonChoiceValue getChoiceValue() {
-    return findChildByClass(BaboonChoiceValue.class);
   }
 
   @Override

@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.12] - 2026-01-21
+
+- Added highlights for baboon enum members
+
 ## [0.0.11] - 2026-01-19
 
 - Fixed references search scopes for Baboon and Idealingua
