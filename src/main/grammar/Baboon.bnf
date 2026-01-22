@@ -95,8 +95,10 @@ namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* 
 main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
 
 class_name ::= IDENTIFIER {
-    mixin="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonNamedElementImpl"
-    implements="io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement"
+    mixin="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonClassNameMixin"
+    implements=["io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement" "com.intellij.psi.StubBasedPsiElement<io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameStub>"]
+    stubClass="io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameStub"
+    elementTypeFactory="io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonStubElementTypes.getClassNameType"
 };
 
 // member_meta

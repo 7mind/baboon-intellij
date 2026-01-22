@@ -30,13 +30,13 @@ public class BaboonSignatureStructImpl extends ASTWrapperPsiElement implements B
   @Override
   @NotNull
   public BaboonStructMarker getStructMarker() {
-    return findNotNullChildByClass(BaboonStructMarker.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStructMarker.class));
   }
 
   @Override
   @NotNull
   public BaboonTypeRef getTypeRef() {
-    return findNotNullChildByClass(BaboonTypeRef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonTypeRef.class));
   }
 
 }

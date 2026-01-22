@@ -4,6 +4,8 @@ package io.septimalmind.baboon.baboonintellij.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.StubBasedPsiElement;
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameStub;
 
 public class BaboonVisitor extends PsiElementVisitor {
 
@@ -41,6 +43,7 @@ public class BaboonVisitor extends PsiElementVisitor {
 
   public void visitClassName(@NotNull BaboonClassName o) {
     visitNamedElement(o);
+    // visitStubBasedPsiElement(o);
   }
 
   public void visitClassType(@NotNull BaboonClassType o) {

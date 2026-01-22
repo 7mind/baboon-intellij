@@ -30,19 +30,19 @@ public class IdealinguaMemberImpl extends ASTWrapperPsiElement implements Ideali
   @Override
   @Nullable
   public IdealinguaBaseTypeMember getBaseTypeMember() {
-    return findChildByClass(IdealinguaBaseTypeMember.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaBaseTypeMember.class);
   }
 
   @Override
   @Nullable
   public IdealinguaOtherMember getOtherMember() {
-    return findChildByClass(IdealinguaOtherMember.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaOtherMember.class);
   }
 
   @Override
   @Nullable
   public IdealinguaTypeMember getTypeMember() {
-    return findChildByClass(IdealinguaTypeMember.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaTypeMember.class);
   }
 
 }

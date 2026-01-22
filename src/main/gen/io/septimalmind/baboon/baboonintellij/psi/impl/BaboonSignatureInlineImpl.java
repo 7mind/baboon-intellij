@@ -30,19 +30,19 @@ public class BaboonSignatureInlineImpl extends ASTWrapperPsiElement implements B
   @Override
   @Nullable
   public BaboonAdtInService getAdtInService() {
-    return findChildByClass(BaboonAdtInService.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonAdtInService.class);
   }
 
   @Override
   @Nullable
   public BaboonChoiceInService getChoiceInService() {
-    return findChildByClass(BaboonChoiceInService.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonChoiceInService.class);
   }
 
   @Override
   @Nullable
   public BaboonDtoInService getDtoInService() {
-    return findChildByClass(BaboonDtoInService.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonDtoInService.class);
   }
 
 }

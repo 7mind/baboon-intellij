@@ -30,7 +30,7 @@ public class BaboonIntersectionDefImpl extends ASTWrapperPsiElement implements B
   @Override
   @NotNull
   public BaboonNonGenericTypeRef getNonGenericTypeRef() {
-    return findNotNullChildByClass(BaboonNonGenericTypeRef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonNonGenericTypeRef.class));
   }
 
 }

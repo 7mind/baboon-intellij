@@ -30,19 +30,19 @@ public class IdealinguaJustValueImpl extends ASTWrapperPsiElement implements Ide
   @Override
   @Nullable
   public IdealinguaListDef getListDef() {
-    return findChildByClass(IdealinguaListDef.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaListDef.class);
   }
 
   @Override
   @Nullable
   public IdealinguaLiteral getLiteral() {
-    return findChildByClass(IdealinguaLiteral.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaLiteral.class);
   }
 
   @Override
   @Nullable
   public IdealinguaObjDef getObjDef() {
-    return findChildByClass(IdealinguaObjDef.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaObjDef.class);
   }
 
 }

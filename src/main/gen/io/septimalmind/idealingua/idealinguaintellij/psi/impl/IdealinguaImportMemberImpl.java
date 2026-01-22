@@ -36,7 +36,7 @@ public class IdealinguaImportMemberImpl extends ASTWrapperPsiElement implements 
   @Override
   @Nullable
   public IdealinguaSeparatorStruct getSeparatorStruct() {
-    return findChildByClass(IdealinguaSeparatorStruct.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaSeparatorStruct.class);
   }
 
 }

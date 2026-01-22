@@ -30,19 +30,19 @@ public class IdealinguaAdtImpl extends ASTWrapperPsiElement implements Idealingu
   @Override
   @Nullable
   public IdealinguaAdtEnclosed getAdtEnclosed() {
-    return findChildByClass(IdealinguaAdtEnclosed.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaAdtEnclosed.class);
   }
 
   @Override
   @Nullable
   public IdealinguaAdtFreeForm getAdtFreeForm() {
-    return findChildByClass(IdealinguaAdtFreeForm.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaAdtFreeForm.class);
   }
 
   @Override
   @NotNull
   public IdealinguaClassName getClassName() {
-    return findNotNullChildByClass(IdealinguaClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassName.class));
   }
 
 }

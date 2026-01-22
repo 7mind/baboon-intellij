@@ -30,37 +30,37 @@ public class IdealinguaBaseTypeMemberImpl extends ASTWrapperPsiElement implement
   @Override
   @Nullable
   public IdealinguaAdt getAdt() {
-    return findChildByClass(IdealinguaAdt.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaAdt.class);
   }
 
   @Override
   @Nullable
   public IdealinguaAlias getAlias() {
-    return findChildByClass(IdealinguaAlias.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaAlias.class);
   }
 
   @Override
   @Nullable
   public IdealinguaDto getDto() {
-    return findChildByClass(IdealinguaDto.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaDto.class);
   }
 
   @Override
   @Nullable
   public IdealinguaEnum getEnum() {
-    return findChildByClass(IdealinguaEnum.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaEnum.class);
   }
 
   @Override
   @Nullable
   public IdealinguaId getId() {
-    return findChildByClass(IdealinguaId.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaId.class);
   }
 
   @Override
   @Nullable
   public IdealinguaMixin getMixin() {
-    return findChildByClass(IdealinguaMixin.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaMixin.class);
   }
 
 }

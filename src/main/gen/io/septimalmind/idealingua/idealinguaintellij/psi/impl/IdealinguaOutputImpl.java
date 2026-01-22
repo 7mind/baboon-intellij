@@ -30,25 +30,25 @@ public class IdealinguaOutputImpl extends ASTWrapperPsiElement implements Ideali
   @Override
   @Nullable
   public IdealinguaOutputAdt getOutputAdt() {
-    return findChildByClass(IdealinguaOutputAdt.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaOutputAdt.class);
   }
 
   @Override
   @Nullable
   public IdealinguaOutputSingular getOutputSingular() {
-    return findChildByClass(IdealinguaOutputSingular.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaOutputSingular.class);
   }
 
   @Override
   @Nullable
   public IdealinguaOutputStruct getOutputStruct() {
-    return findChildByClass(IdealinguaOutputStruct.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaOutputStruct.class);
   }
 
   @Override
   @Nullable
   public IdealinguaOutputVoid getOutputVoid() {
-    return findChildByClass(IdealinguaOutputVoid.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaOutputVoid.class);
   }
 
 }

@@ -30,19 +30,19 @@ public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements Bab
   @Override
   @Nullable
   public BaboonForeignAttrs getForeignAttrs() {
-    return findChildByClass(BaboonForeignAttrs.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonForeignAttrs.class);
   }
 
   @Override
   @NotNull
   public BaboonStringLiteral getStringLiteral() {
-    return findNotNullChildByClass(BaboonStringLiteral.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class));
   }
 
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

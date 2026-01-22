@@ -30,7 +30,7 @@ public class BaboonDtoImpl extends ASTWrapperPsiElement implements BaboonDto {
   @Override
   @NotNull
   public BaboonClassName getClassName() {
-    return findNotNullChildByClass(BaboonClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonClassName.class));
   }
 
   @Override
@@ -42,7 +42,7 @@ public class BaboonDtoImpl extends ASTWrapperPsiElement implements BaboonDto {
   @Override
   @Nullable
   public BaboonMemberMeta getMemberMeta() {
-    return findChildByClass(BaboonMemberMeta.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonMemberMeta.class);
   }
 
 }

@@ -30,7 +30,7 @@ public class BaboonParentDefImpl extends ASTWrapperPsiElement implements BaboonP
   @Override
   @NotNull
   public BaboonNonGenericTypeRef getNonGenericTypeRef() {
-    return findNotNullChildByClass(BaboonNonGenericTypeRef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonNonGenericTypeRef.class));
   }
 
 }

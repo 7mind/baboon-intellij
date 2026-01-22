@@ -36,7 +36,7 @@ public class IdealinguaBuzzerImpl extends ASTWrapperPsiElement implements Ideali
   @Override
   @NotNull
   public IdealinguaBuzzerName getBuzzerName() {
-    return findNotNullChildByClass(IdealinguaBuzzerName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaBuzzerName.class));
   }
 
 }

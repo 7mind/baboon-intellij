@@ -4,6 +4,7 @@ package io.septimalmind.idealingua.idealinguaintellij.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaStubElementTypes;
 import io.septimalmind.idealingua.idealinguaintellij.psi.impl.*;
 
 public interface IdealinguaTypes {
@@ -25,7 +26,7 @@ public interface IdealinguaTypes {
   IElementType BUZZER_METHOD_OUTPUT = new IdealinguaElementType("BUZZER_METHOD_OUTPUT");
   IElementType BUZZER_METHOD_PARAM = new IdealinguaElementType("BUZZER_METHOD_PARAM");
   IElementType BUZZER_NAME = new IdealinguaElementType("BUZZER_NAME");
-  IElementType CLASS_NAME = new IdealinguaElementType("CLASS_NAME");
+  IElementType CLASS_NAME = IdealinguaStubElementTypes.getClassNameType("CLASS_NAME");
   IElementType CLASS_TYPE = new IdealinguaElementType("CLASS_TYPE");
   IElementType CLONE = new IdealinguaElementType("CLONE");
   IElementType CONST = new IdealinguaElementType("CONST");

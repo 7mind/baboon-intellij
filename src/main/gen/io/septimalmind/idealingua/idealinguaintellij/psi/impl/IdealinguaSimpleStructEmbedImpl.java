@@ -30,7 +30,7 @@ public class IdealinguaSimpleStructEmbedImpl extends ASTWrapperPsiElement implem
   @Override
   @NotNull
   public IdealinguaIdlIdentifier getIdlIdentifier() {
-    return findNotNullChildByClass(IdealinguaIdlIdentifier.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaIdlIdentifier.class));
   }
 
 }

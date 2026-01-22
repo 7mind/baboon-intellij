@@ -30,7 +30,7 @@ public class IdealinguaEnumMinusValueImpl extends ASTWrapperPsiElement implement
   @Override
   @NotNull
   public IdealinguaClassType getClassType() {
-    return findNotNullChildByClass(IdealinguaClassType.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassType.class));
   }
 
 }

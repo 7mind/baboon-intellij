@@ -9,11 +9,17 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes.*;
 import io.septimalmind.idealingua.idealinguaintellij.psi.*;
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameStub;
+import com.intellij.psi.stubs.IStubElementType;
 
-public class IdealinguaClassNameImpl extends IdealinguaNamedElementImpl implements IdealinguaClassName {
+public class IdealinguaClassNameImpl extends IdealinguaClassNameMixin implements IdealinguaClassName {
 
   public IdealinguaClassNameImpl(@NotNull ASTNode node) {
     super(node);
+  }
+
+  public IdealinguaClassNameImpl(@NotNull IdealinguaClassNameStub stub, @NotNull IStubElementType<?, ?> type) {
+    super(stub, type);
   }
 
   public void accept(@NotNull IdealinguaVisitor visitor) {
@@ -29,7 +35,7 @@ public class IdealinguaClassNameImpl extends IdealinguaNamedElementImpl implemen
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

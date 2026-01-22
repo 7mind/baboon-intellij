@@ -30,7 +30,7 @@ public class IdealinguaDomainImpl extends ASTWrapperPsiElement implements Ideali
   @Override
   @NotNull
   public IdealinguaDomainName getDomainName() {
-    return findNotNullChildByClass(IdealinguaDomainName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaDomainName.class));
   }
 
 }

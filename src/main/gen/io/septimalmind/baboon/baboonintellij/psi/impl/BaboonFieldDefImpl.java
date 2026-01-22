@@ -30,19 +30,19 @@ public class BaboonFieldDefImpl extends ASTWrapperPsiElement implements BaboonFi
   @Override
   @NotNull
   public BaboonFieldName getFieldName() {
-    return findNotNullChildByClass(BaboonFieldName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonFieldName.class));
   }
 
   @Override
   @Nullable
   public BaboonFieldRename getFieldRename() {
-    return findChildByClass(BaboonFieldRename.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonFieldRename.class);
   }
 
   @Override
   @NotNull
   public BaboonTypeRef getTypeRef() {
-    return findNotNullChildByClass(BaboonTypeRef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonTypeRef.class));
   }
 
 }

@@ -30,19 +30,19 @@ public class IdealinguaBuzzerMethodImpl extends ASTWrapperPsiElement implements 
   @Override
   @NotNull
   public IdealinguaBuzzerMethodName getBuzzerMethodName() {
-    return findNotNullChildByClass(IdealinguaBuzzerMethodName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaBuzzerMethodName.class));
   }
 
   @Override
   @NotNull
   public IdealinguaBuzzerMethodOutput getBuzzerMethodOutput() {
-    return findNotNullChildByClass(IdealinguaBuzzerMethodOutput.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaBuzzerMethodOutput.class));
   }
 
   @Override
   @NotNull
   public IdealinguaBuzzerMethods getBuzzerMethods() {
-    return findNotNullChildByClass(IdealinguaBuzzerMethods.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaBuzzerMethods.class));
   }
 
 }

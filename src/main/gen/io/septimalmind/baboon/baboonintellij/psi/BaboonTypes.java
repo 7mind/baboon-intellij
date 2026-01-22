@@ -4,6 +4,7 @@ package io.septimalmind.baboon.baboonintellij.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonStubElementTypes;
 import io.septimalmind.baboon.baboonintellij.psi.impl.*;
 
 public interface BaboonTypes {
@@ -16,7 +17,7 @@ public interface BaboonTypes {
   IElementType CHOICE_MEMBER = new BaboonElementType("CHOICE_MEMBER");
   IElementType CHOICE_MEMBER_RENAME = new BaboonElementType("CHOICE_MEMBER_RENAME");
   IElementType CHOICE_VALUE = new BaboonElementType("CHOICE_VALUE");
-  IElementType CLASS_NAME = new BaboonElementType("CLASS_NAME");
+  IElementType CLASS_NAME = BaboonStubElementTypes.getClassNameType("CLASS_NAME");
   IElementType CLASS_TYPE = new BaboonElementType("CLASS_TYPE");
   IElementType CONTENT = new BaboonElementType("CONTENT");
   IElementType CONTRACT = new BaboonElementType("CONTRACT");

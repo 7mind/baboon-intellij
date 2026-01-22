@@ -30,13 +30,13 @@ public class IdealinguaServiceMethodParamImpl extends ASTWrapperPsiElement imple
   @Override
   @Nullable
   public IdealinguaSimpleStructEmbed getSimpleStructEmbed() {
-    return findChildByClass(IdealinguaSimpleStructEmbed.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaSimpleStructEmbed.class);
   }
 
   @Override
   @Nullable
   public IdealinguaSimpleStructField getSimpleStructField() {
-    return findChildByClass(IdealinguaSimpleStructField.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaSimpleStructField.class);
   }
 
 }

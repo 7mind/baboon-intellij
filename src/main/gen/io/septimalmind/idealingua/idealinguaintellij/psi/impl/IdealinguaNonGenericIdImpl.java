@@ -30,7 +30,7 @@ public class IdealinguaNonGenericIdImpl extends ASTWrapperPsiElement implements 
   @Override
   @Nullable
   public IdealinguaClassType getClassType() {
-    return findChildByClass(IdealinguaClassType.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaClassType.class);
   }
 
   @Override

@@ -30,19 +30,19 @@ public class IdealinguaConstNoDocImpl extends ASTWrapperPsiElement implements Id
   @Override
   @NotNull
   public IdealinguaConstName getConstName() {
-    return findNotNullChildByClass(IdealinguaConstName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaConstName.class));
   }
 
   @Override
   @NotNull
   public IdealinguaConstValue getConstValue() {
-    return findNotNullChildByClass(IdealinguaConstValue.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaConstValue.class));
   }
 
   @Override
   @Nullable
   public IdealinguaGenericId getGenericId() {
-    return findChildByClass(IdealinguaGenericId.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class);
   }
 
 }

@@ -30,13 +30,13 @@ public class IdealinguaMixinImpl extends ASTWrapperPsiElement implements Idealin
   @Override
   @NotNull
   public IdealinguaClassName getClassName() {
-    return findNotNullChildByClass(IdealinguaClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassName.class));
   }
 
   @Override
   @NotNull
   public IdealinguaStructMembers getStructMembers() {
-    return findNotNullChildByClass(IdealinguaStructMembers.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaStructMembers.class));
   }
 
 }

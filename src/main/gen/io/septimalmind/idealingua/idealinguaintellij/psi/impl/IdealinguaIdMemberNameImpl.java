@@ -30,7 +30,7 @@ public class IdealinguaIdMemberNameImpl extends ASTWrapperPsiElement implements 
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

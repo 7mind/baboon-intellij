@@ -30,13 +30,13 @@ public class BaboonImportImpl extends ASTWrapperPsiElement implements BaboonImpo
   @Override
   @NotNull
   public BaboonStringLiteral getStringLiteral() {
-    return findNotNullChildByClass(BaboonStringLiteral.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class));
   }
 
   @Override
   @Nullable
   public BaboonWithout getWithout() {
-    return findChildByClass(BaboonWithout.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonWithout.class);
   }
 
 }

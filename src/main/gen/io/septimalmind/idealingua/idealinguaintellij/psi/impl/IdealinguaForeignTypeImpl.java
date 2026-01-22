@@ -30,13 +30,13 @@ public class IdealinguaForeignTypeImpl extends ASTWrapperPsiElement implements I
   @Override
   @NotNull
   public IdealinguaForeignInterpolationSymbol getForeignInterpolationSymbol() {
-    return findNotNullChildByClass(IdealinguaForeignInterpolationSymbol.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaForeignInterpolationSymbol.class));
   }
 
   @Override
   @NotNull
   public IdealinguaStringLiteral getStringLiteral() {
-    return findNotNullChildByClass(IdealinguaStringLiteral.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaStringLiteral.class));
   }
 
 }

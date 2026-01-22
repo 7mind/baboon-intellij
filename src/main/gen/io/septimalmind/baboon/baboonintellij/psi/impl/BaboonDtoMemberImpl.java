@@ -30,37 +30,37 @@ public class BaboonDtoMemberImpl extends ASTWrapperPsiElement implements BaboonD
   @Override
   @Nullable
   public BaboonExtendedContractDef getExtendedContractDef() {
-    return findChildByClass(BaboonExtendedContractDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonExtendedContractDef.class);
   }
 
   @Override
   @Nullable
   public BaboonFieldDef getFieldDef() {
-    return findChildByClass(BaboonFieldDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonFieldDef.class);
   }
 
   @Override
   @Nullable
   public BaboonIntersectionDef getIntersectionDef() {
-    return findChildByClass(BaboonIntersectionDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonIntersectionDef.class);
   }
 
   @Override
   @Nullable
   public BaboonParentDef getParentDef() {
-    return findChildByClass(BaboonParentDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonParentDef.class);
   }
 
   @Override
   @Nullable
   public BaboonUnfieldDef getUnfieldDef() {
-    return findChildByClass(BaboonUnfieldDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonUnfieldDef.class);
   }
 
   @Override
   @Nullable
   public BaboonUnparentDef getUnparentDef() {
-    return findChildByClass(BaboonUnparentDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonUnparentDef.class);
   }
 
 }

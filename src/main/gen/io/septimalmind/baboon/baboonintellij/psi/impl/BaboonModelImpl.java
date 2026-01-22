@@ -30,7 +30,7 @@ public class BaboonModelImpl extends ASTWrapperPsiElement implements BaboonModel
   @Override
   @NotNull
   public BaboonModelName getModelName() {
-    return findNotNullChildByClass(BaboonModelName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonModelName.class));
   }
 
 }

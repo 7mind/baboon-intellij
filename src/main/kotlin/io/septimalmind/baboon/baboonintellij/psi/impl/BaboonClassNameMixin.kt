@@ -1,20 +1,31 @@
 package io.septimalmind.baboon.baboonintellij.psi.impl
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.extapi.psi.StubBasedPsiElementBase
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.psi.PsiElement
+import com.intellij.psi.stubs.IStubElementType
 import io.septimalmind.baboon.baboonintellij.language.BaboonIcon
+import io.septimalmind.baboon.baboonintellij.psi.BaboonClassName
 import io.septimalmind.baboon.baboonintellij.psi.BaboonElementFactory
-import io.septimalmind.baboon.baboonintellij.psi.BaboonNamedElement
 import io.septimalmind.baboon.baboonintellij.psi.BaboonTypes
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameStub
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonStubElementTypes
 import io.septimalmind.utils.PluginUtils
 import javax.swing.Icon
 
-abstract class BaboonNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node), BaboonNamedElement {
+abstract class BaboonClassNameMixin : StubBasedPsiElementBase<BaboonClassNameStub>, BaboonClassName {
+
+    constructor(node: ASTNode) : super(node)
+
+    constructor(stub: BaboonClassNameStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
 
     override fun getName(): String? {
+        val stub = greenStub
+        if (stub != null) {
+            return stub.name
+        }
         return node.findChildByType(BaboonTypes.IDENTIFIER)?.text
     }
 
@@ -44,7 +55,7 @@ abstract class BaboonNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node)
             }
 
             override fun getIcon(p0: Boolean): Icon? {
-               return BaboonIcon.FILE
+                return BaboonIcon.FILE
             }
         }
     }

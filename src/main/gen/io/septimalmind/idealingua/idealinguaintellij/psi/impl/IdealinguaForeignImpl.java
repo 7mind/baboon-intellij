@@ -36,7 +36,7 @@ public class IdealinguaForeignImpl extends ASTWrapperPsiElement implements Ideal
   @Override
   @NotNull
   public IdealinguaGenericId getGenericId() {
-    return findNotNullChildByClass(IdealinguaGenericId.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class));
   }
 
 }

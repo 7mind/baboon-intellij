@@ -30,7 +30,7 @@ public class BaboonForeignImpl extends ASTWrapperPsiElement implements BaboonFor
   @Override
   @NotNull
   public BaboonClassName getClassName() {
-    return findNotNullChildByClass(BaboonClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonClassName.class));
   }
 
   @Override
@@ -42,7 +42,7 @@ public class BaboonForeignImpl extends ASTWrapperPsiElement implements BaboonFor
   @Override
   @Nullable
   public BaboonMemberMeta getMemberMeta() {
-    return findChildByClass(BaboonMemberMeta.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonMemberMeta.class);
   }
 
 }

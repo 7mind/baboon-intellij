@@ -9,11 +9,17 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import io.septimalmind.baboon.baboonintellij.psi.*;
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameStub;
+import com.intellij.psi.stubs.IStubElementType;
 
-public class BaboonClassNameImpl extends BaboonNamedElementImpl implements BaboonClassName {
+public class BaboonClassNameImpl extends BaboonClassNameMixin implements BaboonClassName {
 
   public BaboonClassNameImpl(@NotNull ASTNode node) {
     super(node);
+  }
+
+  public BaboonClassNameImpl(@NotNull BaboonClassNameStub stub, @NotNull IStubElementType<?, ?> type) {
+    super(stub, type);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
@@ -29,7 +35,7 @@ public class BaboonClassNameImpl extends BaboonNamedElementImpl implements Baboo
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

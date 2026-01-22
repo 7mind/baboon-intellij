@@ -30,25 +30,25 @@ public class IdealinguaEnumValueImpl extends ASTWrapperPsiElement implements Ide
   @Override
   @Nullable
   public IdealinguaClassType getClassType() {
-    return findChildByClass(IdealinguaClassType.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaClassType.class);
   }
 
   @Override
   @Nullable
   public IdealinguaConstValue getConstValue() {
-    return findChildByClass(IdealinguaConstValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaConstValue.class);
   }
 
   @Override
   @Nullable
   public IdealinguaEnumEmbedValue getEnumEmbedValue() {
-    return findChildByClass(IdealinguaEnumEmbedValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaEnumEmbedValue.class);
   }
 
   @Override
   @Nullable
   public IdealinguaEnumMinusValue getEnumMinusValue() {
-    return findChildByClass(IdealinguaEnumMinusValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaEnumMinusValue.class);
   }
 
 }

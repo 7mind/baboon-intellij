@@ -36,7 +36,7 @@ public class IdealinguaStreamsImpl extends ASTWrapperPsiElement implements Ideal
   @Override
   @NotNull
   public IdealinguaStreamsName getStreamsName() {
-    return findNotNullChildByClass(IdealinguaStreamsName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaStreamsName.class));
   }
 
 }

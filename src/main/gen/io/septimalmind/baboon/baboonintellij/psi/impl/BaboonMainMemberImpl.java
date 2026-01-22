@@ -30,37 +30,37 @@ public class BaboonMainMemberImpl extends ASTWrapperPsiElement implements Baboon
   @Override
   @Nullable
   public BaboonAdt getAdt() {
-    return findChildByClass(BaboonAdt.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonAdt.class);
   }
 
   @Override
   @Nullable
   public BaboonChoice getChoice() {
-    return findChildByClass(BaboonChoice.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonChoice.class);
   }
 
   @Override
   @Nullable
   public BaboonContract getContract() {
-    return findChildByClass(BaboonContract.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonContract.class);
   }
 
   @Override
   @Nullable
   public BaboonDto getDto() {
-    return findChildByClass(BaboonDto.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonDto.class);
   }
 
   @Override
   @Nullable
   public BaboonForeign getForeign() {
-    return findChildByClass(BaboonForeign.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonForeign.class);
   }
 
   @Override
   @Nullable
   public BaboonService getService() {
-    return findChildByClass(BaboonService.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonService.class);
   }
 
 }

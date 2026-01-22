@@ -30,7 +30,7 @@ public class BaboonUnfieldDefImpl extends ASTWrapperPsiElement implements Baboon
   @Override
   @NotNull
   public BaboonFieldDef getFieldDef() {
-    return findNotNullChildByClass(BaboonFieldDef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonFieldDef.class));
   }
 
 }

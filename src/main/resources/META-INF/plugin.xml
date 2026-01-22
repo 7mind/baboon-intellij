@@ -34,6 +34,10 @@
             language="baboon"
             implementationClass="io.septimalmind.baboon.baboonintellij.psi.BaboonParserDefinition"
         />
+        <!-- Stub index support for fast class name lookup -->
+        <stubElementTypeHolder class="io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonStubElementTypes"
+                               externalIdPrefix="baboon."/>
+        <stubIndex implementation="io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonClassNameIndex"/>
         <lang.syntaxHighlighterFactory
             language="baboon"
             implementationClass="io.septimalmind.baboon.baboonintellij.language.highlight.BaboonSyntaxHighlighterFactory"
@@ -59,6 +63,10 @@
                 language="idealingua"
                 implementationClass="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaParserDefinition"
         />
+        <!-- Stub index support for fast class name lookup -->
+        <stubElementTypeHolder class="io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaStubElementTypes"
+                               externalIdPrefix="idealingua."/>
+        <stubIndex implementation="io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameIndex"/>
         <lang.syntaxHighlighterFactory
                 language="idealingua"
                 implementationClass="io.septimalmind.idealingua.idealinguaintellij.language.highlight.IdealinguaSyntaxHighlighterFactory"

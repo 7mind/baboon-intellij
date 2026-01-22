@@ -30,13 +30,13 @@ public class IdealinguaTypedValueImpl extends ASTWrapperPsiElement implements Id
   @Override
   @NotNull
   public IdealinguaGenericId getGenericId() {
-    return findNotNullChildByClass(IdealinguaGenericId.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class));
   }
 
   @Override
   @NotNull
   public IdealinguaJustValue getJustValue() {
-    return findNotNullChildByClass(IdealinguaJustValue.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaJustValue.class));
   }
 
 }

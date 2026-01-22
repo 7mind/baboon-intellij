@@ -30,7 +30,7 @@ public class BaboonFieldRenameImpl extends ASTWrapperPsiElement implements Baboo
   @Override
   @NotNull
   public BaboonFieldName getFieldName() {
-    return findNotNullChildByClass(BaboonFieldName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonFieldName.class));
   }
 
 }

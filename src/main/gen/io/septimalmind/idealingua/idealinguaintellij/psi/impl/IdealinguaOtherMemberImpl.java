@@ -30,25 +30,25 @@ public class IdealinguaOtherMemberImpl extends ASTWrapperPsiElement implements I
   @Override
   @Nullable
   public IdealinguaBuzzer getBuzzer() {
-    return findChildByClass(IdealinguaBuzzer.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaBuzzer.class);
   }
 
   @Override
   @Nullable
   public IdealinguaConst getConst() {
-    return findChildByClass(IdealinguaConst.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaConst.class);
   }
 
   @Override
   @Nullable
   public IdealinguaService getService() {
-    return findChildByClass(IdealinguaService.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaService.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStreams getStreams() {
-    return findChildByClass(IdealinguaStreams.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStreams.class);
   }
 
 }

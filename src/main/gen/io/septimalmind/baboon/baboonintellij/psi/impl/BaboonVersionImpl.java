@@ -30,7 +30,7 @@ public class BaboonVersionImpl extends ASTWrapperPsiElement implements BaboonVer
   @Override
   @NotNull
   public BaboonStringLiteral getStringLiteral() {
-    return findNotNullChildByClass(BaboonStringLiteral.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class));
   }
 
 }

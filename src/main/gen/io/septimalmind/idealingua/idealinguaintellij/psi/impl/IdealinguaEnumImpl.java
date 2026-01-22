@@ -30,19 +30,19 @@ public class IdealinguaEnumImpl extends ASTWrapperPsiElement implements Idealing
   @Override
   @NotNull
   public IdealinguaClassName getClassName() {
-    return findNotNullChildByClass(IdealinguaClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassName.class));
   }
 
   @Override
   @Nullable
   public IdealinguaEnumEnclosed getEnumEnclosed() {
-    return findChildByClass(IdealinguaEnumEnclosed.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaEnumEnclosed.class);
   }
 
   @Override
   @Nullable
   public IdealinguaEnumFreeForm getEnumFreeForm() {
-    return findChildByClass(IdealinguaEnumFreeForm.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaEnumFreeForm.class);
   }
 
 }

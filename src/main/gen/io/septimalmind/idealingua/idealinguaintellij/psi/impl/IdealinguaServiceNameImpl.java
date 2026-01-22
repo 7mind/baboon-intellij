@@ -30,7 +30,7 @@ public class IdealinguaServiceNameImpl extends ASTWrapperPsiElement implements I
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

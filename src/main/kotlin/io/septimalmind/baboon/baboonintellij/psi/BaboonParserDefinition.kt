@@ -10,20 +10,17 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import io.septimalmind.baboon.baboonintellij.language.BaboonLanguage
 import io.septimalmind.baboon.baboonintellij.language.BaboonLexerAdapter
 import io.septimalmind.baboon.baboonintellij.language.BaboonParser
+import io.septimalmind.baboon.baboonintellij.psi.stubs.BaboonFileElementType
 
 class BaboonParserDefinition: ParserDefinition {
-    companion object {
-        val FILE_NODE_TYPE: IFileElementType = IFileElementType(BaboonLanguage)
-    }
 
     override fun createLexer(project: Project?): Lexer = BaboonLexerAdapter()
 
     override fun createParser(project: Project?): PsiParser = BaboonParser()
 
-    override fun getFileNodeType(): IFileElementType = FILE_NODE_TYPE
+    override fun getFileNodeType(): IFileElementType = BaboonFileElementType.INSTANCE
 
     override fun getCommentTokens(): TokenSet = BABOON_COMMENTS
 

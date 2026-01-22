@@ -30,13 +30,13 @@ public class IdealinguaIdMemberImpl extends ASTWrapperPsiElement implements Idea
   @Override
   @NotNull
   public IdealinguaGenericId getGenericId() {
-    return findNotNullChildByClass(IdealinguaGenericId.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class));
   }
 
   @Override
   @NotNull
   public IdealinguaIdMemberName getIdMemberName() {
-    return findNotNullChildByClass(IdealinguaIdMemberName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaIdMemberName.class));
   }
 
 }

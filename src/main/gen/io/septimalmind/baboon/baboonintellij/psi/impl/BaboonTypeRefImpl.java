@@ -30,13 +30,13 @@ public class BaboonTypeRefImpl extends ASTWrapperPsiElement implements BaboonTyp
   @Override
   @NotNull
   public BaboonNonGenericTypeRef getNonGenericTypeRef() {
-    return findNotNullChildByClass(BaboonNonGenericTypeRef.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonNonGenericTypeRef.class));
   }
 
   @Override
   @Nullable
   public BaboonTypeParams getTypeParams() {
-    return findChildByClass(BaboonTypeParams.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonTypeParams.class);
   }
 
 }

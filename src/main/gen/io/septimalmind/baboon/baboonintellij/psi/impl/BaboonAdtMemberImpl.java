@@ -30,19 +30,19 @@ public class BaboonAdtMemberImpl extends ASTWrapperPsiElement implements BaboonA
   @Override
   @Nullable
   public BaboonContract getContract() {
-    return findChildByClass(BaboonContract.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonContract.class);
   }
 
   @Override
   @Nullable
   public BaboonDto getDto() {
-    return findChildByClass(BaboonDto.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonDto.class);
   }
 
   @Override
   @Nullable
   public BaboonExtendedContractDef getExtendedContractDef() {
-    return findChildByClass(BaboonExtendedContractDef.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonExtendedContractDef.class);
   }
 
 }

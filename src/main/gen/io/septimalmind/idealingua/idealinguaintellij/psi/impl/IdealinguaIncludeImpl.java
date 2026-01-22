@@ -30,7 +30,7 @@ public class IdealinguaIncludeImpl extends ASTWrapperPsiElement implements Ideal
   @Override
   @NotNull
   public IdealinguaStringLiteral getStringLiteral() {
-    return findNotNullChildByClass(IdealinguaStringLiteral.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaStringLiteral.class));
   }
 
 }

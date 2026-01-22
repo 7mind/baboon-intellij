@@ -6,13 +6,13 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.elementType
 import io.septimalmind.baboon.baboonintellij.language.highlight.BaboonColors
 import io.septimalmind.baboon.baboonintellij.psi.*
 
 class BaboonHighlightsAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        when (element.elementType) {
+        val elementType = element.node?.elementType ?: return
+        when (elementType) {
             BaboonTypes.MODEL -> newAnnotation(holder, element, BaboonColors.KEYWORD)
             BaboonTypes.CLASS_NAME -> newAnnotation(holder, element, BaboonColors.CLASS_NAME)
             BaboonTypes.FIELD_NAME -> newAnnotation(holder, element, BaboonColors.FIELD_NAME)

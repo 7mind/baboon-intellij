@@ -30,13 +30,13 @@ public class BaboonSignaturePartImpl extends ASTWrapperPsiElement implements Bab
   @Override
   @Nullable
   public BaboonSignatureInline getSignatureInline() {
-    return findChildByClass(BaboonSignatureInline.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonSignatureInline.class);
   }
 
   @Override
   @Nullable
   public BaboonSignatureStruct getSignatureStruct() {
-    return findChildByClass(BaboonSignatureStruct.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonSignatureStruct.class);
   }
 
 }

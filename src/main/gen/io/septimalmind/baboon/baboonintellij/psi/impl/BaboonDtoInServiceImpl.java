@@ -36,7 +36,7 @@ public class BaboonDtoInServiceImpl extends ASTWrapperPsiElement implements Babo
   @Override
   @NotNull
   public BaboonStructMarker getStructMarker() {
-    return findNotNullChildByClass(BaboonStructMarker.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStructMarker.class));
   }
 
 }

@@ -30,19 +30,19 @@ public class IdealinguaTypeMemberImpl extends ASTWrapperPsiElement implements Id
   @Override
   @Nullable
   public IdealinguaClone getClone() {
-    return findChildByClass(IdealinguaClone.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaClone.class);
   }
 
   @Override
   @Nullable
   public IdealinguaDeclared getDeclared() {
-    return findChildByClass(IdealinguaDeclared.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaDeclared.class);
   }
 
   @Override
   @Nullable
   public IdealinguaForeign getForeign() {
-    return findChildByClass(IdealinguaForeign.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaForeign.class);
   }
 
 }

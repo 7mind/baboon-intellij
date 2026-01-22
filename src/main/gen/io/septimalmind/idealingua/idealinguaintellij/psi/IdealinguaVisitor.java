@@ -4,6 +4,8 @@ package io.septimalmind.idealingua.idealinguaintellij.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.StubBasedPsiElement;
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameStub;
 
 public class IdealinguaVisitor extends PsiElementVisitor {
 
@@ -77,6 +79,7 @@ public class IdealinguaVisitor extends PsiElementVisitor {
 
   public void visitClassName(@NotNull IdealinguaClassName o) {
     visitNamedElement(o);
+    // visitStubBasedPsiElement(o);
   }
 
   public void visitClassType(@NotNull IdealinguaClassType o) {

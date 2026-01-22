@@ -6,13 +6,13 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.elementType
 import io.septimalmind.idealingua.idealinguaintellij.language.highlight.IdealinguaColors
 import io.septimalmind.idealingua.idealinguaintellij.psi.*
 
 class IdealinguaHighlightsAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        when (element.elementType) {
+        val elementType = element.node?.elementType ?: return
+        when (elementType) {
             IdealinguaTypes.CLASS_NAME -> newAnnotation(holder, element, IdealinguaColors.CLASS_NAME)
             IdealinguaTypes.STRUCT_NAME -> newAnnotation(holder, element, IdealinguaColors.STRUCT_NAME)
             IdealinguaTypes.GENERIC_ID -> newAnnotation(holder, element, IdealinguaColors.PARAMETER)

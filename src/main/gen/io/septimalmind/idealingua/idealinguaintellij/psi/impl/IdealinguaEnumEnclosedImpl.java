@@ -30,7 +30,7 @@ public class IdealinguaEnumEnclosedImpl extends ASTWrapperPsiElement implements 
   @Override
   @NotNull
   public IdealinguaEnumValues getEnumValues() {
-    return findNotNullChildByClass(IdealinguaEnumValues.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaEnumValues.class));
   }
 
 }

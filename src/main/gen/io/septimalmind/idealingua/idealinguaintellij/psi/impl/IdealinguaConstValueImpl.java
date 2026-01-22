@@ -30,7 +30,7 @@ public class IdealinguaConstValueImpl extends ASTWrapperPsiElement implements Id
   @Override
   @NotNull
   public IdealinguaAnyValue getAnyValue() {
-    return findNotNullChildByClass(IdealinguaAnyValue.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaAnyValue.class));
   }
 
 }

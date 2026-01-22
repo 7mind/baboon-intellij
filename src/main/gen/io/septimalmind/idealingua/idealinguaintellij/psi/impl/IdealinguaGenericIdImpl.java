@@ -30,13 +30,13 @@ public class IdealinguaGenericIdImpl extends ASTWrapperPsiElement implements Ide
   @Override
   @Nullable
   public IdealinguaGeneric getGeneric() {
-    return findChildByClass(IdealinguaGeneric.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaGeneric.class);
   }
 
   @Override
   @NotNull
   public IdealinguaIdlIdentifier getIdlIdentifier() {
-    return findNotNullChildByClass(IdealinguaIdlIdentifier.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaIdlIdentifier.class));
   }
 
 }

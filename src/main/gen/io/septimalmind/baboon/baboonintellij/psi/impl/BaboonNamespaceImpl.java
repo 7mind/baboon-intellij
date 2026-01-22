@@ -36,7 +36,7 @@ public class BaboonNamespaceImpl extends ASTWrapperPsiElement implements BaboonN
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

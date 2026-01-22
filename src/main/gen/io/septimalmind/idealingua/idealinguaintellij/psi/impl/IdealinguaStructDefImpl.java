@@ -30,13 +30,13 @@ public class IdealinguaStructDefImpl extends ASTWrapperPsiElement implements Ide
   @Override
   @NotNull
   public IdealinguaGenericId getGenericId() {
-    return findNotNullChildByClass(IdealinguaGenericId.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class));
   }
 
   @Override
   @NotNull
   public IdealinguaStructName getStructName() {
-    return findNotNullChildByClass(IdealinguaStructName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaStructName.class));
   }
 
 }

@@ -30,25 +30,25 @@ public class IdealinguaStructMemberImpl extends ASTWrapperPsiElement implements 
   @Override
   @Nullable
   public IdealinguaStructDef getStructDef() {
-    return findChildByClass(IdealinguaStructDef.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructDef.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStructEmbedValue getStructEmbedValue() {
-    return findChildByClass(IdealinguaStructEmbedValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructEmbedValue.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStructMinusValue getStructMinusValue() {
-    return findChildByClass(IdealinguaStructMinusValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructMinusValue.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStructPlusValue getStructPlusValue() {
-    return findChildByClass(IdealinguaStructPlusValue.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructPlusValue.class);
   }
 
 }

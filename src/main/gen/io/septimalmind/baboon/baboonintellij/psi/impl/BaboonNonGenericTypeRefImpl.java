@@ -30,7 +30,7 @@ public class BaboonNonGenericTypeRefImpl extends ASTWrapperPsiElement implements
   @Override
   @Nullable
   public BaboonClassType getClassType() {
-    return findChildByClass(BaboonClassType.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonClassType.class);
   }
 
   @Override

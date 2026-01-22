@@ -30,13 +30,13 @@ public class IdealinguaStreamValueImpl extends ASTWrapperPsiElement implements I
   @Override
   @Nullable
   public IdealinguaDownstream getDownstream() {
-    return findChildByClass(IdealinguaDownstream.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaDownstream.class);
   }
 
   @Override
   @Nullable
   public IdealinguaUpstream getUpstream() {
-    return findChildByClass(IdealinguaUpstream.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaUpstream.class);
   }
 
 }

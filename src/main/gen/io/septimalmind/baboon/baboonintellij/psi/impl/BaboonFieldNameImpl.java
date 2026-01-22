@@ -30,7 +30,7 @@ public class BaboonFieldNameImpl extends ASTWrapperPsiElement implements BaboonF
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

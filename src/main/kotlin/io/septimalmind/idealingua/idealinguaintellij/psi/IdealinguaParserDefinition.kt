@@ -10,20 +10,17 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaLanguage
 import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaLexerAdapter
 import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaParser
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaFileElementType
 
 class IdealinguaParserDefinition: ParserDefinition {
-    companion object {
-        val FILE_NODE_TYPE: IFileElementType = IFileElementType(IdealinguaLanguage)
-    }
 
     override fun createLexer(project: Project?): Lexer = IdealinguaLexerAdapter()
 
     override fun createParser(project: Project?): PsiParser = IdealinguaParser()
 
-    override fun getFileNodeType(): IFileElementType = FILE_NODE_TYPE
+    override fun getFileNodeType(): IFileElementType = IdealinguaFileElementType.INSTANCE
 
     override fun getCommentTokens(): TokenSet = IDEALINGUA_COMMENTS
 

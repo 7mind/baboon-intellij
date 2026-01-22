@@ -1,20 +1,31 @@
 package io.septimalmind.idealingua.idealinguaintellij.psi.impl
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
+import com.intellij.extapi.psi.StubBasedPsiElementBase
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.psi.PsiElement
+import com.intellij.psi.stubs.IStubElementType
 import io.septimalmind.idealingua.idealinguaintellij.language.IdealinguaIcon
+import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaClassName
 import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaElementFactory
-import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement
 import io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaTypes
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameStub
+import io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaStubElementTypes
 import io.septimalmind.utils.PluginUtils
 import javax.swing.Icon
 
-abstract class IdealinguaNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(node), IdealinguaNamedElement {
+abstract class IdealinguaClassNameMixin : StubBasedPsiElementBase<IdealinguaClassNameStub>, IdealinguaClassName {
+
+    constructor(node: ASTNode) : super(node)
+
+    constructor(stub: IdealinguaClassNameStub, nodeType: IStubElementType<*, *>) : super(stub, nodeType)
 
     override fun getName(): String? {
+        val stub = greenStub
+        if (stub != null) {
+            return stub.name
+        }
         return node.findChildByType(IdealinguaTypes.IDENTIFIER)?.text
     }
 
@@ -44,7 +55,7 @@ abstract class IdealinguaNamedElementImpl(node: ASTNode): ASTWrapperPsiElement(n
             }
 
             override fun getIcon(p0: Boolean): Icon? {
-               return IdealinguaIcon.FILE
+                return IdealinguaIcon.FILE
             }
         }
     }

@@ -30,13 +30,13 @@ public class IdealinguaAliasImpl extends ASTWrapperPsiElement implements Idealin
   @Override
   @NotNull
   public IdealinguaClassName getClassName() {
-    return findNotNullChildByClass(IdealinguaClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassName.class));
   }
 
   @Override
   @NotNull
   public IdealinguaIdlIdentifier getIdlIdentifier() {
-    return findNotNullChildByClass(IdealinguaIdlIdentifier.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaIdlIdentifier.class));
   }
 
 }

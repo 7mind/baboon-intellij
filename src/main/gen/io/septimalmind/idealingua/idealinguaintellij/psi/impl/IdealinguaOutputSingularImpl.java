@@ -30,7 +30,7 @@ public class IdealinguaOutputSingularImpl extends ASTWrapperPsiElement implement
   @Override
   @NotNull
   public IdealinguaGenericId getGenericId() {
-    return findNotNullChildByClass(IdealinguaGenericId.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaGenericId.class));
   }
 
 }

@@ -134,8 +134,10 @@ include ::= KW_INCLUDE string_literal;
 
 class_name ::= IDENTIFIER
 {
-  mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaNamedElementImpl"
-  implements="io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement"
+  mixin="io.septimalmind.idealingua.idealinguaintellij.psi.impl.IdealinguaClassNameMixin"
+  implements=["io.septimalmind.idealingua.idealinguaintellij.psi.IdealinguaNamedElement" "com.intellij.psi.StubBasedPsiElement<io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameStub>"]
+  stubClass="io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaClassNameStub"
+  elementTypeFactory="io.septimalmind.idealingua.idealinguaintellij.psi.stubs.IdealinguaStubElementTypes.getClassNameType"
 };
 
 class_type ::= IDENTIFIER

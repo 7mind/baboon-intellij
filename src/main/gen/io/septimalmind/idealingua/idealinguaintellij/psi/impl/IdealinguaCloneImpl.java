@@ -36,7 +36,7 @@ public class IdealinguaCloneImpl extends ASTWrapperPsiElement implements Idealin
   @Override
   @Nullable
   public IdealinguaStructMembers getStructMembers() {
-    return findChildByClass(IdealinguaStructMembers.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructMembers.class);
   }
 
 }

@@ -36,13 +36,13 @@ public class IdealinguaServiceMethodOutputImpl extends ASTWrapperPsiElement impl
   @Override
   @Nullable
   public IdealinguaSeparatorErr getSeparatorErr() {
-    return findChildByClass(IdealinguaSeparatorErr.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaSeparatorErr.class);
   }
 
   @Override
   @Nullable
   public IdealinguaSeparatorSignature getSeparatorSignature() {
-    return findChildByClass(IdealinguaSeparatorSignature.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaSeparatorSignature.class);
   }
 
 }

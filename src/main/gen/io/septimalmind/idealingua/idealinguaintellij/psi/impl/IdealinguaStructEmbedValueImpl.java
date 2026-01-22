@@ -30,13 +30,13 @@ public class IdealinguaStructEmbedValueImpl extends ASTWrapperPsiElement impleme
   @Override
   @Nullable
   public IdealinguaClassType getClassType() {
-    return findChildByClass(IdealinguaClassType.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaClassType.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStructDef getStructDef() {
-    return findChildByClass(IdealinguaStructDef.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStructDef.class);
   }
 
 }

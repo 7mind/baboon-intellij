@@ -36,7 +36,7 @@ public class IdealinguaServiceImpl extends ASTWrapperPsiElement implements Ideal
   @Override
   @NotNull
   public IdealinguaServiceName getServiceName() {
-    return findNotNullChildByClass(IdealinguaServiceName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaServiceName.class));
   }
 
 }

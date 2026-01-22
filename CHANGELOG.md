@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.0.13] - 2026-01-22
+
+- Added stubs for code completion performance improvement
+
 ## [0.0.12] - 2026-01-21
 
 - Added highlights for baboon enum members

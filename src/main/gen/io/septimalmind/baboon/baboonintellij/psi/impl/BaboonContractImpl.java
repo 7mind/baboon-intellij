@@ -30,7 +30,7 @@ public class BaboonContractImpl extends ASTWrapperPsiElement implements BaboonCo
   @Override
   @NotNull
   public BaboonClassName getClassName() {
-    return findNotNullChildByClass(BaboonClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonClassName.class));
   }
 
   @Override

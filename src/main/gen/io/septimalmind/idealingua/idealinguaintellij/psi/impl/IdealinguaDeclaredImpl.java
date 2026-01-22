@@ -30,7 +30,7 @@ public class IdealinguaDeclaredImpl extends ASTWrapperPsiElement implements Idea
   @Override
   @NotNull
   public IdealinguaClassName getClassName() {
-    return findNotNullChildByClass(IdealinguaClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaClassName.class));
   }
 
 }

@@ -30,13 +30,13 @@ public class IdealinguaLiteralImpl extends ASTWrapperPsiElement implements Ideal
   @Override
   @Nullable
   public IdealinguaBoolLiteral getBoolLiteral() {
-    return findChildByClass(IdealinguaBoolLiteral.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaBoolLiteral.class);
   }
 
   @Override
   @Nullable
   public IdealinguaStringLiteral getStringLiteral() {
-    return findChildByClass(IdealinguaStringLiteral.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaStringLiteral.class);
   }
 
   @Override

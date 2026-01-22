@@ -30,19 +30,19 @@ public class BaboonChoiceMemberImpl extends ASTWrapperPsiElement implements Babo
   @Override
   @Nullable
   public BaboonChoiceMemberRename getChoiceMemberRename() {
-    return findChildByClass(BaboonChoiceMemberRename.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonChoiceMemberRename.class);
   }
 
   @Override
   @Nullable
   public BaboonChoiceValue getChoiceValue() {
-    return findChildByClass(BaboonChoiceValue.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonChoiceValue.class);
   }
 
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

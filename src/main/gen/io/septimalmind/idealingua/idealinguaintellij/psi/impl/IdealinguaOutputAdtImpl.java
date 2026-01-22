@@ -30,7 +30,7 @@ public class IdealinguaOutputAdtImpl extends ASTWrapperPsiElement implements Ide
   @Override
   @NotNull
   public IdealinguaAdtEnclosed getAdtEnclosed() {
-    return findNotNullChildByClass(IdealinguaAdtEnclosed.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaAdtEnclosed.class));
   }
 
 }

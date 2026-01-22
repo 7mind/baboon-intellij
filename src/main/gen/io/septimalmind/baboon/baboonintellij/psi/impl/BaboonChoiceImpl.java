@@ -36,13 +36,13 @@ public class BaboonChoiceImpl extends ASTWrapperPsiElement implements BaboonChoi
   @Override
   @NotNull
   public BaboonClassName getClassName() {
-    return findNotNullChildByClass(BaboonClassName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonClassName.class));
   }
 
   @Override
   @Nullable
   public BaboonMemberMeta getMemberMeta() {
-    return findChildByClass(BaboonMemberMeta.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonMemberMeta.class);
   }
 
 }

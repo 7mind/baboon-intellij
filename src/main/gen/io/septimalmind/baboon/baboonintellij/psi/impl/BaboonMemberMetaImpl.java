@@ -30,13 +30,13 @@ public class BaboonMemberMetaImpl extends ASTWrapperPsiElement implements Baboon
   @Override
   @Nullable
   public BaboonDerived getDerived() {
-    return findChildByClass(BaboonDerived.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonDerived.class);
   }
 
   @Override
   @Nullable
   public BaboonRenamed getRenamed() {
-    return findChildByClass(BaboonRenamed.class);
+    return PsiTreeUtil.getChildOfType(this, BaboonRenamed.class);
   }
 
 }

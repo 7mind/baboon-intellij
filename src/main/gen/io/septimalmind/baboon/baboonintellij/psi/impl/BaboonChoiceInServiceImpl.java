@@ -36,7 +36,7 @@ public class BaboonChoiceInServiceImpl extends ASTWrapperPsiElement implements B
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

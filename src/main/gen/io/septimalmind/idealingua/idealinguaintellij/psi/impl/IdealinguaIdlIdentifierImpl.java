@@ -30,13 +30,13 @@ public class IdealinguaIdlIdentifierImpl extends ASTWrapperPsiElement implements
   @Override
   @Nullable
   public IdealinguaFullId getFullId() {
-    return findChildByClass(IdealinguaFullId.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaFullId.class);
   }
 
   @Override
   @Nullable
   public IdealinguaNonGenericId getNonGenericId() {
-    return findChildByClass(IdealinguaNonGenericId.class);
+    return PsiTreeUtil.getChildOfType(this, IdealinguaNonGenericId.class);
   }
 
 }

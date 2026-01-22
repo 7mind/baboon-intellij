@@ -30,7 +30,7 @@ public class IdealinguaConstImpl extends ASTWrapperPsiElement implements Idealin
   @Override
   @NotNull
   public IdealinguaConstants getConstants() {
-    return findNotNullChildByClass(IdealinguaConstants.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaConstants.class));
   }
 
 }

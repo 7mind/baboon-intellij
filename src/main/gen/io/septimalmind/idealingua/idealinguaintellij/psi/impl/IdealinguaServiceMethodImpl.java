@@ -30,19 +30,19 @@ public class IdealinguaServiceMethodImpl extends ASTWrapperPsiElement implements
   @Override
   @NotNull
   public IdealinguaServiceMethodName getServiceMethodName() {
-    return findNotNullChildByClass(IdealinguaServiceMethodName.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaServiceMethodName.class));
   }
 
   @Override
   @NotNull
   public IdealinguaServiceMethodOutput getServiceMethodOutput() {
-    return findNotNullChildByClass(IdealinguaServiceMethodOutput.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaServiceMethodOutput.class));
   }
 
   @Override
   @NotNull
   public IdealinguaServiceMethods getServiceMethods() {
-    return findNotNullChildByClass(IdealinguaServiceMethods.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, IdealinguaServiceMethods.class));
   }
 
 }
