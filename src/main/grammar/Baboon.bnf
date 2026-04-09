@@ -36,6 +36,7 @@
     KW_WITHOUT   = "without"
     KW_WAS       = "was"
     KW_PRAGMA    = "pragma"
+    KW_TYPE      = "type"
 
     LBRACE = "{"
     RBRACE = "}"
@@ -55,7 +56,7 @@
     MINUS = '-'
     EQUAL = '='
 
-    BI_TYPE = "regexp:bit|i08|i16|i32|i64|u08|u16|u32|u64|f32|f64|f128|str|uid|tsu|tso|map|opt|lst|set"
+    BI_TYPE = "regexp:bit|i08|i16|i32|i64|u08|u16|u32|u64|f32|f64|f128|str|uid|tsu|tso|bytes|map|opt|lst|set"
 
     DECIMAL = "regexp:[0-9]+"
     NEGATIVE_DECIMAL = "regexp:-[1-9]+"
@@ -95,7 +96,8 @@ include ::= KW_INCLUDE string_literal;
 member ::= main_member | namespace;
 namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* RPAREN);
 
-main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service);
+main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service | type_alias);
+type_alias ::= KW_TYPE class_name EQUAL type_ref;
 
 class_name ::= IDENTIFIER {
     mixin="io.septimalmind.baboon.baboonintellij.psi.impl.BaboonClassNameMixin"
@@ -146,7 +148,7 @@ adt_member ::= (dto | contract) | extended_contract_def;
 
 // foreign
 foreign ::= KW_FOREIGN class_name member_meta? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
-foreign_member ::= IDENTIFIER EQUAL string_literal foreign_attrs?;
+foreign_member ::= IDENTIFIER EQUAL (string_literal foreign_attrs? | type_ref);
 foreign_attrs ::= KW_WITH LBRACE key_value_pair* RBRACE;
 key_value_pair ::= string_literal EQUAL string_literal;
 

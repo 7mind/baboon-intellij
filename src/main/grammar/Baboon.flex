@@ -30,7 +30,7 @@ LINE_COMMENT = "//"[^\n]*
 DOC_COMMENT = "/**"([^*]|\*+[^*/])*\*+"/"
 BLOCK_COMMENT = "/*"([^*]|\*+[^*/])*\*+"/"
 
-BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f128"|"str"|"uid"|"tsu"|"tso"|"map"|"opt"|"lst"|"set"
+BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f128"|"str"|"uid"|"tsu"|"tso"|"bytes"|"map"|"opt"|"lst"|"set"
 
 %%
 
@@ -58,6 +58,7 @@ BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f12
   "without"      { return BaboonTypes.KW_WITHOUT; }
   "was"          { return BaboonTypes.KW_WAS; }
   "pragma"       { return BaboonTypes.KW_PRAGMA; }
+  "type"         { return BaboonTypes.KW_TYPE; }
 
    "{"           { return BaboonTypes.LBRACE; }
    "}"           { return BaboonTypes.RBRACE; }

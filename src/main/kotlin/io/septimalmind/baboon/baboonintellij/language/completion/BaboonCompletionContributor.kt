@@ -36,7 +36,7 @@ class BaboonBITypesCompletionProvider: CompletionProvider<CompletionParameters>(
     ) {
         val biTypes = listOf(
             "bit", "i08", "i16", "i32", "i64", "u08", "u16", "u32", "u64", "f32",
-            "f64", "f128", "str", "uid", "tsu", "tso", "map", "opt", "lst", "set"
+            "f64", "f128", "str", "uid", "tsu", "tso", "bytes", "map", "opt", "lst", "set"
         )
         resultSet.addAllElements(biTypes.map { t ->
             PrioritizedLookupElement.withPriority(
