@@ -37,6 +37,7 @@ BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f12
 <YYINITIAL> {
   "data"         { return BaboonTypes.KW_DATA; }
   "struct"       { return BaboonTypes.KW_STRUCT; }
+  "id"           { return BaboonTypes.KW_ID; }
   "root"         { return BaboonTypes.KW_ROOT; }
   "model"        { yybegin(IN_MODEL_NAME); return BaboonTypes.KW_MODEL; }
   "contract"     { return BaboonTypes.KW_CONTRACT; }
@@ -59,6 +60,8 @@ BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f12
   "was"          { return BaboonTypes.KW_WAS; }
   "pragma"       { return BaboonTypes.KW_PRAGMA; }
   "type"         { return BaboonTypes.KW_TYPE; }
+  "has"          { return BaboonTypes.KW_HAS; }
+  "mirror"       { return BaboonTypes.KW_MIRROR; }
 
    "{"           { return BaboonTypes.LBRACE; }
    "}"           { return BaboonTypes.RBRACE; }

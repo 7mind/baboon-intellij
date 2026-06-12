@@ -15,6 +15,7 @@
     // keywords
     KW_DATA      = "data"
     KW_STRUCT    = "struct"
+    KW_ID        = "id"
     KW_ROOT      = "root"
     KW_MODEL     = "model"
     KW_CONTRACT  = "contract"
@@ -37,6 +38,8 @@
     KW_WAS       = "was"
     KW_PRAGMA    = "pragma"
     KW_TYPE      = "type"
+    KW_HAS       = "has"
+    KW_MIRROR    = "mirror"
 
     LBRACE = "{"
     RBRACE = "}"
@@ -96,7 +99,7 @@ include ::= KW_INCLUDE string_literal;
 member ::= main_member | namespace;
 namespace ::= KW_NAMESPACE IDENTIFIER (LBRACE content* RBRACE | LPAREN content* RPAREN);
 
-main_member ::= KW_ROOT? (choice | dto | adt | foreign | contract | service | type_alias);
+main_member ::= KW_ROOT? (choice | dto | id_def | adt | foreign | contract | service | type_alias);
 type_alias ::= KW_TYPE class_name EQUAL type_ref;
 
 class_name ::= IDENTIFIER {
@@ -124,7 +127,15 @@ choice_member_rename ::= COLON KW_WAS LBRACK IDENTIFIER RBRACK;
 
 // dto
 dto ::= KW_DATA class_name member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
-dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def;
+dto_member ::= field_def | parent_def | unfield_def | unparent_def | intersection_def | extended_contract_def | extraction_def;
+
+// id (identifier type, M18 / T39) — same shape as dto with optional template-head.
+// template_head carries the type-parameter names: `[T]`, `[K, V]`, etc.
+id_def ::= KW_ID class_name template_head? member_meta? (LBRACE dto_member* RBRACE | LPAREN dto_member* RPAREN);
+template_head ::= LBRACK IDENTIFIER (COMMA IDENTIFIER)* RBRACK;
+
+// extraction clause (T37/T39): `has (mirror | contract) <bare-identifier>`
+extraction_def ::= KW_HAS (KW_MIRROR | KW_CONTRACT) IDENTIFIER;
 
 field_def ::= field_name COLON type_ref field_rename?;
 field_rename ::= KW_WAS field_name;
@@ -144,7 +155,7 @@ extended_contract_def ::= KW_IS non_generic_type_ref;
 
 // adt
 adt ::= KW_ADT class_name member_meta? (LBRACE adt_member* RBRACE | LPAREN adt_member* RPAREN);
-adt_member ::= (dto | contract) | extended_contract_def;
+adt_member ::= (dto | contract) | extended_contract_def | extraction_def;
 
 // foreign
 foreign ::= KW_FOREIGN class_name member_meta? (LBRACE foreign_member* RBRACE | LPAREN foreign_member* RPAREN);
