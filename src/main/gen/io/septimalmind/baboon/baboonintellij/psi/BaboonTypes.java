@@ -27,12 +27,14 @@ public interface BaboonTypes {
   IElementType DTO_IN_SERVICE = new BaboonElementType("DTO_IN_SERVICE");
   IElementType DTO_MEMBER = new BaboonElementType("DTO_MEMBER");
   IElementType EXTENDED_CONTRACT_DEF = new BaboonElementType("EXTENDED_CONTRACT_DEF");
+  IElementType EXTRACTION_DEF = new BaboonElementType("EXTRACTION_DEF");
   IElementType FIELD_DEF = new BaboonElementType("FIELD_DEF");
   IElementType FIELD_NAME = new BaboonElementType("FIELD_NAME");
   IElementType FIELD_RENAME = new BaboonElementType("FIELD_RENAME");
   IElementType FOREIGN = new BaboonElementType("FOREIGN");
   IElementType FOREIGN_ATTRS = new BaboonElementType("FOREIGN_ATTRS");
   IElementType FOREIGN_MEMBER = new BaboonElementType("FOREIGN_MEMBER");
+  IElementType ID_DEF = new BaboonElementType("ID_DEF");
   IElementType IMPORT = new BaboonElementType("IMPORT");
   IElementType INCLUDE = new BaboonElementType("INCLUDE");
   IElementType INTERSECTION_DEF = new BaboonElementType("INTERSECTION_DEF");
@@ -45,6 +47,8 @@ public interface BaboonTypes {
   IElementType NAMESPACE = new BaboonElementType("NAMESPACE");
   IElementType NON_GENERIC_TYPE_REF = new BaboonElementType("NON_GENERIC_TYPE_REF");
   IElementType PARENT_DEF = new BaboonElementType("PARENT_DEF");
+  IElementType PRAGMA = new BaboonElementType("PRAGMA");
+  IElementType PRAGMA_KEY = new BaboonElementType("PRAGMA_KEY");
   IElementType RENAMED = new BaboonElementType("RENAMED");
   IElementType SERVICE = new BaboonElementType("SERVICE");
   IElementType SERVICE_MEMBER = new BaboonElementType("SERVICE_MEMBER");
@@ -54,6 +58,8 @@ public interface BaboonTypes {
   IElementType STRING_ESCAPE = new BaboonElementType("STRING_ESCAPE");
   IElementType STRING_LITERAL = new BaboonElementType("STRING_LITERAL");
   IElementType STRUCT_MARKER = new BaboonElementType("STRUCT_MARKER");
+  IElementType TEMPLATE_HEAD = new BaboonElementType("TEMPLATE_HEAD");
+  IElementType TYPE_ALIAS = new BaboonElementType("TYPE_ALIAS");
   IElementType TYPE_PARAMS = new BaboonElementType("TYPE_PARAMS");
   IElementType TYPE_REF = new BaboonElementType("TYPE_REF");
   IElementType UNFIELD_DEF = new BaboonElementType("UNFIELD_DEF");
@@ -80,16 +86,21 @@ public interface BaboonTypes {
   IElementType KW_DERIVED = new BaboonTokenType("derived");
   IElementType KW_ERR = new BaboonTokenType("err");
   IElementType KW_FOREIGN = new BaboonTokenType("foreign");
+  IElementType KW_HAS = new BaboonTokenType("has");
+  IElementType KW_ID = new BaboonTokenType("id");
   IElementType KW_IMPORT = new BaboonTokenType("import");
   IElementType KW_IN = new BaboonTokenType("in");
   IElementType KW_INCLUDE = new BaboonTokenType("include");
   IElementType KW_IS = new BaboonTokenType("is");
+  IElementType KW_MIRROR = new BaboonTokenType("mirror");
   IElementType KW_MODEL = new BaboonTokenType("model");
   IElementType KW_NAMESPACE = new BaboonTokenType("ns");
   IElementType KW_OUT = new BaboonTokenType("out");
+  IElementType KW_PRAGMA = new BaboonTokenType("pragma");
   IElementType KW_ROOT = new BaboonTokenType("root");
   IElementType KW_SERVICE = new BaboonTokenType("service");
   IElementType KW_STRUCT = new BaboonTokenType("struct");
+  IElementType KW_TYPE = new BaboonTokenType("type");
   IElementType KW_VERSION = new BaboonTokenType("version");
   IElementType KW_WAS = new BaboonTokenType("was");
   IElementType KW_WITH = new BaboonTokenType("with");
@@ -170,6 +181,9 @@ public interface BaboonTypes {
       else if (type == EXTENDED_CONTRACT_DEF) {
         return new BaboonExtendedContractDefImpl(node);
       }
+      else if (type == EXTRACTION_DEF) {
+        return new BaboonExtractionDefImpl(node);
+      }
       else if (type == FIELD_DEF) {
         return new BaboonFieldDefImpl(node);
       }
@@ -187,6 +201,9 @@ public interface BaboonTypes {
       }
       else if (type == FOREIGN_MEMBER) {
         return new BaboonForeignMemberImpl(node);
+      }
+      else if (type == ID_DEF) {
+        return new BaboonIdDefImpl(node);
       }
       else if (type == IMPORT) {
         return new BaboonImportImpl(node);
@@ -224,6 +241,12 @@ public interface BaboonTypes {
       else if (type == PARENT_DEF) {
         return new BaboonParentDefImpl(node);
       }
+      else if (type == PRAGMA) {
+        return new BaboonPragmaImpl(node);
+      }
+      else if (type == PRAGMA_KEY) {
+        return new BaboonPragmaKeyImpl(node);
+      }
       else if (type == RENAMED) {
         return new BaboonRenamedImpl(node);
       }
@@ -250,6 +273,12 @@ public interface BaboonTypes {
       }
       else if (type == STRUCT_MARKER) {
         return new BaboonStructMarkerImpl(node);
+      }
+      else if (type == TEMPLATE_HEAD) {
+        return new BaboonTemplateHeadImpl(node);
+      }
+      else if (type == TYPE_ALIAS) {
+        return new BaboonTypeAliasImpl(node);
       }
       else if (type == TYPE_PARAMS) {
         return new BaboonTypeParamsImpl(node);

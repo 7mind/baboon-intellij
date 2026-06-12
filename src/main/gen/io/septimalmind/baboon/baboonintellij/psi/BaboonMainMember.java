@@ -23,6 +23,12 @@ public interface BaboonMainMember extends PsiElement {
   BaboonForeign getForeign();
 
   @Nullable
+  BaboonIdDef getIdDef();
+
+  @Nullable
   BaboonService getService();
+
+  @Nullable
+  BaboonTypeAlias getTypeAlias();
 
 }

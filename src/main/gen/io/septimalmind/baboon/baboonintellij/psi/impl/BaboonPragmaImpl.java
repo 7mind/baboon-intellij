@@ -11,14 +11,14 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements BaboonForeignMember {
+public class BaboonPragmaImpl extends ASTWrapperPsiElement implements BaboonPragma {
 
-  public BaboonForeignMemberImpl(@NotNull ASTNode node) {
+  public BaboonPragmaImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitForeignMember(this);
+    visitor.visitPragma(this);
   }
 
   @Override
@@ -28,27 +28,15 @@ public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements Bab
   }
 
   @Override
-  @Nullable
-  public BaboonForeignAttrs getForeignAttrs() {
-    return PsiTreeUtil.getChildOfType(this, BaboonForeignAttrs.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonStringLiteral getStringLiteral() {
-    return PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonTypeRef getTypeRef() {
-    return PsiTreeUtil.getChildOfType(this, BaboonTypeRef.class);
+  @NotNull
+  public BaboonPragmaKey getPragmaKey() {
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonPragmaKey.class));
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return notNullChild(findChildByType(IDENTIFIER));
+  public BaboonStringLiteral getStringLiteral() {
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class));
   }
 
 }

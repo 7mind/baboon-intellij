@@ -82,6 +82,10 @@ public class BaboonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitExtractionDef(@NotNull BaboonExtractionDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitFieldDef(@NotNull BaboonFieldDef o) {
     visitPsiElement(o);
   }
@@ -103,6 +107,10 @@ public class BaboonVisitor extends PsiElementVisitor {
   }
 
   public void visitForeignMember(@NotNull BaboonForeignMember o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIdDef(@NotNull BaboonIdDef o) {
     visitPsiElement(o);
   }
 
@@ -154,6 +162,14 @@ public class BaboonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPragma(@NotNull BaboonPragma o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPragmaKey(@NotNull BaboonPragmaKey o) {
+    visitPsiElement(o);
+  }
+
   public void visitRenamed(@NotNull BaboonRenamed o) {
     visitPsiElement(o);
   }
@@ -187,6 +203,14 @@ public class BaboonVisitor extends PsiElementVisitor {
   }
 
   public void visitStructMarker(@NotNull BaboonStructMarker o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTemplateHead(@NotNull BaboonTemplateHead o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypeAlias(@NotNull BaboonTypeAlias o) {
     visitPsiElement(o);
   }
 

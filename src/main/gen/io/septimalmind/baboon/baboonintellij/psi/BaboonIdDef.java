@@ -5,18 +5,18 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface BaboonAdtMember extends PsiElement {
+public interface BaboonIdDef extends PsiElement {
+
+  @NotNull
+  BaboonClassName getClassName();
+
+  @NotNull
+  List<BaboonDtoMember> getDtoMemberList();
 
   @Nullable
-  BaboonContract getContract();
+  BaboonMemberMeta getMemberMeta();
 
   @Nullable
-  BaboonDto getDto();
-
-  @Nullable
-  BaboonExtendedContractDef getExtendedContractDef();
-
-  @Nullable
-  BaboonExtractionDef getExtractionDef();
+  BaboonTemplateHead getTemplateHead();
 
 }

@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.2.0"
     id("org.jetbrains.intellij.platform") version "2.7.2"
     id("org.jetbrains.changelog") version "2.4.0"
+    id("org.jetbrains.grammarkit") version "2022.3.2.2"
 }
 
 group = "io.septimalmind.baboon"
@@ -76,6 +77,28 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
         targetCompatibility = "21"
+    }
+
+    generateLexer {
+        sourceFile.set(file("src/main/grammar/Baboon.flex"))
+        targetOutputDir.set(file("src/main/gen/io/septimalmind/baboon/baboonintellij/language"))
+        purgeOldFiles.set(true)
+    }
+
+    generateParser {
+        sourceFile.set(file("src/main/grammar/Baboon.bnf"))
+        targetRootOutputDir.set(file("src/main/gen"))
+        pathToParser.set("io/septimalmind/baboon/baboonintellij/language/BaboonParser.java")
+        pathToPsiRoot.set("io/septimalmind/baboon/baboonintellij/psi")
+        purgeOldFiles.set(false)
+    }
+
+    compileKotlin {
+        dependsOn(generateLexer, generateParser)
+    }
+
+    compileJava {
+        dependsOn(generateLexer, generateParser)
     }
 }
 

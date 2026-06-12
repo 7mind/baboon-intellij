@@ -12,7 +12,7 @@ import io.septimalmind.baboon.baboonintellij.psi.*;
 
 public class BaboonClassTypeImpl extends BaboonClassTypeMixin implements BaboonClassType {
 
-  public BaboonClassTypeImpl(@NotNull ASTNode node) {
+  public BaboonClassTypeImpl(ASTNode node) {
     super(node);
   }
 

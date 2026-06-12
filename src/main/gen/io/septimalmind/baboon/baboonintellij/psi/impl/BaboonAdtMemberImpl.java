@@ -45,4 +45,10 @@ public class BaboonAdtMemberImpl extends ASTWrapperPsiElement implements BaboonA
     return PsiTreeUtil.getChildOfType(this, BaboonExtendedContractDef.class);
   }
 
+  @Override
+  @Nullable
+  public BaboonExtractionDef getExtractionDef() {
+    return PsiTreeUtil.getChildOfType(this, BaboonExtractionDef.class);
+  }
+
 }

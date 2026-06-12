@@ -11,6 +11,9 @@ public interface BaboonDtoMember extends PsiElement {
   BaboonExtendedContractDef getExtendedContractDef();
 
   @Nullable
+  BaboonExtractionDef getExtractionDef();
+
+  @Nullable
   BaboonFieldDef getFieldDef();
 
   @Nullable

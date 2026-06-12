@@ -35,6 +35,12 @@ public class BaboonDtoMemberImpl extends ASTWrapperPsiElement implements BaboonD
 
   @Override
   @Nullable
+  public BaboonExtractionDef getExtractionDef() {
+    return PsiTreeUtil.getChildOfType(this, BaboonExtractionDef.class);
+  }
+
+  @Override
+  @Nullable
   public BaboonFieldDef getFieldDef() {
     return PsiTreeUtil.getChildOfType(this, BaboonFieldDef.class);
   }

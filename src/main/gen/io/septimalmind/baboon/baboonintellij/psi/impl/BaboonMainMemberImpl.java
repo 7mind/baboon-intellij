@@ -59,8 +59,20 @@ public class BaboonMainMemberImpl extends ASTWrapperPsiElement implements Baboon
 
   @Override
   @Nullable
+  public BaboonIdDef getIdDef() {
+    return PsiTreeUtil.getChildOfType(this, BaboonIdDef.class);
+  }
+
+  @Override
+  @Nullable
   public BaboonService getService() {
     return PsiTreeUtil.getChildOfType(this, BaboonService.class);
+  }
+
+  @Override
+  @Nullable
+  public BaboonTypeAlias getTypeAlias() {
+    return PsiTreeUtil.getChildOfType(this, BaboonTypeAlias.class);
   }
 
 }

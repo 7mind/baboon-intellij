@@ -11,38 +11,20 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements BaboonForeignMember {
+public class BaboonExtractionDefImpl extends ASTWrapperPsiElement implements BaboonExtractionDef {
 
-  public BaboonForeignMemberImpl(@NotNull ASTNode node) {
+  public BaboonExtractionDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitForeignMember(this);
+    visitor.visitExtractionDef(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof BaboonVisitor) accept((BaboonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public BaboonForeignAttrs getForeignAttrs() {
-    return PsiTreeUtil.getChildOfType(this, BaboonForeignAttrs.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonStringLiteral getStringLiteral() {
-    return PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonTypeRef getTypeRef() {
-    return PsiTreeUtil.getChildOfType(this, BaboonTypeRef.class);
   }
 
   @Override

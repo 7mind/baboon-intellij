@@ -11,14 +11,14 @@ import static io.septimalmind.baboon.baboonintellij.psi.BaboonTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.septimalmind.baboon.baboonintellij.psi.*;
 
-public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements BaboonForeignMember {
+public class BaboonIdDefImpl extends ASTWrapperPsiElement implements BaboonIdDef {
 
-  public BaboonForeignMemberImpl(@NotNull ASTNode node) {
+  public BaboonIdDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BaboonVisitor visitor) {
-    visitor.visitForeignMember(this);
+    visitor.visitIdDef(this);
   }
 
   @Override
@@ -28,27 +28,27 @@ public class BaboonForeignMemberImpl extends ASTWrapperPsiElement implements Bab
   }
 
   @Override
-  @Nullable
-  public BaboonForeignAttrs getForeignAttrs() {
-    return PsiTreeUtil.getChildOfType(this, BaboonForeignAttrs.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonStringLiteral getStringLiteral() {
-    return PsiTreeUtil.getChildOfType(this, BaboonStringLiteral.class);
-  }
-
-  @Override
-  @Nullable
-  public BaboonTypeRef getTypeRef() {
-    return PsiTreeUtil.getChildOfType(this, BaboonTypeRef.class);
+  @NotNull
+  public BaboonClassName getClassName() {
+    return notNullChild(PsiTreeUtil.getChildOfType(this, BaboonClassName.class));
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return notNullChild(findChildByType(IDENTIFIER));
+  public List<BaboonDtoMember> getDtoMemberList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, BaboonDtoMember.class);
+  }
+
+  @Override
+  @Nullable
+  public BaboonMemberMeta getMemberMeta() {
+    return PsiTreeUtil.getChildOfType(this, BaboonMemberMeta.class);
+  }
+
+  @Override
+  @Nullable
+  public BaboonTemplateHead getTemplateHead() {
+    return PsiTreeUtil.getChildOfType(this, BaboonTemplateHead.class);
   }
 
 }
