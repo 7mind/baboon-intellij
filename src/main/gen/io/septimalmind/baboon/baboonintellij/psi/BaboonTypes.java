@@ -87,6 +87,8 @@ public interface BaboonTypes {
   IElementType KW_ERR = new BaboonTokenType("err");
   IElementType KW_FOREIGN = new BaboonTokenType("foreign");
   IElementType KW_HAS = new BaboonTokenType("has");
+  IElementType KW_KEEP = new BaboonTokenType("keep");
+  IElementType KW_DROP = new BaboonTokenType("drop");
   IElementType KW_ID = new BaboonTokenType("id");
   IElementType KW_IMPORT = new BaboonTokenType("import");
   IElementType KW_IN = new BaboonTokenType("in");

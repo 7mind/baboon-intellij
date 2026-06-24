@@ -62,6 +62,8 @@ BI_TYPE = "bit"|"i08"|"i16"|"i32"|"i64"|"u08"|"u16"|"u32"|"u64"|"f32"|"f64"|"f12
   "type"         { return BaboonTypes.KW_TYPE; }
   "has"          { return BaboonTypes.KW_HAS; }
   "mirror"       { return BaboonTypes.KW_MIRROR; }
+  "keep"         { return BaboonTypes.KW_KEEP; }
+  "drop"         { return BaboonTypes.KW_DROP; }
 
    "{"           { return BaboonTypes.LBRACE; }
    "}"           { return BaboonTypes.RBRACE; }
